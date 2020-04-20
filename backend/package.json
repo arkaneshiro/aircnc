@@ -1,0 +1,34 @@
+{
+  "name": "aircnc",
+  "version": "1.0.0",
+  "description": "Web Application to rent out kitchens",
+  "main": "./bin/www",
+  "scripts": {
+    "start": "per-env",
+    "start:development": "nodemon -r dotenv/config ./bin/www",
+    "start:production": "./bin/www"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "csurf": "^1.11.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-bearer-token": "^2.4.0",
+    "express-validator": "^6.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "per-env": "^1.0.2",
+    "pg": "^8.0.2",
+    "pug": "^2.0.4",
+    "sequelize": "^5.21.6"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^3.1.0",
+    "nodemon": "^2.0.3",
+    "sequelize-cli": "^5.5.1"
+  }
+}
