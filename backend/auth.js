@@ -30,7 +30,7 @@ const restoreUser = (req, res, next) => {
       return res.set("WWW-Authenticate", "Bearer").status(401).end();
     }
 
-    return next;
+    return next();
   });
 };
 
@@ -39,7 +39,6 @@ const getUserToken = user => {
     id: user.id,
     email: user.email
   };
-
   const token = jwt.sign(
     { data: userDataForToken },
     secret,
