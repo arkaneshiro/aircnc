@@ -1,8 +1,11 @@
 # aircnc
-Air Cuisine & Cooking
+
+## Air Cuisine & Cooking
+
 a site to rent brilliant, incredible, amazing, show stopping, spectacular, never the same, totally unique kitchens
 
------- Bookings -------
+## Bookings
+
 As a Host
 I want to be able to list my kitchens
 So that I can rent it
@@ -15,8 +18,8 @@ As a User
 I want to be able to confirm bookings easily
 So that I can complete my kitchen plans
 
+## Reviewing
 
------- Reviewing -------
 As a Host
 I want to be able to see reviews of Users who have attempted bookings in one of my kitchens
 So that I can evaluate wether I would like to let them use my kitchen
@@ -25,12 +28,12 @@ As a User
 I want to be able to see reviews of Hosts
 So that I can evaluate wether I would like to use thier kitchen
 
-
 As a user and a host
 I would like to give the kitchen I rented a review
 so that the host and user can recieve constructive feedback
 
------- Searching -------
+## Searching
+
 As a User
 I want to search for kitchens around me
 So that I can see a list of kitchens to rent
@@ -43,10 +46,7 @@ As a User
 I want to search for kitchens by location
 So that I can find a kitchen that is convinient to me
 
+## Bonus
 
-
-
------ BONUS -----
 As a User or Host
-I would like to be able to message other users or hosts
-So that I can
+I would like to be able to message other users or hosts (use socket.io)

@@ -1,10 +1,10 @@
 - /                                         Splash page
     - /login                                Login
     - /sign-up                              Sign-up
-        - /listings                         Listings
-        - /listings/ (something?)           Search Listings by location    something?could potentially be longitude/lattitude or city
+        - /kitchens                         Listings
+        - /kitchens/ (something?)           Search Listings by location    something?could potentially be longitude/lattitude or city
             - /:id                          Listing Detail
-                - /checkout                 Checkout / confirmation
+                - /checkout                 Checkout / confirmation this page is for guests to review bookings before confirming
         - /profile                          Profile
             - /bookings/:id                 Booking Detail
                 - /review                   Guest Leaves a Review for a Host
@@ -12,7 +12,7 @@
             - /kitchen/:id                  Kitchen Detail, lists bookings for particular kitchen
             - /bookings/:id/review          Host Leaves a Review for a Guest
             - /bookings                     List all Bookings past & present
-        - /create-listing                   Create a listing
+        - /kitchens/create                  Create a listing
 
 
 Guest Nav Bar
