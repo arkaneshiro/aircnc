@@ -12,12 +12,12 @@ const validateUserSignUp = [
     .isLength({ max: 50 })
     .withMessage("Last name cannot be more than 50 characters long."),
   check("email")
-    .exists({ checkFalse: true })
+    .exists({ checkFalsy: true })
     .withMessage("Please provide an email.")
     .isEmail()
     .withMessage("Please provide a valid email."),
   check("roleId")
-    .exists({ checkFalse: true })
+    .exists({ checkFalsy: true })
     .withMessage("Please choose a role for this account.")
 ];
 
@@ -33,6 +33,13 @@ const validateUsernameAndPassword = [
     .isLength({ min: 8, max: 50 })
     .withMessage("Please provide a password that is at between 8 and 50 characters long.")
 ];
+
+const userNotFound = id => {
+  const err = Error(`User with id of ${id} could not be found.`);
+  err.status = 404;
+  err.title = 'User not found.';
+  return err;
+}
 
 const kitchenNotFound = id => {
   const err = Error(`Kitchen with id of ${id} could not be found.`);
@@ -70,5 +77,6 @@ module.exports = {
   validateUserSignUp,
   validateUsernameAndPassword,
   kitchenNotFound,
-  kitchenValidation
+  kitchenValidation,
+  userNotFound
 };

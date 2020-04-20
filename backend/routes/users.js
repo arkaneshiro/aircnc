@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const { User } = require("../db/models");
 const { asyncHandler, handleValidationErrors } = require("../utils");
 const { getUserToken, requireAuth } = require("../auth");
-const { validateUserSignUp, validateUsernameAndPassword } = require("../validations");
+const { validateUserSignUp, validateUsernameAndPassword, userNotFound } = require("../validations");
 
 /********************************
  *  Route '/users/'
@@ -57,13 +57,13 @@ router.post(
   validateUsernameAndPassword,
   asyncHandler(async (req, res) => {
     const {
-      username,
+      userName,
       password
     } = req.body;
 
     const user = await User.findOne({
       where: {
-        username
+        userName
       }
     });
 
@@ -80,5 +80,23 @@ router.post(
     res.json({ token, user: { id: user.id } });
   })
 );
+
+router.delete('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
+  const userId = req.params.id;
+  const deletedUser = await User.findByPk(userId);
+  if (req.user.id !== deletedUser.id) {
+    const err = Error('Unauthorized');
+    err.status = 401;
+    err.message = 'You are not authorized to delete this User'
+    err.title = 'Unauthorized'
+    throw err;
+  }
+  if (deletedUser) {
+    await deletedUser.destroy();
+    res.status(204).end();
+  } else {
+    next(userNotFound(userId));
+  }
+}));
 
 module.exports = router;
