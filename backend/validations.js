@@ -34,6 +34,13 @@ const validateUsernameAndPassword = [
     .withMessage("Please provide a password that is at between 8 and 50 characters long.")
 ];
 
+const userNotFound = id => {
+  const err = Error(`User with id of ${id} could not be found.`);
+  err.status = 404;
+  err.title = 'User not found.';
+  return err;
+}
+
 const kitchenNotFound = id => {
   const err = Error(`Kitchen with id of ${id} could not be found.`);
   err.status = 404;
@@ -70,5 +77,6 @@ module.exports = {
   validateUserSignUp,
   validateUsernameAndPassword,
   kitchenNotFound,
-  kitchenValidation
+  kitchenValidation,
+  userNotFound
 };
