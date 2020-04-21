@@ -81,8 +81,6 @@ router.post(
   })
 );
 
-<<<<<<< HEAD
-=======
 router.delete('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
   const userId = req.params.id;
   const deletedUser = await User.findByPk(userId);
@@ -101,5 +99,4 @@ router.delete('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
   }
 }));
 
->>>>>>> 21b5f9e684611edfbb2146ad45a2188729330d50
 module.exports = router;

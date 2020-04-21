@@ -5,4 +5,3 @@ module.exports = {
   'seeders-path': path.resolve('db', 'seeders'),
   'migrations-path': path.resolve('db', 'migrations')
 };
-npx dotenv sequelize db:create

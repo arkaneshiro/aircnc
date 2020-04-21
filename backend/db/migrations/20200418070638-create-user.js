@@ -37,6 +37,10 @@ module.exports = {
           model: 'Roles'
         }
       },
+      isDeactivated: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

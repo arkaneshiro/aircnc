@@ -4,7 +4,7 @@
 
 - POST /users - sign up
 - PUT /users/:id - edit user informations
-- Delete /users/:id - delete user
+- PATCH /users/:id - deactivate / reactivate user
 
 ## Session
 

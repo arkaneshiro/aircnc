@@ -10,6 +10,7 @@ module.exports = {
         hashedPassword: '$2a$10$YEqFIcgLZXIgS63WNvUKPetcQv7eTMkBFYYyxFsVsS1HV1ltSOCH2',
         userName: 'Johnlovescooking',
         roleId: 2,
+        isDeactivated: false,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -20,6 +21,7 @@ module.exports = {
         hashedPassword: '$2a$10$YEqFIcgLZXIgS63WNvUKPetcQv7eTMkBFYYyxFsVsS1HV1ltSOCH2',
         userName: 'Chef Joan',
         roleId: 2,
+        isDeactivated: false,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -30,6 +32,7 @@ module.exports = {
         hashedPassword: '$2a$10$YEqFIcgLZXIgS63WNvUKPetcQv7eTMkBFYYyxFsVsS1HV1ltSOCH2',
         userName: 'Lovely Kitchens',
         roleId: 2,
+        isDeactivated: false,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -40,6 +43,7 @@ module.exports = {
         hashedPassword: '$2a$10$YEqFIcgLZXIgS63WNvUKPetcQv7eTMkBFYYyxFsVsS1HV1ltSOCH2',
         userName: 'Al\'s Great Kitchens',
         roleId: 2,
+        isDeactivated: false,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -50,6 +54,7 @@ module.exports = {
         hashedPassword: '$2a$10$YEqFIcgLZXIgS63WNvUKPetcQv7eTMkBFYYyxFsVsS1HV1ltSOCH2',
         userName: 'Criminally Beautiful Kitchens',
         roleId: 2,
+        isDeactivated: false,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -60,6 +65,7 @@ module.exports = {
         hashedPassword: '$2a$10$YEqFIcgLZXIgS63WNvUKPetcQv7eTMkBFYYyxFsVsS1HV1ltSOCH2',
         userName: 'Jon',
         roleId: 1,
+        isDeactivated: true,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -70,6 +76,7 @@ module.exports = {
         hashedPassword: '$2a$10$YEqFIcgLZXIgS63WNvUKPetcQv7eTMkBFYYyxFsVsS1HV1ltSOCH2',
         userName: 'Steve Jobs',
         roleId: 1,
+        isDeactivated: false,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -80,6 +87,7 @@ module.exports = {
         hashedPassword: '$2a$10$YEqFIcgLZXIgS63WNvUKPetcQv7eTMkBFYYyxFsVsS1HV1ltSOCH2',
         userName: 'Owen',
         roleId: 1,
+        isDeactivated: false,
         createdAt: new Date(),
         updatedAt: new Date()
       },
