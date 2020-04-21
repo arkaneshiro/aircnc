@@ -62,6 +62,10 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Booking, {
       foreignKey: 'renterId'
     });
+
+    User.hasMany(models.Booking, {
+      foreignKey: 'hostId'
+    });
   };
 
   User.prototype.validatePassword = function (password) {

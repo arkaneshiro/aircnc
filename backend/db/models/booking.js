@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
     renterId: {
       allowNull: false,
       type: DataTypes.INTEGER
+    },
+    hostId: {
+      allowNull: false,
+      type: DataTypes.INTEGER
     }
   }, {});
 
@@ -30,6 +34,10 @@ module.exports = (sequelize, DataTypes) => {
 
     Booking.belongsTo(models.User, {
       foreignKey: 'renterId'
+    });
+
+    Booking.belongsTo(models.User, {
+      foreignKey: 'hostId'
     });
   };
   return Booking;
