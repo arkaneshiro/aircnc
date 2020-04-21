@@ -7,7 +7,11 @@ const app = express();
 // Routers
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+<<<<<<< HEAD
 // const kitchensRouter = require("./routes/kitchens");
+=======
+// const kitchensRouter = require("./routes/kitchens"); ---------------------------------------------
+>>>>>>> 21b5f9e684611edfbb2146ad45a2188729330d50
 
 app.set("view engine", "pug");
 
@@ -19,7 +23,11 @@ app.use(express.json());
 // Mount Routers
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+<<<<<<< HEAD
 // app.use("/kitchens", kitchensRouter);
+=======
+// app.use("/kitchens", kitchensRouter); -------------------------------------------------------
+>>>>>>> 21b5f9e684611edfbb2146ad45a2188729330d50
 
 // Catch unhandled requests and forward to error handler.
 app.use((req, res, next) => {
