@@ -9,6 +9,7 @@ module.exports = {
         isConfirmed: true,
         kitchenId: 3,
         renterId: 6,
+        hostId: 5,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -18,6 +19,7 @@ module.exports = {
         isConfirmed: true,
         kitchenId: 2,
         renterId: 7,
+        hostId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -27,6 +29,7 @@ module.exports = {
         isConfirmed: true,
         kitchenId: 4,
         renterId: 8,
+        hostId: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       }

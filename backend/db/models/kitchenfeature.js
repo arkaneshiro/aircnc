@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   KitchenFeature.associate = function (models) {
     KitchenFeature.belongsTo(models.Feature, {
+      as: 'feature',
       foreignKey: 'featureId'
     });
 
