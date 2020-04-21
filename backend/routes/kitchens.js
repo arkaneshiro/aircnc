@@ -29,15 +29,15 @@ router.get(
           model: State,
           attributes: ["stateName"]
         },
-        {
-          model: KitchenFeature,
-          include: [
-            {
-              model: Feature,
-              attributes: ["feature", "imgPath"] // *** may not need imgPath
-            }
-          ]
-        },
+        // {
+        //   model: KitchenFeature,
+        //   include: [
+        //     {
+        //       model: Feature,
+        //       attributes: ["feature", "imgPath"] // *** may not need imgPath
+        //     }
+        //   ]
+        // },
         // *** are we displaying kitchen reviews when we return a list of kitchens?
         // {
         //   model: KitchenReview
@@ -49,38 +49,38 @@ router.get(
   })
 );
 
-// router.post(
-//   "/",
-//   kitchenValidation,
-//   handleValidationErrors,
-//   asyncHandler(async (req, res) => {
-//     // front end sets the local storage for the token and id of user
-//     // need to pass id from frontend
-//     const {
-//       name,
-//       cityId,
-//       stateId,
-//       streetAddress,
-//       hostId,
-//       description,
-//       imgPath,
-//       rate
-//     } = req.body;
+router.post(
+  "/",
+  kitchenValidation,
+  handleValidationErrors,
+  asyncHandler(async (req, res) => {
+    // front end sets the local storage for the token and id of user
+    // need to pass id from frontend
+    const {
+      name,
+      cityId,
+      stateId,
+      streetAddress,
+      hostId,
+      description,
+      imgPath,
+      rate
+    } = req.body;
 
-//     const kitchen = await Kitchen.create({
-//       name,
-//       cityId,
-//       stateId,
-//       streetAddress,
-//       hostId,
-//       description,
-//       imgPath,
-//       rate,
-//     });
+    const kitchen = await Kitchen.create({
+      name,
+      cityId,
+      stateId,
+      streetAddress,
+      hostId,
+      description,
+      imgPath,
+      rate,
+    });
 
-//     res.status(201).json({ kitchen });
-//   })
-// );
+    res.status(201).json({ kitchen });
+  })
+);
 
 /***************************************
  *  Route '/kitchens/:id'
@@ -121,19 +121,19 @@ router.get(
 *    POST endpoint
 *     - returns a list of kitchen based on query params
 ********************************************************/
-// router.post(
-//   "/search",
-//   asyncHandler(async (req, res) => {
-//     // what are we searching on?
+router.post(
+  "/search",
+  asyncHandler(async (req, res) => {
+    // what are we searching on?
 
-//     // general search
-//     const search = req.query.search;
+    // general search
+    const search = req.query.search;
 
-//     // can search by city if we have a city input or drop down
-//     const city = req.query.city;
+    // can search by city if we have a city input or drop down
+    const city = req.query.city;
 
 
-//   })
-// );
+  })
+);
 
 module.exports = router;
