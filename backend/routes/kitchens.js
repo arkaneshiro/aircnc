@@ -5,89 +5,103 @@ const { check } = require("express-validator");
 const { asyncHandler, handleValidationErrors, kitchenNotFound, kitchenValidation } = require("../utils");
 
 /*****************************
- *  Route '/'
+ *  Route '/kitchens'
  *    GET endpoint
  *      - returns all kitchens
  *    POST endpoint
  *      - creates a kitchen
  *****************************/
-router.route("/")
-  .get(
-    asyncHandler(async (req, res) => {
-      // Current display of returning all Kitchens from oldest to newest
-      const kitchens = await Kitchen.findAll({
-        // include: [
-        //   {
-        //     model: User,
-        //   },
-        //   {
-        //     model: City
-        //   },
-        //   {
-        //     model: State
-        //   },
-        //   {
-        //     model: KitchenFeature
-        //   },
-        //   {
-        //     model: KitchenReview
-        //   },
-        // ],
-        order: [["createdAt", "DESC"]]
-      });
-      res.json({ kitchens });
-    }))
-  .post(
-    kitchenValidation,
-    handleValidationErrors,
-    asyncHandler(asyncHandler(async (req, res) => {
-      const {
-        name,
-        cityId,
-        stateId,
-        streetAddress,
-        hostId,
-        description,
-        imgPath,
-        rate
-      } = req.body;
+router.get(
+  "/",
+  asyncHandler(async (req, res) => {
+    // Current display of returning all Kitchens from oldest to newest
+    const kitchens = await Kitchen.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ["firstName", "lastName", "userName"]
+        },
+        {
+          model: City,
+          attributes: ["cityName"]
+        },
+        {
+          model: State,
+          attributes: ["stateName"]
+        },
+        {
+          model: KitchenFeature,
+          include: [
+            {
+              model: Feature,
+              attributes: ["feature", "imgPath"] // *** may not need imgPath
+            }
+          ]
+        },
+        // *** are we displaying kitchen reviews when we return a list of kitchens?
+        // {
+        //   model: KitchenReview
+        // },
+      ],
+      order: [["createdAt", "DESC"]] // displaying newest kitchen listings first
+    });
+    res.json({ kitchens });
+  })
+);
 
-      // need to pass in logged in user id
-      const kitchen = await Kitchen.create({
-        name,
-        cityId,
-        stateId,
-        streetAddress,
-        hostId, // may not need
-        description,
-        imgPath,
-        rate,
-        userId: req.user.id // may need to change
-      });
-      res.status(201).json({ kitchen });
-    }))
-  );
+// router.post(
+//   "/",
+//   kitchenValidation,
+//   handleValidationErrors,
+//   asyncHandler(async (req, res) => {
+//     // front end sets the local storage for the token and id of user
+//     // need to pass id from frontend
+//     const {
+//       name,
+//       cityId,
+//       stateId,
+//       streetAddress,
+//       hostId,
+//       description,
+//       imgPath,
+//       rate
+//     } = req.body;
+
+//     const kitchen = await Kitchen.create({
+//       name,
+//       cityId,
+//       stateId,
+//       streetAddress,
+//       hostId,
+//       description,
+//       imgPath,
+//       rate,
+//     });
+
+//     res.status(201).json({ kitchen });
+//   })
+// );
 
 /***************************************
- *  Route '/:id'
+ *  Route '/kitchens/:id'
  *    GET endpoint
  *      - returns kitchen details by id
  *    DELETE endpoint
  *      - destroys a kitchen in DB by id
  ***************************************/
-router.route("/:id(\\d+)")
-  .get(
-    kitchenValidation,
-    asyncHandler(async (req, res, next) => {
-      const { id } = parseInt(req.params.id, 10);
-      const kitchen = await Kitchen.findByPk(id);
+router.get(
+  "/:id(\\d+)",
+  kitchenValidation,
+  asyncHandler(async (req, res, next) => {
+    const { id } = parseInt(req.params.id, 10);
+    const kitchen = await Kitchen.findByPk(id);
 
-      if (kitchen) {
-        res.json({ kitchen });
-      } else {
-        next(kitchenNotFound(id));
-      }
-    }))
+    if (kitchen) {
+      res.json({ kitchen });
+    } else {
+      next(kitchenNotFound(id));
+    }
+  }))
   .delete(
     asyncHandler(async (req, res, next) => {
       const id = parseInt(req.params.id, 10);
@@ -101,5 +115,25 @@ router.route("/:id(\\d+)")
       }
     })
   );
+
+/*******************************************************
+*  Route '/kitchens/search'
+*    POST endpoint
+*     - returns a list of kitchen based on query params
+********************************************************/
+// router.post(
+//   "/search",
+//   asyncHandler(async (req, res) => {
+//     // what are we searching on?
+
+//     // general search
+//     const search = req.query.search;
+
+//     // can search by city if we have a city input or drop down
+//     const city = req.query.city;
+
+
+//   })
+// );
 
 module.exports = router;

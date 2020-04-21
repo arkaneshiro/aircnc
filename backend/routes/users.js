@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
+<<<<<<< HEAD
 const { User, GuestReview, Booking, Kitchen } = require("../db/models");
+=======
+const { User, Kitchen, GuestReview } = require("../db/models");
+>>>>>>> master
 const { asyncHandler, handleValidationErrors } = require("../utils");
 const { getUserToken, requireAuth } = require("../auth");
 const { validateUserSignUp, validateUsernameAndPassword, userNotFound, guestReviewValidation } = require("../validations");
@@ -78,6 +82,26 @@ router.post(
 
     const token = getUserToken(user);
     res.json({ token, user: { id: user.id } });
+  })
+);
+
+/******************************************
+ *  Route '/users/:id/kitchens'
+ *    GET Endpoint
+ *      - returns all of the hosts kitchens
+ ******************************************/
+router.get(
+  "/:id(\\d+)/kitchens",
+  asyncHandler(async (req, res) => {
+    const hostId = parseInt(req.params.id, 10);
+    const kitchens = await Kitchen.findAll({
+      where: {
+        hostId
+      }
+    });
+
+    // should we allow other users query a list of the hosts kitchen through an id?
+    res.json({ kitchens });
   })
 );
 
