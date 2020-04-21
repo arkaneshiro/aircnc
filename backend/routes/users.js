@@ -1,11 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-<<<<<<< HEAD
 const { User, GuestReview, Booking, Kitchen } = require("../db/models");
-=======
-const { User, Kitchen, GuestReview } = require("../db/models");
->>>>>>> master
 const { asyncHandler, handleValidationErrors } = require("../utils");
 const { getUserToken, requireAuth } = require("../auth");
 const { validateUserSignUp, validateUsernameAndPassword, userNotFound, guestReviewValidation } = require("../validations");
