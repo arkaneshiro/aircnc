@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     hostId: {
       allowNull: false,
       type: DataTypes.INTEGER
-    }
+    },
   }, {});
 
   Booking.associate = function (models) {
