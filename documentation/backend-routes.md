@@ -5,7 +5,6 @@
 - POST /users - sign up
 - PUT /users/:id - edit user informations
 - PATCH /users/:id - set isDeactivated
-- PATCH /users/:id - deactivate / reactivate user
 
 ## Session
 

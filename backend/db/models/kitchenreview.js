@@ -31,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   KitchenReview.associate = function (models) {
     KitchenReview.belongsTo(models.Kitchen, {
+      as: 'kitchenReview',
       foreignKey: 'kitchenId'
     });
 
