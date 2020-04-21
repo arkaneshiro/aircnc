@@ -73,10 +73,27 @@ const kitchenValidation = [
     .withMessage("Rate must not be null")
 ];
 
+const guestReviewValidation = [
+  check('starRating')
+    .exists({ checkFalsy: true })
+    .withMessage('Star Rating cannot be null')
+    .isInt({ min: 1, max: 5 })
+    .withMessage('Star Rating must be between 1 and 5 inclusive'),
+  check('comment')
+    .exists({ checkFalsy: true })
+    .withMessage('comment cannot be null'),
+  check('wouldHostAgain')
+    .exists({ checkFalsy: true })
+    .withMessage('wouldHostAgain cannot be null')
+    .isBoolean()
+    .withMessage('wouldHostAgain must be a boolean')
+];
+
 module.exports = {
   validateUserSignUp,
   validateUsernameAndPassword,
   kitchenNotFound,
   kitchenValidation,
-  userNotFound
+  userNotFound,
+  guestReviewValidation
 };

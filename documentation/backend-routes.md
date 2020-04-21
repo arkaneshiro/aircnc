@@ -4,12 +4,11 @@
 
 - POST /users - sign up
 - PUT /users/:id - edit user informations
-- Delete /users/:id - delete user
+- PATCH /users/:id - deactivate / reactivate user
 
 ## Session
 
-- POST /session - log in
-- DELETE /session - log out
+- POST /users/token - log in
 
 ## Kitchens
 

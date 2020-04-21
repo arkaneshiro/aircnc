@@ -28,6 +28,15 @@ module.exports = (sequelize, DataTypes) => {
     roleId: {
       allowNull: false,
       type: DataTypes.INTEGER
+    },
+    isDeactivated: {
+      allowNull: false,
+<<<<<<< HEAD
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+=======
+      type: DataTypes.BOOLEAN
+>>>>>>> master
     }
   }, {});
 
