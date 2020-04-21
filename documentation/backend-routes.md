@@ -7,8 +7,7 @@
 
 ## Session
 
-- POST /session - log in
-- DELETE /session - log out
+- POST /users/token - log in
 
 ## Kitchens
 

@@ -12,12 +12,12 @@ const validateUserSignUp = [
     .isLength({ max: 50 })
     .withMessage("Last name cannot be more than 50 characters long."),
   check("email")
-    .exists({ checkFalse: true })
+    .exists({ checkFalsy: true })
     .withMessage("Please provide an email.")
     .isEmail()
     .withMessage("Please provide a valid email."),
   check("roleId")
-    .exists({ checkFalse: true })
+    .exists({ checkFalsy: true })
     .withMessage("Please choose a role for this account.")
 ];
 
