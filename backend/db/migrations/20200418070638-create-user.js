@@ -30,6 +30,11 @@ module.exports = {
         unqiue: true,
         type: Sequelize.STRING(50)
       },
+      isDeactivated: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
       roleId: {
         allowNull: false,
         type: Sequelize.INTEGER,

@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const { User } = require("../db/models");
+const { User, GuestReview } = require("../db/models");
 const { asyncHandler, handleValidationErrors } = require("../utils");
 const { getUserToken, requireAuth } = require("../auth");
-const { validateUserSignUp, validateUsernameAndPassword, userNotFound } = require("../validations");
+const { validateUserSignUp, validateUsernameAndPassword, userNotFound, guestReviewValidation } = require("../validations");
 
 /********************************
  *  Route '/users/'
@@ -81,22 +81,85 @@ router.post(
   })
 );
 
-router.delete('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
+router.put('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
   const userId = req.params.id;
-  const deletedUser = await User.findByPk(userId);
-  if (req.user.id !== deletedUser.id) {
+  const deactivatedUser = await User.findByPk(userId);
+  if (req.user.id !== deactivatedUser.id) {
     const err = Error('Unauthorized');
     err.status = 401;
     err.message = 'You are not authorized to delete this User'
     err.title = 'Unauthorized'
     throw err;
   }
-  if (deletedUser) {
-    await deletedUser.destroy();
+  if (deactivatedUser) {
+    deactivatedUser.isDeactivated = true;
+    await deactivatedUser.save();
     res.status(204).end();
   } else {
     next(userNotFound(userId));
   }
 }));
+
+router.get('/:id(\\d+)/reviews', asyncHandler(async (req, res, ) => {
+  const guest = await User.findByPk(req.params.id);
+
+  if (guest.roleId !== 2 || !guest) {
+    const err = Error('Not Found');
+    err.status = 404;
+    err.message = 'Reviews Not Found'
+    err.title = 'Not Found'
+    throw err;
+  }
+
+  const guestReviews = await GuestReview.findAll({
+    where: { guestId: req.params.id }
+  })
+
+  res.json({ guestReviews });
+}));
+
+router.post('/:id(\\d+)/reviews', requireAuth, guestReviewValidation, handleValidationErrors, asyncHandler(async (req, res) => {
+  const guest = await User.findByPk(req.params.id);
+  const author = await User.findByPk(req.user.id);//passed from requireAuth function
+
+  if (!author || !guest) {
+    const err = Error('Not Found');
+    err.status = 404;
+    err.message = 'User Not Found'
+    err.title = 'Not Found'
+    throw err;
+  }
+
+  if (author.roleId !== 1 || guest.roleId !== 2) {
+    const err = Error('Unauthorized');
+    err.status = 401;
+    err.message = 'Not authorized to leave review'
+    err.title = 'Unauthorized'
+    throw err;
+  }
+  const {
+    starRating,
+    comment,
+    wouldHostAgain
+  } = req.body
+
+  const guestReview = await GuestReview.create({
+    guestId: guest.id,
+    starRating,
+    comment,
+    authorId: author.id,
+    wouldHostAgain
+  });
+
+  res.status(201).json({
+    starRating,
+    comment,
+    wouldHostAgain,
+    guestId: guest.id,
+    authorId: author.id
+  })
+
+}));
+
 
 module.exports = router;
