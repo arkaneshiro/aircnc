@@ -2,7 +2,7 @@
     - /login                                Login
     - /sign-up                              Sign-up
         - /kitchens                         Listings
-        - /kitchens/ (something?)           Search Listings by location    something?could potentially be longitude/lattitude or city
+        - /kitchens/ (something?)           Search Listings by location
             - /:id                          Listing Detail
                 - /checkout                 Checkout / confirmation this page is for guests to review bookings before confirming
         - /profile                          Profile
