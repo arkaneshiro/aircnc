@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const { User, Kitchen, GuestReview } = require("../db/models");
+const { User, GuestReview, Booking, Kitchen } = require("../db/models");
 const { asyncHandler, handleValidationErrors } = require("../utils");
 const { getUserToken, requireAuth } = require("../auth");
 const { validateUserSignUp, validateUsernameAndPassword, userNotFound, guestReviewValidation } = require("../validations");
@@ -181,5 +181,43 @@ router.post('/:id(\\d+)/reviews', requireAuth, guestReviewValidation, handleVali
 
 }));
 
+//returns all of guest bookings
+router.get('/:id(\\d+)/bookings', requireAuth, asyncHandler(async (req, res) => {
+  const guest = await User.findByPk(req.params.id);
+  console.log(req.user.id, guest.id);
+  if (!guest || guest.roleId !== 2 || req.user.id !== guest.id) {
+    const err = Error('Unauthorized');
+    err.status = 401;
+    err.message = 'Not authorized to get booking'
+    err.title = 'Unauthorized'
+    throw err;
+  }
+
+  const guestBookings = await Booking.findAll({
+    where: { renterId: guest.id }
+  });
+
+  res.json({ guestBookings });
+}));
+
+// returns all of a hosts bookings
+router.get('/:id(\\d+)/kitchens/bookings', requireAuth, asyncHandler(async (req, res) => {
+  const host = await User.findByPk(req.params.id);
+  console.log(host);
+  if (!host || host.roleId !== 1 || req.user.id !== host.id) {
+    const err = Error('Unauthorized');
+    err.status = 401;
+    err.message = 'Not authorized to view booking'
+    err.title = 'Unauthorized'
+    throw err;
+  }
+
+  const hostBookings = await Booking.findAll({
+    include: { model: Kitchen, where: { hostId: host.id } }
+    // where: { kitchenId: Kitchen.id }
+  });
+
+  res.json({ hostBookings });
+}));
 
 module.exports = router;
