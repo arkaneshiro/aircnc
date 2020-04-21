@@ -42,7 +42,8 @@ module.exports = {
         type: Sequelize.TEXT
       },
       imgPath: {
-        type: Sequelize.STRING(255)
+        type: Sequelize.ARRAY(Sequelize.STRING(255)),
+        allowNull: false
       },
       rate: {
         allowNull: false,

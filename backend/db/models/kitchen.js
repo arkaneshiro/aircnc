@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     imgPath: {
       allowNull: false,
-      type: DataTypes.STRING(100)
+      type: DataTypes.ARRAY(DataTypes.STRING(255))
     },
     rate: {
       allowNull: false,

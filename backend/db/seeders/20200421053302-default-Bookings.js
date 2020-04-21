@@ -29,6 +29,24 @@ module.exports = {
         renterId: 8,
         createdAt: new Date(),
         updatedAt: new Date()
+      },
+      {
+        startDate: new Date('September 23, 1999'),
+        endDate: new Date('March 5, 2019'),
+        isConfirmed: true,
+        kitchenId: 3,
+        renterId: 8,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        startDate: new Date('September 23, 1999'),
+        endDate: new Date('March 5, 2019'),
+        isConfirmed: true,
+        kitchenId: 1,
+        renterId: 6,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ], {});
   },

@@ -1,11 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-<<<<<<< HEAD
 const { User, GuestReview, Booking, Kitchen } = require("../db/models");
-=======
-const { User, Kitchen, GuestReview } = require("../db/models");
->>>>>>> master
 const { asyncHandler, handleValidationErrors } = require("../utils");
 const { getUserToken, requireAuth } = require("../auth");
 const { validateUserSignUp, validateUsernameAndPassword, userNotFound, guestReviewValidation } = require("../validations");
@@ -105,9 +101,19 @@ router.get(
   })
 );
 
-router.put('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
+/******************************
+ *  Route '/users/id/'
+ *    PUT Endpoint
+ *      - sets a user to deactivated status
+ *
+ *****************************/
+
+router.put('/:id(\\d+)', requireAuth, asyncHandler(async (req, res, next) => {
   const userId = req.params.id;
   const deactivatedUser = await User.findByPk(userId);
+  if (!deactivatedUser) {
+    next(userNotFound(userId));
+  }
   if (req.user.id !== deactivatedUser.id) {
     const err = Error('Unauthorized');
     err.status = 401;
@@ -115,19 +121,24 @@ router.put('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
     err.title = 'Unauthorized'
     throw err;
   }
-  if (deactivatedUser) {
-    deactivatedUser.isDeactivated = true;
-    await deactivatedUser.save();
-    res.status(204).end();
-  } else {
-    next(userNotFound(userId));
-  }
+
+  deactivatedUser.isDeactivated = true;
+  await deactivatedUser.save();
+  res.status(204).end();
+
 }));
+
+
+/******************************
+ *  Route '/users/id/reviews'
+ *    GET Endpoint
+ *      - gets all reviews for a guest
+ *****************************/
 
 router.get('/:id(\\d+)/reviews', asyncHandler(async (req, res, ) => {
   const guest = await User.findByPk(req.params.id);
 
-  if (guest.roleId !== 2 || !guest) {
+  if (!guest || guest.roleId !== 2) {
     const err = Error('Not Found');
     err.status = 404;
     err.message = 'Reviews Not Found'
@@ -141,6 +152,13 @@ router.get('/:id(\\d+)/reviews', asyncHandler(async (req, res, ) => {
 
   res.json({ guestReviews });
 }));
+
+/******************************
+ *  Route '/users/id/reviews'
+ *    POST Endpoint
+ *      - creates a review for a guest by a host
+ *
+ *****************************/
 
 router.post('/:id(\\d+)/reviews', requireAuth, guestReviewValidation, handleValidationErrors, asyncHandler(async (req, res) => {
   const guest = await User.findByPk(req.params.id);
@@ -185,6 +203,13 @@ router.post('/:id(\\d+)/reviews', requireAuth, guestReviewValidation, handleVali
 
 }));
 
+/******************************
+ *  Route '/users/id/bookings'
+ *    GET Endpoint
+ *      - returns all of a guests bookings
+ *
+ *****************************/
+
 //returns all of guest bookings
 router.get('/:id(\\d+)/bookings', requireAuth, asyncHandler(async (req, res) => {
   const guest = await User.findByPk(req.params.id);
@@ -204,7 +229,12 @@ router.get('/:id(\\d+)/bookings', requireAuth, asyncHandler(async (req, res) => 
   res.json({ guestBookings });
 }));
 
-// returns all of a hosts bookings
+/******************************
+ *  Route '/users/id/kitchens/bookings'
+ *    GET Endpoint
+ *      - returns all of a Hosts bookings
+ *
+ *****************************/
 router.get('/:id(\\d+)/kitchens/bookings', requireAuth, asyncHandler(async (req, res) => {
   const host = await User.findByPk(req.params.id);
   console.log(host);

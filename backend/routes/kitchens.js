@@ -4,6 +4,8 @@ const { Kitchen, User, City, State, KitchenFeature, KitchenReview } = require(".
 const { check } = require("express-validator");
 const { asyncHandler, handleValidationErrors, kitchenNotFound, kitchenValidation } = require("../utils");
 
+
+
 /*****************************
  *  Route '/kitchens'
  *    GET endpoint
@@ -48,39 +50,6 @@ router.get(
     res.json({ kitchens });
   })
 );
-
-// router.post(
-//   "/",
-//   kitchenValidation,
-//   handleValidationErrors,
-//   asyncHandler(async (req, res) => {
-//     // front end sets the local storage for the token and id of user
-//     // need to pass id from frontend
-//     const {
-//       name,
-//       cityId,
-//       stateId,
-//       streetAddress,
-//       hostId,
-//       description,
-//       imgPath,
-//       rate
-//     } = req.body;
-
-//     const kitchen = await Kitchen.create({
-//       name,
-//       cityId,
-//       stateId,
-//       streetAddress,
-//       hostId,
-//       description,
-//       imgPath,
-//       rate,
-//     });
-
-//     res.status(201).json({ kitchen });
-//   })
-// );
 
 /***************************************
  *  Route '/kitchens/:id'
