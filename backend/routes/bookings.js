@@ -40,10 +40,6 @@ router.patch(
     const currentBooking = await Booking.findByPk(bookingId, {
         includes: {Kitchen: { where: { id: req.user.id } }}
     });
-    // console.log(`req . user . id is ${req.user.id}`)
-    // console.log(`currentBooking    is ${currentBooking}`)
-    // res.json({currentBooking})
-    // return
 
     if (!currentBooking) {
         next(bookingNotFound(bookingId))
@@ -56,7 +52,7 @@ router.patch(
       err.title = 'Unauthorized'
       throw err;
     }
-    // console.log(` this   is a   console logg  ${currentBooking.isConfirmed}`)
+
     currentBooking.isConfirmed = false;
     await currentBooking.save();
     res.status(204).end();
