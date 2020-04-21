@@ -47,6 +47,12 @@ const kitchenNotFound = id => {
   err.title = 'Kitchen not found.';
   return err;
 };
+const bookingNotFound = id => {
+  const err = Error(`Booking with id of ${id} could not be found.`);
+  err.status = 404;
+  err.title = 'Booking not found.';
+  return err;
+};
 
 const kitchenValidation = [
   check("name")
@@ -89,11 +95,22 @@ const guestReviewValidation = [
     .withMessage('wouldHostAgain must be a boolean')
 ];
 
+const bookingValidation = [
+  check('startDate')
+    .exists({ checkFalsy: true })
+    .withMessage('Start Date cannot be null'),
+  check('endDate')
+    .exists({ checkFalsy: true })
+    .withMessage('End Date cannot be null')
+];
+
 module.exports = {
   validateUserSignUp,
   validateUsernameAndPassword,
   kitchenNotFound,
   kitchenValidation,
   userNotFound,
-  guestReviewValidation
+  guestReviewValidation,
+  bookingNotFound,
+  bookingValidation
 };
