@@ -1,10 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const { User } = require("../db/models");
+<<<<<<< HEAD
+const { User, GuestReview, Booking, Kitchen } = require("../db/models");
+=======
+const { User, Kitchen, GuestReview } = require("../db/models");
+>>>>>>> master
 const { asyncHandler, handleValidationErrors } = require("../utils");
 const { getUserToken, requireAuth } = require("../auth");
-const { validateUserSignUp, validateUsernameAndPassword, userNotFound } = require("../validations");
+const { validateUserSignUp, validateUsernameAndPassword, userNotFound, guestReviewValidation } = require("../validations");
 
 /********************************
  *  Route '/users/'
@@ -81,22 +85,143 @@ router.post(
   })
 );
 
-router.delete('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
+/******************************************
+ *  Route '/users/:id/kitchens'
+ *    GET Endpoint
+ *      - returns all of the hosts kitchens
+ ******************************************/
+router.get(
+  "/:id(\\d+)/kitchens",
+  asyncHandler(async (req, res) => {
+    const hostId = parseInt(req.params.id, 10);
+    const kitchens = await Kitchen.findAll({
+      where: {
+        hostId
+      }
+    });
+
+    // should we allow other users query a list of the hosts kitchen through an id?
+    res.json({ kitchens });
+  })
+);
+
+router.put('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
   const userId = req.params.id;
-  const deletedUser = await User.findByPk(userId);
-  if (req.user.id !== deletedUser.id) {
+  const deactivatedUser = await User.findByPk(userId);
+  if (req.user.id !== deactivatedUser.id) {
     const err = Error('Unauthorized');
     err.status = 401;
     err.message = 'You are not authorized to delete this User'
     err.title = 'Unauthorized'
     throw err;
   }
-  if (deletedUser) {
-    await deletedUser.destroy();
+  if (deactivatedUser) {
+    deactivatedUser.isDeactivated = true;
+    await deactivatedUser.save();
     res.status(204).end();
   } else {
     next(userNotFound(userId));
   }
+}));
+
+router.get('/:id(\\d+)/reviews', asyncHandler(async (req, res, ) => {
+  const guest = await User.findByPk(req.params.id);
+
+  if (guest.roleId !== 2 || !guest) {
+    const err = Error('Not Found');
+    err.status = 404;
+    err.message = 'Reviews Not Found'
+    err.title = 'Not Found'
+    throw err;
+  }
+
+  const guestReviews = await GuestReview.findAll({
+    where: { guestId: req.params.id }
+  })
+
+  res.json({ guestReviews });
+}));
+
+router.post('/:id(\\d+)/reviews', requireAuth, guestReviewValidation, handleValidationErrors, asyncHandler(async (req, res) => {
+  const guest = await User.findByPk(req.params.id);
+  const author = await User.findByPk(req.user.id);//passed from requireAuth function
+
+  if (!author || !guest) {
+    const err = Error('Not Found');
+    err.status = 404;
+    err.message = 'User Not Found'
+    err.title = 'Not Found'
+    throw err;
+  }
+
+  if (author.roleId !== 1 || guest.roleId !== 2) {
+    const err = Error('Unauthorized');
+    err.status = 401;
+    err.message = 'Not authorized to leave review'
+    err.title = 'Unauthorized'
+    throw err;
+  }
+  const {
+    starRating,
+    comment,
+    wouldHostAgain
+  } = req.body
+
+  const guestReview = await GuestReview.create({
+    guestId: guest.id,
+    starRating,
+    comment,
+    authorId: author.id,
+    wouldHostAgain
+  });
+
+  res.status(201).json({
+    starRating,
+    comment,
+    wouldHostAgain,
+    guestId: guest.id,
+    authorId: author.id
+  })
+
+}));
+
+//returns all of guest bookings
+router.get('/:id(\\d+)/bookings', requireAuth, asyncHandler(async (req, res) => {
+  const guest = await User.findByPk(req.params.id);
+  console.log(req.user.id, guest.id);
+  if (!guest || guest.roleId !== 2 || req.user.id !== guest.id) {
+    const err = Error('Unauthorized');
+    err.status = 401;
+    err.message = 'Not authorized to get booking'
+    err.title = 'Unauthorized'
+    throw err;
+  }
+
+  const guestBookings = await Booking.findAll({
+    where: { renterId: guest.id }
+  });
+
+  res.json({ guestBookings });
+}));
+
+// returns all of a hosts bookings
+router.get('/:id(\\d+)/kitchens/bookings', requireAuth, asyncHandler(async (req, res) => {
+  const host = await User.findByPk(req.params.id);
+  console.log(host);
+  if (!host || host.roleId !== 1 || req.user.id !== host.id) {
+    const err = Error('Unauthorized');
+    err.status = 401;
+    err.message = 'Not authorized to view booking'
+    err.title = 'Unauthorized'
+    throw err;
+  }
+
+  const hostBookings = await Booking.findAll({
+    include: { model: Kitchen, where: { hostId: host.id } }
+    // where: { kitchenId: Kitchen.id }
+  });
+
+  res.json({ hostBookings });
 }));
 
 module.exports = router;
