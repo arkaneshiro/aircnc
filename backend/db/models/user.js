@@ -31,12 +31,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     isDeactivated: {
       allowNull: false,
-<<<<<<< HEAD
       type: DataTypes.BOOLEAN,
       defaultValue: false
-=======
-      type: DataTypes.BOOLEAN
->>>>>>> master
     }
   }, {});
 
