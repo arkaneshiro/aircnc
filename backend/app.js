@@ -1,13 +1,14 @@
 const express = require("express");
 const morgan = require("morgan");
-// const cors = require("cors");
+const cors = require("cors");
 
 const app = express();
 
 // Routers
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
-// const kitchensRouter = require("./routes/kitchens");
+const kitchensRouter = require("./routes/kitchens");
+const bookingsRouter = require("./routes/bookings");
 
 app.set("view engine", "pug");
 
@@ -16,10 +17,12 @@ app.set("view engine", "pug");
 app.use(morgan("dev"));
 app.use(express.json());
 
+
 // Mount Routers
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-// app.use("/kitchens", kitchensRouter);
+app.use("/kitchens", kitchensRouter);
+app.use("/bookings", bookingsRouter);
 
 // Catch unhandled requests and forward to error handler.
 app.use((req, res, next) => {
@@ -28,7 +31,7 @@ app.use((req, res, next) => {
   next(err);
 });
 
-// ----- Add custom error handlers. ----- 
+// ----- Add custom error handlers. -----
 
 // Generic error handler.
 app.use((err, req, res, next) => {

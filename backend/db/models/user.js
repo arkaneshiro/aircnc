@@ -28,6 +28,11 @@ module.exports = (sequelize, DataTypes) => {
     roleId: {
       allowNull: false,
       type: DataTypes.INTEGER
+    },
+    isDeactivated: {
+      allowNull: false,
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   }, {});
 
@@ -50,12 +55,16 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'hostId'
     });
 
-    User.hasMany(models.KitchenReview, {
-      foreignKey: 'userId'
-    });
+    // User.hasMany(models.KitchenReview, {
+    //   foreignKey: 'userId'
+    // });
 
     User.hasMany(models.Booking, {
       foreignKey: 'renterId'
+    });
+
+    User.hasMany(models.Booking, {
+      foreignKey: 'hostId'
     });
   };
 

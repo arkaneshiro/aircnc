@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     imgPath: {
       allowNull: false,
-      type: DataTypes.STRING(100)
+      type: DataTypes.ARRAY(DataTypes.STRING(255))
     },
     rate: {
       allowNull: false,
@@ -36,26 +36,32 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Kitchen.associate = function (models) {
     Kitchen.belongsTo(models.City, {
+      as: 'city',
       foreignKey: 'cityId'
     });
 
     Kitchen.belongsTo(models.State, {
+      as: 'state',
       foreignKey: 'stateId'
     });
 
     Kitchen.belongsTo(models.User, {
+      as: 'user',
       foreignKey: 'hostId'
     });
 
     Kitchen.hasMany(models.KitchenReview, {
+      as: 'kitchenReview',
       foreignKey: 'kitchenId'
     });
 
     Kitchen.hasMany(models.Booking, {
+      as: 'booking',
       foreignKey: 'kitchenId'
     });
 
     Kitchen.hasMany(models.KitchenFeature, {
+      as: 'kitchenFeature',
       foreignKey: 'kitchenId'
     });
   };
