@@ -15,4 +15,8 @@ html(lang="en")
         .searchBar
             input(type="search" class="searchBar" placeholder="search")
         .kitchenListing
-            
+    
+        #map
+        script
+            include ../public/js/maps.js
+        script(async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c&callback=initMap")

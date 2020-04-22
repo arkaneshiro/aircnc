@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { Op } = require("sequelize");
+// const { Op } = require("sequelize");
 const { Kitchen, User, City, State, KitchenFeature, KitchenReview, Booking, Feature } = require("../db/models");
-const { check } = require("express-validator");
+// const { check } = require("express-validator");
 const { asyncHandler, handleValidationErrors } = require("../utils");
 const { kitchenNotFound, kitchenValidation } = require("../validations");
 const { requireAuth } = require("../auth");
@@ -100,7 +100,7 @@ router.get(
   "/:id(\\d+)",
   kitchenValidation,
   asyncHandler(async (req, res, next) => {
-    const { id } = parseInt(req.params.id, 10);
+    const id = parseInt(req.params.id, 10);
     const kitchen = await Kitchen.findByPk(id);
 
     if (kitchen) {
@@ -112,11 +112,12 @@ router.get(
 );
 
 
-/************************************** 
+/******************************************************
 *  Route '/kitchens/:id'
 *    DELETE endpoint
 *      - destroys a kitchen in DB by id
-***************************************/
+*      - destroys references that are tied to a kitchen
+*******************************************************/
 router.delete(
   "/:id(\\d+)",
   asyncHandler(async (req, res, next) => {
