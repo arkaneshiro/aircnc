@@ -7,6 +7,7 @@
       -ms-flex-pack: center;
           justify-content: center;
   position: relative;
+  min-height: 400px;
 }
 
 .hidden {
@@ -27,12 +28,14 @@ form {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  position: relative;
   text-align: center;
   height: 50vh;
   width: 30vw;
   background-color: rgba(243, 237, 219, 0.678);
   margin: 30px 15px;
   border-radius: 15px;
+  min-height: 400px;
 }
 
 .demoUser {
@@ -42,11 +45,11 @@ form {
   border-radius: 21px;
   font-family: apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 16px;
-  margin-top: 50px;
-  margin-bottom: 15px;
   background-color: #0FBFAE;
   color: #ffffff;
   outline: none;
+  width: 50%;
+  margin: 15px auto;
 }
 
 .formLoginButton {
@@ -58,18 +61,20 @@ form {
   color: #ffffff;
   height: 50px;
   opacity: 0.7;
+  width: 80%;
+  margin: 15px auto;
 }
 
 .password {
   border: 2px solid #0FBFAE;
   border-radius: 21px;
   height: 40px;
-  margin-top: 15px;
-  margin-bottom: 15px;
   outline: none;
   font-size: 20px;
   text-align: center;
   background-color: rgba(245, 240, 223, 0.3);
+  width: 80%;
+  margin: 15px auto;
 }
 
 .userName {
@@ -81,5 +86,14 @@ form {
   font-size: 20px;
   text-align: center;
   background-color: rgba(245, 240, 223, 0.3);
+  width: 80%;
+  margin: 15px auto;
+}
+
+.exitButton {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #0FBFAE;
 }
 /*# sourceMappingURL=style.css.map */

@@ -17,6 +17,27 @@ body {
   outline: none;
 }
 
+.searchBar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  background: none;
+  border: none;
+  outline: none;
+  width: 25%;
+  position: relative;
+  display: flex;
+  border: 1px solid #0FBFAE;
+  border-radius: 5px;
+  height: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  -webkit-appearance: none;
+}
+
 .profile, .listingsButton, .logoutButton {
   text-align: center;
   font-size: 16px;
@@ -40,22 +61,5 @@ body {
   border-radius: 21px;
   -webkit-box-shadow: 2px 2px 2px #D9CAC5;
           box-shadow: 2px 2px 2px #D9CAC5;
-}
-
-#searchBar {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  background: none;
-  border: none;
-  outline: none;
-  width: 25%;
-  position: relative;
-  display: flex;
-  border: 1px solid #0FBFAE;
-  border-radius: 5px;
 }
 /*# sourceMappingURL=style.css.map */

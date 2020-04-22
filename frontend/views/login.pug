@@ -10,6 +10,7 @@ html(lang="en")
         div(class="hidden formContainer")
             form(action="/log-in", method="post")
                 input(type="hidden" name="_csrf" value:csrfToken)
+                span(class="exitButton") x
                 //- label Demo Account
                 label(class="formHeader")
                 input(type="email" class="userName" placeholder="username") 
