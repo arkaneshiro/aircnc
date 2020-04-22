@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Map Example
+    style
+      include ./css/map.css
+  body
+    //- form(action="/kitchens/search/again" method="get")
+    #floating-panel
+      //- input(type="text" name="search" id="address" value="San Jose, CA")
+      //- input(type="button" id="submit" value="Geocode")
+    
+    #map
+    script
+      include ../public/js/maps.js
+    script(async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c&callback=initMap")
