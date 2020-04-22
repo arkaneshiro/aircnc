@@ -57,13 +57,13 @@ router.post(
   validateUsernameAndPassword,
   asyncHandler(async (req, res) => {
     const {
-      username,
+      userName,
       password
     } = req.body;
 
     const user = await User.findOne({
       where: {
-        username
+        userName
       }
     });
 
