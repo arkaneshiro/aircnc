@@ -104,5 +104,13 @@ dist
 .tern-port
 
 .env
-.sequelizerc
 node_modules/
+/backend/node_modules
+/backend/.sequelizerc
+
+
+
+/backend/.env 
+
+
+/backend/.env 
