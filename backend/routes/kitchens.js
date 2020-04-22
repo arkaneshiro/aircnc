@@ -95,8 +95,6 @@ router.post(
  *  Route '/kitchens/:id'
  *    GET endpoint
  *      - returns kitchen details by id
- *    DELETE endpoint
- *      - destroys a kitchen in DB by id
  ***************************************/
 router.get(
   "/:id(\\d+)",
@@ -110,20 +108,29 @@ router.get(
     } else {
       next(kitchenNotFound(id));
     }
-  }))
-  .delete(
-    asyncHandler(async (req, res, next) => {
-      const id = parseInt(req.params.id, 10);
-      const kitchen = await Kitchen.findByPk(id);
+  })
+);
 
-      if (kitchen) {
-        await kitchen.destroy();
-        res.status(204).end();
-      } else {
-        next(kitchenNotFound(id));
-      }
-    })
-  );
+
+/************************************** 
+*  Route '/kitchens/:id'
+*    DELETE endpoint
+*      - destroys a kitchen in DB by id
+***************************************/
+router.delete(
+  "/:id(\\d+)",
+  asyncHandler(async (req, res, next) => {
+    const id = parseInt(req.params.id, 10);
+    const kitchen = await Kitchen.findByPk(id);
+
+    if (kitchen) {
+      await kitchen.destroy();
+      res.status(204).end();
+    } else {
+      next(kitchenNotFound(id));
+    }
+  })
+);
 
 /*******************************************************
 *  Route '/kitchens/search'
