@@ -77,7 +77,6 @@ router.post(
       imgPath,
       rate
     } = req.body;
-
     const kitchen = await Kitchen.create({
       name,
       cityId,
@@ -88,7 +87,6 @@ router.post(
       imgPath,
       rate,
     });
-
     res.status(201).json({ kitchen });
   })
 );
@@ -161,7 +159,6 @@ router.post(
     // will hosts be able to leave other host's kitchen's reviews?
 
     const kitchenId = parseInt(req.params.id, 10);
-    // console.log("*****************", kitchenId);
     const {
       authorId,
       comment,

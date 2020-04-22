@@ -17,6 +17,7 @@ app.set("view engine", "pug");
 app.use(morgan("dev"));
 app.use(express.json());
 
+
 // Mount Routers
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
