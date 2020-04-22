@@ -39,6 +39,7 @@ module.exports = {
         isConfirmed: true,
         kitchenId: 3,
         renterId: 8,
+        hostId: 5,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -48,6 +49,7 @@ module.exports = {
         isConfirmed: true,
         kitchenId: 1,
         renterId: 6,
+        hostId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       }
