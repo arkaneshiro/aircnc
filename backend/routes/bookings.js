@@ -12,6 +12,9 @@ const { bookingNotFound, bookingValidation } = require("../validations");
  *    GET Endpoint
  *      - returns one booking
  ********************************/
+// check if user has id equal to hostId or Guest Id
+//authenticate user
+
 router.get(
   "/:id(\\d+)",
   bookingValidation,
@@ -38,19 +41,13 @@ router.patch(
   asyncHandler(async (req, res, next) => {
     const bookingId = req.params.id;
     const currentBooking = await Booking.findByPk(bookingId, {
-      includes: {
-        Kitchen: {
-          where: {
-            id: req.user.id
-          }
-        }
-      }
+      includes: { Kitchen: { where: { id: req.user.id } } }
     });
 
     if (!currentBooking) {
       next(bookingNotFound(bookingId))
     }
-
+    console.log(req.user.id, currentBooking.renterId, currentBooking.hostId)
     if ((req.user.id !== currentBooking.renterId) && (req.user.id !== currentBooking.hostId)) {
       const err = Error('Unauthorized');
       err.status = 401;

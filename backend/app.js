@@ -9,7 +9,8 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const kitchensRouter = require("./routes/kitchens");
 const bookingsRouter = require("./routes/bookings");
-
+const toolsRouter = require('./routes/tools')
+const kitchenFeatureRouter = require('./routes/kitchenFeatures');
 app.set("view engine", "pug");
 
 // Middlewares
@@ -22,7 +23,8 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/kitchens", kitchensRouter);
 app.use("/bookings", bookingsRouter);
-
+app.use("/tools", toolsRouter);
+app.use("/kitchenfeatures", kitchenFeatureRouter);
 // Catch unhandled requests and forward to error handler.
 app.use((req, res, next) => {
   const err = new Error("The requested resource couldn't be found.");
