@@ -13,6 +13,10 @@ const fetch = require("node-fetch");
  *    GET endpoint
  *      - returns all kitchens
  *****************************/
+
+// has to be logged in?
+// user has to be guest to view kitchens?
+
 router.get(
   "/",
   asyncHandler(async (req, res) => {
@@ -56,19 +60,25 @@ router.get(
   })
 );
 
-/*****************************
+/***********************************************
  *  Route "/kitchens"
  *    POST endpoint
  *      - creates a kitchen
- *****************************/
+ *      - calls Google Maps API to get geocode
+ *        to get lat and lng
+ ***********************************************/
+// only host can create kitchen
+// token authentication
+//  validations not showing specific error?
 router.post(
   "/",
   kitchenValidation,
   handleValidationErrors,
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res, next) => {
     // front end sets the local storage for the token and id of user
     // need to pass id from frontend
-    const {
+
+    let {
       name,
       cityId,
       stateId,
@@ -78,6 +88,26 @@ router.post(
       imgPath,
       rate
     } = req.body;
+
+    let cityName = await City.findByPk(cityId);
+    cityName = cityName.dataValues.cityName;
+
+    urlencodedStreetAddress = streetAddress.split(" ").join("+");
+
+    let loc;
+    try {
+      loc = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${urlencodedStreetAddress}+${cityName}&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c`);
+      loc = await loc.json();
+      loc = loc.results[0].geometry.bounds.northeast;
+      console.log(loc);
+    } catch (err) {
+      next(err);
+    }
+
+    // add validation if the street address is found on google maps
+    const lat = parseFloat(loc.lat);
+    const lng = parseFloat(loc.lng);
+
     const kitchen = await Kitchen.create({
       name,
       cityId,
@@ -87,6 +117,8 @@ router.post(
       description,
       imgPath,
       rate,
+      lat,
+      lng
     });
     res.status(201).json({ kitchen });
   })
@@ -97,15 +129,35 @@ router.post(
  *    GET endpoint
  *      - returns kitchen details by id
  ***************************************/
+
+// not working for me
+// have to be loggine in to get a kitchen and be a guest?
+// we dont need kitchen validations?
 router.get(
   "/:id(\\d+)",
   kitchenValidation,
   asyncHandler(async (req, res, next) => {
-    const id = parseInt(req.params.id, 10);
-    const kitchen = await Kitchen.findByPk(id);
+    const kitchenId = parseInt(req.params.id, 10);
+    const kitchen = await Kitchen.findByPk(kitchenId)
+    const kitchenFeatures = await KitchenFeature.findAll({
+      where: {
+
+      }
+    })
+    const starRatings = await KitchenReview.findAll({
+      where: {
+        kitchenId
+      },
+      attributes: ["starRating"]
+    });
+
+    let sumOfRating = 0;
+    starRatings.forEach(rating => {
+      sumOfRating += rating.dataValues.starRating;
+    });
 
     if (kitchen) {
-      res.json({ kitchen });
+      res.json({ kitchen, starRating: sumOfRating / starRatings.length });
     } else {
       next(kitchenNotFound(id));
     }
@@ -151,17 +203,17 @@ router.post(
     console.log(search);
     // can search by city if we have a city input or drop down
     // const city = req.query.city;
-    let loc;
-    try {
-      loc = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${search}&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c`);
-      loc = await loc.json();
-      loc = loc.results[0].geometry.bounds.northeast;
-      console.log(loc);
-    } catch (err) {
-      next(err);
-    }
-    const lat = loc.lat;
-    const lng = loc.lng;
+    // let loc;
+    // try {
+    //   loc = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${search}&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c`);
+    //   loc = await loc.json();
+    //   loc = loc.results[0].geometry.bounds.northeast;
+    //   console.log(loc);
+    // } catch (err) {
+    //   next(err);
+    // }
+    // const lat = loc.lat;
+    // const lng = loc.lng;
 
     const kitchens = await Kitchen.findAll({
       include: [
@@ -202,8 +254,12 @@ router.post(
       order: [["createdAt", "DESC"]] // displaying newest kitchen listings first
     });
 
+    if (kitchens) {
+      res.json({ kitchens });
+    } else {
+      next(res);
+    }
     // console.log(kitchens);
-    res.json({ kitchens, lat, lng });
   })
 );
 
@@ -212,6 +268,9 @@ router.post(
 *    POST endpoint
 *     - creates a review for a host"s kitchen
 *********************************************/
+// need user auth
+// check if user/author is role of guest
+// validations for reviews
 router.post(
   "/:id(\\d+)/reviews",
   //validation to check if user is logged in?
@@ -249,6 +308,8 @@ router.post(
 *    GET endpoint
 *     - returns a list of the kitchen"s reviews
 ************************************************/
+//check if user is guest
+// user auth
 router.get(
   "/:id(\\d+)/reviews",
   //validation to check if user is logged in?
@@ -290,6 +351,9 @@ router.get(
 *    POST endpoint
 *     - Guest creates a booking for a kitchen
 ************************************************/
+//check if user has role of guest
+// validations for bookings
+// res.status 201
 router.post(
   "/:id(\\d+)",
   requireAuth,
