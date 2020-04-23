@@ -15,4 +15,9 @@ app.get('/listings', (req, res) => {
     res.render('listingMain')
 })
 
+app.get('/profile', (req, res) => {
+    res.render('profile')
+})
+
+
 app.listen(4000, () => console.log(`Listening on port 4000...`));

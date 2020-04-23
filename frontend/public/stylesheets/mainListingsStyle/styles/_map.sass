@@ -1,20 +1,47 @@
-html, body
+body
   height: 100%
   margin: 0
   padding: 0
 
-#map
-  height: 100%
+.mapContainer
+  display: flex
+  justify-content: flex-end
 
-#floating-panel
-  position: absolute
-  top: 10px
-  left: 25%
-  z-index: 5
-  background-color: #fff
-  padding: 5px
-  border: 1px solid #999
-  text-align: center
-  font-family: 'Roboto','sans-serif'
-  line-height: 30px
-  padding-left: 10px
+#mapAndListings
+  display: grid
+  grid-template-columns: 1fr 1fr
+  -webkit-box-direction: none
+
+#kitchenListings
+  display: flex
+  // align-content: center
+  flex-direction: column
+
+#map
+  grid-column: 1 / 2
+  grid-row: auto
+  height: 1000px
+  width: 700px
+  overflow: none
+  position: fixed
+
+    // align-self: flex-end  
+    // postion: absolute
+    // position: relative
+    // display: flex
+    // justify-content: flex-end
+
+  // grid-template-columns: auto
+
+// #floating-panel
+//   position: absolute
+//   top: 10px
+//   left: 25%
+//   z-index: 5
+//   background-color: #fff
+//   padding: 5px
+//   border: 1px solid #999
+//   text-align: center
+//   font-family: 'Roboto','sans-serif'
+//   line-height: 30px
+//   padding-left: 10px

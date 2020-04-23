@@ -53,7 +53,10 @@ function initMap() {
 //     }
 //   });
 // };
+<<<<<<< HEAD
 
 // module.exports = {
 //   initMap
 // }
+=======
+>>>>>>> master

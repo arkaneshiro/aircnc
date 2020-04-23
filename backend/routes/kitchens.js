@@ -101,7 +101,11 @@ router.get(
   "/:id(\\d+)",
   kitchenValidation,
   asyncHandler(async (req, res, next) => {
+<<<<<<< HEAD
     const id = parseInt(req.params.id, 10);
+=======
+    const id  = parseInt(req.params.id, 10);
+>>>>>>> master
     const kitchen = await Kitchen.findByPk(id);
 
     if (kitchen) {
@@ -113,8 +117,13 @@ router.get(
 );
 
 
+<<<<<<< HEAD
 /******************************************************
 *  Route "/kitchens/:id"
+=======
+/**************************************
+*  Route '/kitchens/:id'
+>>>>>>> master
 *    DELETE endpoint
 *      - destroys a kitchen in DB by id
 *      - destroys references that are tied to a kitchen
