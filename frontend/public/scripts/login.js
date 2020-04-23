@@ -7,6 +7,7 @@ const hiddenButton = document.querySelector('.hiddenButton')
 loginButton.addEventListener('click', () => {
     hiddenForm.classList.remove("hidden");
 })
+
 signupButton.addEventListener('click', () => {
     hiddenForm.classList.remove("hidden");
 })
