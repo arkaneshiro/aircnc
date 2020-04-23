@@ -1,36 +1,16 @@
-// function getCookie(cname) {
-//   let name = cname + "=";
-//   let decodedCookie = decodeURIComponent(document.cookie);
-//   let ca = decodedCookie.split(';');
-//   for (let i = 0; i < ca.length; i++) {
-//     let c = ca[i];
-//     while (c.charAt(0) == ' ') {
-//       c = c.substring(1);
-//     }
-//     if (c.indexOf(name) == 0) {
-//       return c.substring(name.length, c.length);
-//     }
-//   }
-//   return "";
-// }
-
-function initMap(latLng) {
-  // const lat = parseInt(getCookie("lat"));
-  // const lng = parseInt(getCookie("lng"));
-  // const lat = 37.4213117;
-  // const lng = -122.0839677;
-  if (latLng) {
+function initMap(latLngRate) {
+  if (latLngRate) {
     const map = new google.maps.Map(
       document.getElementById('map'), {
       zoom: 12,
-      center: { latLng[0][0], latLng[0][1] }
+      center: { lat: latLngRate[0][0], lng: latLngRate[0][1] }
     });
 
-    latLng.forEach(([lat, lng]) => {
+    latLngRate.forEach(([lat, lng, rate]) => {
       new google.maps.Marker({
         position: { lat, lng },
         map,
-        label: "$100"
+        label: rate
       });
     });
   }
@@ -70,20 +50,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         const { kitchens } = await res.json();
-        // let map = await fetch("https://maps.googleapis.com/maps/api/js?key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c", {
-        //   headers: {
-        //     "Content-Type": "application/json"
-        //   }
-        // });
-        // res.cookie("lat", lat, { domain: "localhost:4000", path: "/listings", httpOnly: true });
-        // res.cookie("lng", lng, { domain: "localhost:4000", path: "/listings", httpOnly: true });
-        console.log(lat, lng);
-        initMap(parseInt(kitchens[0].lat), parseInt(kitchens[0].lng));
-        console.log(map);
+
         const kitchenListings = document.getElementById("kitchenListings");
-        const latLng = [];
+        const latLngRate = [];
         const kitchensHTML = kitchens.map(kitchen => {
-          latLng.push([kitchen.lat, kitchen.lng]);
+          latLngRate.push([parseFloat(kitchen.lat), parseFloat(kitchen.lng), kitchen.rate.toString()]);
           const kitchenFeatures = kitchen.kitchenFeature;
           let features = "";
           if (kitchenFeatures) {
@@ -115,9 +86,12 @@ document.addEventListener("DOMContentLoaded", async () => {
           <div class="kitchenListing__userInfo">
             ${kitchen.user.userName} ${kitchen.user.firstName} ${kitchen.user.lastName}
           </div>
+          </div class"=kitchenListing__rate">
+            ${kitchen.rate}
+          </div>
         </div>`;
         });
-
+        initMap(latLngRate);
         kitchenListings.innerHTML = kitchensHTML.join("");
       } catch (err) {
         console.error(err);
