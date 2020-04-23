@@ -11,7 +11,7 @@ module.exports = {
         hostId: 1,
         description: 'Treat yourself to my personal kitchen in the heart of New York City! I keep only the finest groceries and equipment from around the world, so enjoy what the best has to offer.',
         imgPath: ['https://res.cloudinary.com/aircncaa/image/upload/v1587509948/dahtbdfnui4v2pvyxhvd.jpg'],
-        rate: 100000000,
+        rate: 1000,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -23,7 +23,7 @@ module.exports = {
         hostId: 1,
         description: 'Treat yourself to my second kitchen in the heart of New York City! I keep only the finest groceries and equipment from around the world, so enjoy what the best has to offer.',
         imgPath: ['https://res.cloudinary.com/aircncaa/image/upload/v1587509948/dahtbdfnui4v2pvyxhvd.jpg'],
-        rate: 50000000,
+        rate: 500,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -35,7 +35,7 @@ module.exports = {
         hostId: 5,
         description: 'There aren\'t any better kitchens in San Fransisco, trust me! I\'m Martharet Steward!',
         imgPath: ['https://res.cloudinary.com/aircncaa/image/upload/v1587509948/dahtbdfnui4v2pvyxhvd.jpg'],
-        rate: 100000000,
+        rate: 1250,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -47,7 +47,7 @@ module.exports = {
         hostId: 2,
         description: 'You won\'t find a kitchen better stocked to make the finest French cuisine in San Fransisco',
         imgPath: ['https://res.cloudinary.com/aircncaa/image/upload/v1587509948/dahtbdfnui4v2pvyxhvd.jpg'],
-        rate: 50000000,
+        rate: 1000,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -59,7 +59,7 @@ module.exports = {
         hostId: 3,
         description: 'You won\'t get another chance to work in the kitchen of famed Chef Galen Lambsey\'s new restaurant! Available for a limited time.',
         imgPath: ['https://res.cloudinary.com/aircncaa/image/upload/v1587509948/dahtbdfnui4v2pvyxhvd.jpg', 'https://res.cloudinary.com/aircncaa/image/upload/v1587509948/dahtbdfnui4v2pvyxhvd.jpg'],
-        rate: 500000000,
+        rate: 5000,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -71,7 +71,7 @@ module.exports = {
         hostId: 4,
         description: 'Located on top of the Google offices, famed Chef Al Beige has set up a state of the art kitchen, sure to meet all your cooking needs, no matter the cuisine.',
         imgPath: ['https://res.cloudinary.com/aircncaa/image/upload/v1587509948/dahtbdfnui4v2pvyxhvd.jpg', 'https://res.cloudinary.com/aircncaa/image/upload/v1587509948/dahtbdfnui4v2pvyxhvd.jpg'],
-        rate: 50000000,
+        rate: 2500,
         createdAt: new Date(),
         updatedAt: new Date()
       },

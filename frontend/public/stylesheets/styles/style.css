@@ -35,6 +35,7 @@ a, .signupButton, .loginButton {
   height: 42px;
   padding: 0px 16px;
   -webkit-appearance: none;
+  font-weight: 200;
 }
 
 a:hover, .signupButton:hover, .loginButton:hover {
