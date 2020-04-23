@@ -9,20 +9,19 @@ html(lang="en")
             include ../public/stylesheets/mainListingsStyle/styles/style.css
         title Document
     body
-        
         div.navListings
-            input(type="search" class="searchBar" placeholder="search")
-            div
-                button(class="profile" href="http://profile") Profile
-                button(class="listingsButton" href="http://listings") Listings
-                button(class="logoutButton" href="http://log-out") Log out  
+            button(class="profile" href="http://profile") Profile
+            button(class="listingsButton" href="http://listings") Listings
+            button(class="logoutButton" href="http://log-out") Log out
+        .searchBar
+            form(action="/listings" method="post")
+                input(id="searchInput" type="search" class="searchBar" name="search" placeholder="search")
+                button(id="searchButton" type="submit") Search
+        #kitchenListings
         
-        #mapAndListings
-            #kitchenListings
-            div.mapContainer
-                #map
-        script
-            include ../public/scripts/map.js
-        //- remove api key and replace with environmental variable
+        //- #floating-panel
+        #map
+        //- script
+        //-     include ../public/scripts/map.js
+        //- //- remove api key and replace with environmental variable
         script(async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c&callback=initMap")
-            
