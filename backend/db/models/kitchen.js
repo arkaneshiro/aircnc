@@ -32,6 +32,12 @@ module.exports = (sequelize, DataTypes) => {
     rate: {
       allowNull: false,
       type: DataTypes.INTEGER
+    },
+    lat: {
+      type: DataTypes.FLOAT
+    },
+    lng: {
+      type: DataTypes.FLOAT
     }
   }, {});
   Kitchen.associate = function (models) {
