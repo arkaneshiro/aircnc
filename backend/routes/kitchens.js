@@ -56,11 +56,13 @@ router.get(
   })
 );
 
-/*****************************
+/***********************************************
  *  Route "/kitchens"
  *    POST endpoint
  *      - creates a kitchen
- *****************************/
+ *      - calls Google Maps API to get geocode 
+ *        to get lat and lng
+ ***********************************************/
 router.post(
   "/",
   kitchenValidation,
@@ -124,11 +126,27 @@ router.get(
   "/:id(\\d+)",
   kitchenValidation,
   asyncHandler(async (req, res, next) => {
-    const id = parseInt(req.params.id, 10);
-    const kitchen = await Kitchen.findByPk(id);
+    const kitchenId = parseInt(req.params.id, 10);
+    const kitchen = await Kitchen.findByPk(kitchenId)
+    const kitchenFeatures = await KitchenFeature.findAll({
+      where: {
+
+      }
+    })
+    const starRatings = await KitchenReview.findAll({
+      where: {
+        kitchenId
+      },
+      attributes: ["starRating"]
+    });
+
+    let sumOfRating = 0;
+    starRatings.forEach(rating => {
+      sumOfRating += rating.dataValues.starRating;
+    });
 
     if (kitchen) {
-      res.json({ kitchen });
+      res.json({ kitchen, starRating: sumOfRating / starRatings.length });
     } else {
       next(kitchenNotFound(id));
     }
