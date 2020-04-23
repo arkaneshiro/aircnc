@@ -64,7 +64,7 @@ router.get(
  *  Route "/kitchens"
  *    POST endpoint
  *      - creates a kitchen
- *      - calls Google Maps API to get geocode 
+ *      - calls Google Maps API to get geocode
  *        to get lat and lng
  ***********************************************/
 // only host can create kitchen

@@ -22,9 +22,9 @@ hostSignupButton.addEventListener('click', () => {
 
 // removes login pop up when anywhere but the .formContainer
 document.body.addEventListener('click', ev => {
-    if (ev.target.tagName === 'BODY' || ev.target.tagName === 'DIV') {
-        hiddenForm.classList.add("hidden");
-    }
+  if (ev.target.tagName === 'BODY' || ev.target.tagName === 'DIV') {
+    hiddenForm.classList.add("hidden");
+  }
 });
 
 logInForm.addEventListener("submit", async (e) => {
@@ -35,30 +35,29 @@ logInForm.addEventListener("submit", async (e) => {
     const body = { userName, password }
     // console.log(username);
 
-    try {
-        const res = await fetch("http://localhost:8080/users/token", {
-            method: "POST",
-            body: JSON.stringify(body),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        if (!res.ok) {
-            throw res;
-        }
-        const {
-            token,
-            user: { id },
+  try {
+    const res = await fetch("http://localhost:8080/users/token", {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!res.ok) {
+      throw res;
+    }
+    const {
+      token,
+      user: { id, role },
+    } = await res.json();
 
-        } = await res.json();
+    // storage access_token in localStorage:
+    localStorage.setItem("AIRCNC_ACCESS_TOKEN", token);
+    localStorage.setItem("AIRCNC_CURRENT_USER_ID", id);
+    localStorage.setItem("AIRCNC_CURRENT_USER_ROLE", role);
 
-        // storage access_token in localStorage:
-        localStorage.setItem("AIRCNC_ACCESS_TOKEN", token);
-        localStorage.setItem("AIRCNC_CURRENT_USER_ID", id);
-        // localStorage.setItem("AIRCNC_CURRENT_USER_ROLE", role);
-
-        // redirect to /kitchens for guests, dashboard for hosts:
-        window.location.href = "/kitchens";
+    // redirect to /kitchens, when hosts are sent there they will be sent to /dashboard:
+    window.location.href = "/kitchens";
 
 
     } catch (err) {
@@ -91,4 +90,6 @@ logInForm.addEventListener("submit", async (e) => {
             );
         }
     }
+
+
 });

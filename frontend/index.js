@@ -21,7 +21,12 @@ app.get('/kitchens/create', (req, res) => {
 
 app.get('/profile', (req, res) => {
     res.render('profile')
-})
+});
+
+app.get('/bookings/(:id(\\d+))', (req, res) => {
+    // localStorage.setItem("AIRCNC_CURRENT_BOOKING", req.params.id)
+    res.render('bookings')
+});
 
 /*******************************************
  *  Route '/kitchen/:id'
