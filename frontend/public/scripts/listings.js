@@ -1,36 +1,17 @@
-<<<<<<< HEAD
-// function getCookie(cname) {
-//   let name = cname + "=";
-//   let decodedCookie = decodeURIComponent(document.cookie);
-//   let ca = decodedCookie.split(';');
-//   for (let i = 0; i < ca.length; i++) {
-//     let c = ca[i];
-//     while (c.charAt(0) == ' ') {
-//       c = c.substring(1);
-//     }
-//     if (c.indexOf(name) == 0) {
-//       return c.substring(name.length, c.length);
-//     }
-//   }
-//   return "";
-// }
-
-function initMap(lat, lng) {
-  // const lat = parseInt(getCookie("lat"));
-  // const lng = parseInt(getCookie("lng"));
-  // const lat = 37.4213117;
-  // const lng = -122.0839677;
-  if (lat && lng) {
+function initMap(latLngRate) {
+  if (latLngRate) {
     const map = new google.maps.Map(
       document.getElementById('map'), {
       zoom: 12,
-      center: { lat, lng }
+      center: { lat: latLngRate[0][0], lng: latLngRate[0][1] }
     });
 
-    new google.maps.Marker({
-      position: { lat, lng },
-      map,
-      label: "$100"
+    latLngRate.forEach(([lat, lng, rate]) => {
+      new google.maps.Marker({
+        position: { lat, lng },
+        map,
+        label: rate
+      });
     });
   }
 }
@@ -68,19 +49,12 @@ document.addEventListener("DOMContentLoaded", async () => {
           throw res;
         }
 
-        const { kitchens, lat, lng } = await res.json();
-        // let map = await fetch("https://maps.googleapis.com/maps/api/js?key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c", {
-        //   headers: {
-        //     "Content-Type": "application/json"
-        //   }
-        // });
-        // res.cookie("lat", lat, { domain: "localhost:4000", path: "/listings", httpOnly: true });
-        // res.cookie("lng", lng, { domain: "localhost:4000", path: "/listings", httpOnly: true });
-        console.log(lat, lng);
-        initMap(parseInt(lat), parseInt(lng));
-        console.log(map);
+        const { kitchens } = await res.json();
+
         const kitchenListings = document.getElementById("kitchenListings");
+        const latLngRate = [];
         const kitchensHTML = kitchens.map(kitchen => {
+          latLngRate.push([parseFloat(kitchen.lat), parseFloat(kitchen.lng), kitchen.rate.toString()]);
           const kitchenFeatures = kitchen.kitchenFeature;
           let features = "";
           if (kitchenFeatures) {
@@ -112,66 +86,15 @@ document.addEventListener("DOMContentLoaded", async () => {
           <div class="kitchenListing__userInfo">
             ${kitchen.user.userName} ${kitchen.user.firstName} ${kitchen.user.lastName}
           </div>
+          </div class"=kitchenListing__rate">
+            ${kitchen.rate}
+          </div>
         </div>`;
         });
-
+        initMap(latLngRate);
         kitchenListings.innerHTML = kitchensHTML.join("");
       } catch (err) {
         console.error(err);
       }
     });
-=======
-document.addEventListener("DOMContentLoaded", async () => {
-
-  try {
-    // const userId = localStorage.getItem("AIRCNC_USER_ID");
-
-    // change fetch to search and query on search params
-    const res = await fetch("http://localhost:8080/kitchens", {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    });
-
-    if (res.status === 401) {
-      window.location.href = "/log-in";
-      return;
-    }
-
-    if (!res.ok) {
-      throw res;
-    }
-
-    const { kitchens } = await res.json();
-    const kitchenListings = document.getElementById("kitchenListings");
-    const kitchensHTML = kitchens.map((obj, i) => {
-      let features = obj.kitchenFeature;
-      
-      
-      return `
-        <div class="kitchenListing">
-          <div class="kitchenListing__img">
-            <img src="../images/${i+1}.jpeg">
-          </div>
-          <div class="kitchenListing__userInfo">
-            ${obj.user.userName} ${obj.user.firstName} ${obj.user.lastName}
-          </div>
-          <div class="kitchenListing__location">
-            ${obj.streetAddress} ${obj.city.cityName} ${obj.state.stateName}
-          </div>
-          <div class="kitchenListing__features">
-            
-          </div>
-          <div class="kitchenListing__description">
-            ${obj.description}
-          </div>
-        </div>`;
-    });
-
-    console.log(kitchensHTML);
-    kitchenListings.innerHTML = kitchensHTML.join("");
-  } catch (err) {
-    console.error(err);
-  }
->>>>>>> master
 });

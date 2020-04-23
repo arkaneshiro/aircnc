@@ -60,12 +60,13 @@ router.get(
   })
 );
 
-/*****************************
+/***********************************************
  *  Route "/kitchens"
  *    POST endpoint
  *      - creates a kitchen
- *****************************/
-
+ *      - calls Google Maps API to get geocode 
+ *        to get lat and lng
+ ***********************************************/
 // only host can create kitchen
 // token authentication
 //  validations not showing specific error?
@@ -73,10 +74,11 @@ router.post(
   "/",
   kitchenValidation,
   handleValidationErrors,
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res, next) => {
     // front end sets the local storage for the token and id of user
     // need to pass id from frontend
-    const {
+
+    let {
       name,
       cityId,
       stateId,
@@ -86,6 +88,26 @@ router.post(
       imgPath,
       rate
     } = req.body;
+
+    let cityName = await City.findByPk(cityId);
+    cityName = cityName.dataValues.cityName;
+
+    urlencodedStreetAddress = streetAddress.split(" ").join("+");
+
+    let loc;
+    try {
+      loc = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${urlencodedStreetAddress}+${cityName}&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c`);
+      loc = await loc.json();
+      loc = loc.results[0].geometry.bounds.northeast;
+      console.log(loc);
+    } catch (err) {
+      next(err);
+    }
+
+    // add validation if the street address is found on google maps
+    const lat = parseFloat(loc.lat);
+    const lng = parseFloat(loc.lng);
+
     const kitchen = await Kitchen.create({
       name,
       cityId,
@@ -95,6 +117,8 @@ router.post(
       description,
       imgPath,
       rate,
+      lat,
+      lng
     });
     res.status(201).json({ kitchen });
   })
@@ -113,21 +137,36 @@ router.get(
   "/:id(\\d+)",
   kitchenValidation,
   asyncHandler(async (req, res, next) => {
+    const kitchenId = parseInt(req.params.id, 10);
+    const kitchen = await Kitchen.findByPk(kitchenId)
+    const kitchenFeatures = await KitchenFeature.findAll({
+      where: {
 
-    const id = parseInt(req.params.id, 10);
+      }
+    })
+    const starRatings = await KitchenReview.findAll({
+      where: {
+        kitchenId
+      },
+      attributes: ["starRating"]
+    });
 
-    const kitchen = await Kitchen.findByPk(id);
+    let sumOfRating = 0;
+    starRatings.forEach(rating => {
+      sumOfRating += rating.dataValues.starRating;
+    });
 
     if (kitchen) {
-      res.json({ kitchen });
+      res.json({ kitchen, starRating: sumOfRating / starRatings.length });
     } else {
       next(kitchenNotFound(id));
     }
   })
 );
 
-/**************************************
-*  Route '/kitchens/:id'
+
+/******************************************************
+*  Route "/kitchens/:id"
 *    DELETE endpoint
 *      - destroys a kitchen in DB by id
 *      - destroys references that are tied to a kitchen
@@ -164,17 +203,17 @@ router.post(
     console.log(search);
     // can search by city if we have a city input or drop down
     // const city = req.query.city;
-    let loc;
-    try {
-      loc = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${search}&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c`);
-      loc = await loc.json();
-      loc = loc.results[0].geometry.bounds.northeast;
-      console.log(loc);
-    } catch (err) {
-      next(err);
-    }
-    const lat = loc.lat;
-    const lng = loc.lng;
+    // let loc;
+    // try {
+    //   loc = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${search}&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c`);
+    //   loc = await loc.json();
+    //   loc = loc.results[0].geometry.bounds.northeast;
+    //   console.log(loc);
+    // } catch (err) {
+    //   next(err);
+    // }
+    // const lat = loc.lat;
+    // const lng = loc.lng;
 
     const kitchens = await Kitchen.findAll({
       include: [
@@ -215,8 +254,12 @@ router.post(
       order: [["createdAt", "DESC"]] // displaying newest kitchen listings first
     });
 
+    if (kitchens) {
+      res.json({ kitchens });
+    } else {
+      next(res);
+    }
     // console.log(kitchens);
-    res.json({ kitchens, lat, lng });
   })
 );
 
