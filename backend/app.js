@@ -13,10 +13,13 @@ const bookingsRouter = require("./routes/bookings");
 app.set("view engine", "pug");
 
 // Middlewares
+<<<<<<< HEAD
+=======
 app.use(cors({ origin: "http://localhost:4000" }));
+>>>>>>> master
 app.use(morgan("dev"));
 app.use(express.json());
-
+app.use(cors({ origin: "http://localhost:4000" }));
 
 // Mount Routers
 app.use("/", indexRouter);

@@ -1,0 +1,17 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        style
+            include ../public/stylesheets/ProfileStyle/styles/style.css
+        title Profile
+    body
+        div.navListings
+            a(class="listingsButton" href="/kitchens") Listings
+            a(class="logoutButton" href="/") Log out
+        h1 Your Bookings
+        div
+            div.pastBookings
+            div.currentBookings
+        script(src="/scripts/profile.js")
