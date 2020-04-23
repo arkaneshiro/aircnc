@@ -5,7 +5,6 @@ window.addEventListener('DOMContentLoaded', async () => {
     const stateDropDown = document.getElementById('states');
     const cityDropDown = document.getElementById('cities');
 
-
     const states = await fetch('http://localhost:8080/tools/states');
     const statesData = await states.json();
     const cities = await fetch('http://localhost:8080/tools/cities');
@@ -26,6 +25,33 @@ window.addEventListener('DOMContentLoaded', async () => {
         citiesListHTML += `<option value=${city.id}>${city.cityName}</option>`
     }
     cityDropDown.innerHTML = citiesListHTML;
+
+    //display features to choose from
+    const featuresDiv = document.getElementById('features');
+    const features = await fetch('http://localhost:8080/tools/features')
+    const featuresData = await features.json();
+    //eleminates whitespace in feature for use in name attribute
+    const featureNames = featuresData.features.map(feature => {
+        return feature.feature.split(" ").join("");
+    });
+
+
+
+
+    let featuresHTML = ``;
+    for (let i = 0; i < featuresData.features.length; i++) {
+        const feature = featuresData.features[i]
+        featuresHTML += `<div><label for=${featureNames[i]}>${feature.feature}</label>
+                         <input type="checkbox" id=${featureNames[i]} name=${featureNames[i]} value=${feature.id}></div>
+                        `
+    }
+
+    featuresDiv.innerHTML = featuresHTML;
+
+
+
+
+
 
     const kitchenForm = document.getElementById('kitchen-form');
     const fileInput = document.getElementById('img-upload');
@@ -55,75 +81,65 @@ window.addEventListener('DOMContentLoaded', async () => {
         const responses = await Promise.all(promiseData);
         //push each url of responses to array
         responses.forEach(ele => secureUrlArray.push(ele.secure_url));
-        console.log(responses);
-        console.log(secureUrlArray);
 
         // after image uploading start sending data to back end
         const formData = new FormData(kitchenForm);
         const kitchenBody = {
             name: formData.get('name'),
-            stateId: formData.get('states'),
-            cityId: formData.get('cities'),
-            address: formData.get('address'),
+            stateId: parseInt(formData.get('state'), 10),
+            cityId: parseInt(formData.get('city'), 10),
+            streetAddress: formData.get('address'),
             description: formData.get('description'),
             hostId: 2, // change for future
-            imgPath: secureUrlArray
+            imgPath: secureUrlArray,
+            rate: parseInt(formData.get('rate'), 10)
         }
 
-        const createKitchen = await fetch('http://localhost:8080/tools/states', {
+        console.log(kitchenBody.name);
+        console.log(kitchenBody.stateId);
+        console.log(kitchenBody.cityId);
+        console.log(kitchenBody.streetAddress);
+        console.log(kitchenBody.description);
+        console.log(kitchenBody.hostId);
+        console.log(kitchenBody.imgPath);
+        console.log(kitchenBody.rate);
+
+        const createKitchen = await fetch('http://localhost:8080/kitchens', {
             headers: {
                 'Content-Type': 'application/json'
             },
             method: 'POST',
             body: JSON.stringify(kitchenBody)
         });
+        const createKitchenInfo = await createKitchen.json();
+        const kitchenId = createKitchenInfo.kitchen.id;
+        console.log(kitchenId);
 
-        console.log(createKitchen);
+        console.log('feature Names', featureNames);
+        //logic to check if check boxes have beeen checked
+        for (let i = 0; i < featureNames.length; i++) {
+            let checkBox = document.getElementById(featureNames[i]);
+            console.log('in main for');
+            if (checkBox.checked) {
+                console.log('in if statement');
+                const featureBody = {
+                    kitchenId,
+                    featureId: parseInt(formData.get(featureNames[i]))
+                }
 
+                const feature = await fetch('http://localhost:8080/kitchenfeatures', {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'POST',
+                    body: JSON.stringify(featureBody)
+                });
+                const featureResponse = await feature.json();
+            }
+        }
+
+        // window.location.href = 'http://localhost:4000/dashboard'
     });
 
 
 });
-
-
-// // window.Dropzone.options.myAwesomeDropzone = {
-// //     addRemoveLinks: false,
-// //     uploadMultiple: true,
-// //     autoProcessQueue: false
-// // };
-
-// const kitchenForm = document.getElementById('kitchen-form');
-// const fileInput = document.getElementById('img-upload');
-// kitchenForm.addEventListener('submit', async (event) => {
-//     event.preventDefault();
-
-
-//     const secureUrlArray = [];
-//     const files = Array.from(fileInput.files);
-
-//     // map each file to an array of fetch requests
-//     let requests = files.map(file => {
-//         const data = new FormData();
-//         data.append('file', file);
-//         data.append('upload_preset', 'ys16oj0w');
-//         return fetch('https://api.cloudinary.com/v1_1/aircncaa/image/upload', {
-//             method: "POST",
-//             body: data,
-//         });
-//     });
-
-//     //use promise.All to ensure all files are uploaded
-//     const promiseArray = await Promise.all(requests);
-//     // map results of promises
-//     const promiseData = promiseArray.map(async result => await result.json());
-//     // promiseData are resolved/unresolved promises
-//     const responses = await Promise.all(promiseData);
-//     //push each url of responses to array
-//     responses.forEach(ele => secureUrlArray.push(ele.secure_url));
-//     console.log(responses);
-//     console.log(secureUrlArray);
-
-//     // after image uploading start sending data to back end
-//     const formData = new FormData(kitchenForm);
-
-// });
