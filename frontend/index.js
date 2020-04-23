@@ -11,7 +11,11 @@ app.get('/', (req, res) => {
 })
 
 app.get('/listings', (req, res) => {
-    res.render('listingMain')
-})
+    res.render('listingMain');
+}); 
+
+app.get('/kitchens/create', (req, res) => {
+res.render('createKitchen'); 
+});
 
 app.listen(4000, () => console.log(`Listening on port 4000...`));

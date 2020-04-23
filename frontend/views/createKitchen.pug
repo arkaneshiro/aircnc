@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        script( src="/dropzone-5.7.0/dist/dropzone.js")
+        script.
+            window.Dropzone.options.myAwesomeDropzone = {
+            addRemoveLinks: false,
+            uploadMultiple: true,
+            autoProcessQueue: false
+            };
+        script(async defer src="/scripts/create-kitchen.js")
+        link(rel="stylesheet", type="text/css", href="/dropzone-5.7.0/dist/dropzone.css")
+        title Create a Kitchen
+    body
+        //- <form action="./" class="dropzone" id='my-awesome-dropzone' enctype="multipart/form-data">
+        //-     <div class="fallback">
+        //-         <input name="file" type="file" multiple />
+        //-     </div>
+        //-     button(type='submit') upload pictures
+        //- </form>
+        form(action="" id='kitchen-form')
+            div: input(type = 'text', name='name')
+            div: input(type='text', name='state')
+            div: input(type='text', name='city')
+            div: input(type='text', name='city')
+            div: input(type='text', name='city')
+            div: input(type='file', name='file' multiple, id='img-upload')
+            div
+                button(type='submit') Create Kitchen
