@@ -13,6 +13,10 @@ const fetch = require("node-fetch");
  *    GET endpoint
  *      - returns all kitchens
  *****************************/
+
+// has to be logged in?
+// user has to be guest to view kitchens?
+
 router.get(
   "/",
   asyncHandler(async (req, res) => {
@@ -63,6 +67,9 @@ router.get(
  *      - calls Google Maps API to get geocode 
  *        to get lat and lng
  ***********************************************/
+// only host can create kitchen
+// token authentication
+//  validations not showing specific error?
 router.post(
   "/",
   kitchenValidation,
@@ -122,6 +129,10 @@ router.post(
  *    GET endpoint
  *      - returns kitchen details by id
  ***************************************/
+
+// not working for me
+// have to be loggine in to get a kitchen and be a guest?
+// we dont need kitchen validations?
 router.get(
   "/:id(\\d+)",
   kitchenValidation,
@@ -257,6 +268,9 @@ router.post(
 *    POST endpoint
 *     - creates a review for a host"s kitchen
 *********************************************/
+// need user auth
+// check if user/author is role of guest
+// validations for reviews
 router.post(
   "/:id(\\d+)/reviews",
   //validation to check if user is logged in?
@@ -294,6 +308,8 @@ router.post(
 *    GET endpoint
 *     - returns a list of the kitchen"s reviews
 ************************************************/
+//check if user is guest
+// user auth
 router.get(
   "/:id(\\d+)/reviews",
   //validation to check if user is logged in?
@@ -335,6 +351,9 @@ router.get(
 *    POST endpoint
 *     - Guest creates a booking for a kitchen
 ************************************************/
+//check if user has role of guest
+// validations for bookings
+// res.status 201
 router.post(
   "/:id(\\d+)",
   requireAuth,

@@ -172,6 +172,7 @@ router.post('/:id(\\d+)/reviews', requireAuth, guestReviewValidation, handleVali
     throw err;
   }
 
+  console.log(author.roleId, guest.roleId);
   if (author.roleId !== 1 || guest.roleId !== 2) {
     const err = Error('Unauthorized');
     err.status = 401;
