@@ -20,24 +20,12 @@ hostSignupButton.addEventListener('click', () => {
   localStorage.setItem("AIRCNC_CURRENT_USER_ROLE", "1");
 })
 
-<<<<<<< HEAD
 // removes login pop up when anywhere but the .formContainer
-=======
->>>>>>> master
 document.body.addEventListener('click', ev => {
     if (ev.target.tagName === 'BODY' || ev.target.tagName === 'DIV') {
         hiddenForm.classList.add("hidden");
     }
 });
-<<<<<<< HEAD
-// hiddenForm.addEventListener('mouseleave', () => {
-//     if (!mouseleave) {
-//         hiddenForm.classList.add("hidden")
-//     } else {
-//         hiddenForm.classList.remove("hidden")
-//     }
-// })
-=======
 
 logInForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -104,4 +92,3 @@ logInForm.addEventListener("submit", async (e) => {
     }
   }
 });
->>>>>>> master
