@@ -1,53 +1,126 @@
-document.addEventListener("DOMContentLoaded", async () => {
+// function getCookie(cname) {
+//   let name = cname + "=";
+//   let decodedCookie = decodeURIComponent(document.cookie);
+//   let ca = decodedCookie.split(';');
+//   for (let i = 0; i < ca.length; i++) {
+//     let c = ca[i];
+//     while (c.charAt(0) == ' ') {
+//       c = c.substring(1);
+//     }
+//     if (c.indexOf(name) == 0) {
+//       return c.substring(name.length, c.length);
+//     }
+//   }
+//   return "";
+// }
 
-  try {
-    // const userId = localStorage.getItem("AIRCNC_USER_ID");
-
-    // change fetch to search and query on search params
-    const res = await fetch("http://localhost:8080/kitchens", {
-      headers: {
-        'Content-Type': 'application/json'
-      },
+function initMap(latLng) {
+  // const lat = parseInt(getCookie("lat"));
+  // const lng = parseInt(getCookie("lng"));
+  // const lat = 37.4213117;
+  // const lng = -122.0839677;
+  if (latLng) {
+    const map = new google.maps.Map(
+      document.getElementById('map'), {
+      zoom: 12,
+      center: { latLng[0][0], latLng[0][1] }
     });
 
-    if (res.status === 401) {
-      window.location.href = "/log-in";
-      return;
-    }
+    latLng.forEach(([lat, lng]) => {
+      new google.maps.Marker({
+        position: { lat, lng },
+        map,
+        label: "$100"
+      });
+    });
+  }
+}
 
-    if (!res.ok) {
-      throw res;
-    }
+document.addEventListener("DOMContentLoaded", async () => {
+  let search;
+  document.querySelector("form")
+    .addEventListener("submit", async ev => {
+      ev.preventDefault();
+      search = document.getElementById("searchInput").value;
 
-    const { kitchens } = await res.json();
-    const kitchenListings = document.getElementById("kitchenListings");
-    const kitchensHTML = kitchens.map((obj, i) => {
-      let features = obj.kitchenFeature;
-      
-      
-      return `
+      console.log(search);
+
+      try {
+        // const userId = localStorage.getItem("AIRCNC_USER_ID");
+        // console.log(search);
+        // change fetch to search and query on search params
+        const res = await fetch("http://localhost:8080/kitchens/search",
+          {
+            method: "POST",
+            headers: {
+              // "authorization": `Bearer ${userId}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ search })
+          }
+        );
+
+        if (res.status === 401) {
+          window.location.href = "/log-in";
+          return;
+        }
+
+        if (!res.ok) {
+          throw res;
+        }
+
+        const { kitchens } = await res.json();
+        // let map = await fetch("https://maps.googleapis.com/maps/api/js?key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c", {
+        //   headers: {
+        //     "Content-Type": "application/json"
+        //   }
+        // });
+        // res.cookie("lat", lat, { domain: "localhost:4000", path: "/listings", httpOnly: true });
+        // res.cookie("lng", lng, { domain: "localhost:4000", path: "/listings", httpOnly: true });
+        console.log(lat, lng);
+        initMap(parseInt(kitchens[0].lat), parseInt(kitchens[0].lng));
+        console.log(map);
+        const kitchenListings = document.getElementById("kitchenListings");
+        const latLng = [];
+        const kitchensHTML = kitchens.map(kitchen => {
+          latLng.push([kitchen.lat, kitchen.lng]);
+          const kitchenFeatures = kitchen.kitchenFeature;
+          let features = "";
+          if (kitchenFeatures) {
+            kitchenFeatures.forEach(({ feature }, i) => {
+              if (i === kitchenFeatures.length - 1) {
+                features += `${feature.feature}`
+              } else {
+                features += `${feature.feature} •`
+              }
+            });
+          }
+          return `
         <div class="kitchenListing">
           <div class="kitchenListing__img">
-            <img src="../images/${i+1}.jpeg">
+            <img src="">
           </div>
-          <div class="kitchenListing__userInfo">
-            ${obj.user.userName} ${obj.user.firstName} ${obj.user.lastName}
-          </div>
-          <div class="kitchenListing__location">
-            ${obj.streetAddress} ${obj.city.cityName} ${obj.state.stateName}
-          </div>
-          <div class="kitchenListing__features">
-            
+          <div class="kitchenListing__name">
+            ${kitchen.name}
           </div>
           <div class="kitchenListing__description">
-            ${obj.description}
+            ${kitchen.description}
+          </div>
+          <div class="kitchenListing__location">
+            ${kitchen.streetAddress} ${kitchen.city.cityName} ${kitchen.state.stateName}
+          </div>
+          <div class="kitchenListing__features">
+            ${features}
+          </div>
+          <div class="kitchenListing__userInfo">
+            ${kitchen.user.userName} ${kitchen.user.firstName} ${kitchen.user.lastName}
           </div>
         </div>`;
-    });
+        });
 
-    console.log(kitchensHTML);
-    kitchenListings.innerHTML = kitchensHTML.join("");
-  } catch (err) {
-    console.error(err);
-  }
+        kitchenListings.innerHTML = kitchensHTML.join("");
+      } catch (err) {
+        console.error(err);
+      }
+    });
 });
