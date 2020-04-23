@@ -6,9 +6,10 @@ const { Kitchen, User, City, State, KitchenFeature, KitchenReview, Booking, Feat
 const { asyncHandler, handleValidationErrors } = require("../utils");
 const { kitchenNotFound, kitchenValidation } = require("../validations");
 const { requireAuth } = require("../auth");
+const fetch = require("node-fetch");
 
 /*****************************
- *  Route '/kitchens'
+ *  Route "/kitchens"
  *    GET endpoint
  *      - returns all kitchens
  *****************************/
@@ -20,33 +21,33 @@ router.get(
       include: [
         {
           model: User,
-          as: 'user',
+          as: "user",
           attributes: ["firstName", "lastName", "userName"]
         },
         {
           model: City,
-          as: 'city',
+          as: "city",
           attributes: ["cityName"]
         },
         {
           model: State,
-          as: 'state',
+          as: "state",
           attributes: ["stateName"]
         },
         {
           model: KitchenFeature,
-          as: 'kitchenFeature',
+          as: "kitchenFeature",
           include: [
             {
               model: Feature,
-              as: 'feature',
+              as: "feature",
               attributes: ["feature", "imgPath"] // *** may not need imgPath
             }
           ]
         },
         {
           model: KitchenReview,
-          as: 'kitchenReview'
+          as: "kitchenReview"
         },
       ],
       order: [["createdAt", "DESC"]] // displaying newest kitchen listings first
@@ -56,7 +57,7 @@ router.get(
 );
 
 /*****************************
- *  Route '/kitchens'
+ *  Route "/kitchens"
  *    POST endpoint
  *      - creates a kitchen
  *****************************/
@@ -92,7 +93,7 @@ router.post(
 );
 
 /***************************************
- *  Route '/kitchens/:id'
+ *  Route "/kitchens/:id"
  *    GET endpoint
  *      - returns kitchen details by id
  ***************************************/
@@ -113,7 +114,7 @@ router.get(
 
 
 /******************************************************
-*  Route '/kitchens/:id'
+*  Route "/kitchens/:id"
 *    DELETE endpoint
 *      - destroys a kitchen in DB by id
 *      - destroys references that are tied to a kitchen
@@ -134,29 +135,82 @@ router.delete(
 );
 
 /*******************************************************
-*  Route '/kitchens/search'
+*  Route "/kitchens/search"
 *    POST endpoint
 *     - returns a list of kitchen based on query params
 ********************************************************/
 router.post(
   "/search",
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res, next) => {
     // what are we searching on?
 
     // general search
-    const search = req.query.search;
-
+    // const search = req.query.search;
+    const { search } = req.body;
+    // search = search.split(" ").join("+");
+    console.log(search);
     // can search by city if we have a city input or drop down
-    const city = req.query.city;
+    // const city = req.query.city;
+    let loc;
+    try {
+      loc = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${search}&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c`);
+      loc = await loc.json();
+      loc = loc.results[0].geometry.bounds.northeast;
+      console.log(loc);
+    } catch (err) {
+      next(err);
+    }
+    const lat = loc.lat;
+    const lng = loc.lng;
 
+    const kitchens = await Kitchen.findAll({
+      include: [
+        {
+          model: User,
+          as: "user",
+          attributes: ["firstName", "lastName", "userName"]
+        },
+        {
+          model: City,
+          as: "city",
+          attributes: ["cityName"],
+          where: {
+            cityName: search
+          }
+        },
+        {
+          model: State,
+          as: "state",
+          attributes: ["stateName"]
+        },
+        {
+          model: KitchenFeature,
+          as: "kitchenFeature",
+          include: [
+            {
+              model: Feature,
+              as: "feature",
+              attributes: ["feature", "imgPath"] // *** may not need imgPath
+            }
+          ]
+        },
+        {
+          model: KitchenReview,
+          as: "kitchenReview"
+        },
+      ],
+      order: [["createdAt", "DESC"]] // displaying newest kitchen listings first
+    });
 
+    // console.log(kitchens);
+    res.json({ kitchens, lat, lng });
   })
 );
 
 /********************************************
-*  Route '/kitchens/:id/reviews'
+*  Route "/kitchens/:id/reviews"
 *    POST endpoint
-*     - creates a review for a host's kitchen
+*     - creates a review for a host"s kitchen
 *********************************************/
 router.post(
   "/:id(\\d+)/reviews",
@@ -164,7 +218,7 @@ router.post(
   asyncHandler(async (req, res) => {
     // may need validation that the user.isDeactivated === false
 
-    // will hosts be able to leave other host's kitchen's reviews?
+    // will hosts be able to leave other host"s kitchen"s reviews?
 
     const kitchenId = parseInt(req.params.id, 10);
     const {
@@ -191,9 +245,9 @@ router.post(
 );
 
 /***********************************************
-*  Route '/kitchens/:id/reviews'
+*  Route "/kitchens/:id/reviews"
 *    GET endpoint
-*     - returns a list of the kitchen's reviews
+*     - returns a list of the kitchen"s reviews
 ************************************************/
 router.get(
   "/:id(\\d+)/reviews",
@@ -213,7 +267,7 @@ router.get(
 );
 
 /***********************************************
-*  Route '/kitchens/:id/bookings'
+*  Route "/kitchens/:id/bookings"
 *    GET endpoint
 *     - returns a list of booking for a kitchen
 ************************************************/
@@ -232,7 +286,7 @@ router.get(
 );
 
 /***********************************************
-*  Route '/kitchens/:id'
+*  Route "/kitchens/:id"
 *    POST endpoint
 *     - Guest creates a booking for a kitchen
 ************************************************/

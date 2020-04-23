@@ -13,7 +13,7 @@ const bookingsRouter = require("./routes/bookings");
 app.set("view engine", "pug");
 
 // Middlewares
-// app.use(cors({ origin: "http://localhost:4000" }));
+app.use(cors({ origin: "http://localhost:4000" }));
 app.use(morgan("dev"));
 app.use(express.json());
 
