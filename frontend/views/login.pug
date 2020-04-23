@@ -3,21 +3,20 @@ html(lang="en")
     head
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        style   
+        style
             include ../public/stylesheets/loginStyles/styles/style.css
         title Log In
     body
         div(class="hidden formContainer")
-            form(action="/log-in", method="post")
+            form(class="login-form")
                 input(type="hidden" name="_csrf" value:csrfToken)
                 span(class="exitButton") x
                 //- label Demo Account
                 label(class="formHeader")
-                input(type="email" class="userName" placeholder="username") 
-                label 
-                input(type="password" class="password" placeholder="password")
+                input(type="text" name="username" class="userName" placeholder="username")
+                label
+                input(type="password" name="password" class="password" placeholder="password")
                 button(type="submit" class="formLoginButton") Log In
-                button(type="submit" class="demoUser") Log in as a Demo User 
+                button(type="submit" class="demoUser") Log in as a Demo User
                 //- button(type="submit" class="cancel") Cancel
     script(src="/scripts/login.js")
-                

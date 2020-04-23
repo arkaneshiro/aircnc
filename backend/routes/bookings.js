@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcryptjs");
-const { User, GuestReview, Booking, Kitchen } = require("../db/models");
+// const bcrypt = require("bcryptjs");
+const { Booking } = require("../db/models");
 const { asyncHandler, handleValidationErrors } = require("../utils");
 const { getUserToken, requireAuth } = require("../auth");
-const { validateUserSignUp, validateUsernameAndPassword, userNotFound, guestReviewValidation, bookingNotFound, bookingValidation } = require("../validations");
+const { bookingNotFound, bookingValidation } = require("../validations");
 
 
 /********************************
