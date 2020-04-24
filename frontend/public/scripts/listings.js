@@ -89,23 +89,25 @@ document.addEventListener("DOMContentLoaded", async () => {
             <img src="/images/${i + 1}.jpeg">
           </div>
           <div class="listing-info-container">
-            <div class="kitchenListing__userInfo">
-              ${obj.user.userName} ${obj.user.firstName} ${obj.user.lastName}
-            </div>
-            <div class="kitchenListing__starRating">
-              <span> Star Rating (${Math.floor(Math.random() * (5 + 2)) + 1})</span>
-            </div>
+            <div class="kitchenListing__topLine">
+              <div class="kitchenListing__userInfo">
+                ${obj.user.userName} ${obj.user.firstName} ${obj.user.lastName}
+              </div>
+                <div class="kitchenListing__starRating"> Star Rating (${Math.floor(Math.random() * (5 + 2)) + 1})</div>
+            </div>    
             <div class="kitchenListing__location">
               ${obj.streetAddress} ${obj.city.cityName} ${obj.state.stateName}
             </div>
             <div class="kitchenListing__features">
               ${features}
             </div>
-            <div class="kitchenListing__wouldRentAgain">
-              ${Math.floor(Math.random() * (100))} people would rent again
-            </div>
-            <div class="kitchenListing__rate">
-              $${obj.rate}
+            <div class="kitchenListing__bottomLine">
+              <div class="kitchenListing__wouldRentAgain">
+                ${Math.floor(Math.random() * (100))} people would rent again
+              </div>
+              <div class="kitchenListing__rate">
+                $${obj.rate}
+              </div>
             </div>
           </div>
         </div>`;

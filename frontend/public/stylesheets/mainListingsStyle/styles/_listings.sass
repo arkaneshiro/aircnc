@@ -1,22 +1,21 @@
 .kitchenListing
     display: flex
     width: 100%
-    padding: 15px
     border-bottom: 1px solid $blue
+    padding: 10px
+    height: 200px
     
 
 .kitchenListing__img
-    flex: 1
-    max-height: 150px
-    margin-top: 30px
-    
-    
+    flex: 2
+    object-fit: cover
 
+    
+    
 
 .kitchenListing__img > img
-    width: 110%
-    height: 110%
-    padding: 2px
+    height: 100%
+    width: 100%
     border-radius: 5px
     
     
@@ -24,31 +23,42 @@
     @include fontStyle()
     text-align: left
     font-size: 20px
+    flex: 2
     font-weight: 500
-    padding-left: 30px
-    // padding-bottom: 10px
-    padding-top: 20px
+
 
 .kitchenListing__location
     @include fontStyle()
-    padding-left: 30px
     font-size: 13
     opacity: 0.7
-    padding-bottom: 25px
 
 .kitchenListing__features
     @include fontStyle()
-    padding: 15px 20px 20px 20px
     text-align: center
-    font-size: 12px
+    font-size: 15px
     text-align: justified
-    width: 180px
-    opacity: .6
+    width: 80%
+    opacity: .8
     letter-spacing: 1px
+    padding: 10px
+    font-weight: bold
+
+.kitchenListing__starRating
+    @include fontStyle()
+    font-size: 15px 
+    flex: 1
+    display: flex
+    justify-content: flex-end
+    align-items: baseline
+    @include star()
     
 
 .listing-info-container
     flex: 3
+    display: flex
+    flex-direction: column
+    justify-content: space-around
+    padding-left: 10px
 
 .kitchenListing__rate
     display: flex
@@ -57,25 +67,26 @@
     font-size: 15px
     font-weight: bold
 
-.kitchenListing__starRating
-    display: flex
-    @include fontStyle()
-    flex-direction: row-reverse
-    font-size: 15px 
-    span   
-        @include star()
-
 .kitchenListing__wouldRentAgain
     @include fontStyle()
     @include star()
     display: flex
     justify-content: flex-start
     font-size: 13px
-    padding-left: 20px
 
 
 
-    
+.kitchenListing__topLine
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    @include fontStyle()
+
+
+.kitchenListing__bottomLine
+    display: flex
+    justify-content: space-between
+    padding-top: 20px
     
     
     
