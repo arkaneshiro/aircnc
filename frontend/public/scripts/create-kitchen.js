@@ -145,7 +145,8 @@ window.addEventListener('DOMContentLoaded', async () => {
 
                 const feature = await fetch('http://localhost:8080/kitchenfeatures', {
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('AIRCNC_ACCESS_TOKEN')}`
                     },
                     method: 'POST',
                     body: JSON.stringify(featureBody)
