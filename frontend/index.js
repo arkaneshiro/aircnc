@@ -41,8 +41,8 @@ app.get('/kitchen/:id(\\d+)', (req, res) => {
 })
 
 app.get('/listings/:id(\\d+)/checkout', (req, res) => {
-    res.render('listing-checkout');
-            });
+    res.render('listing-checkout')
+ });
         
 
 app.listen(4000, () => console.log(`Listening on port 4000...`));
