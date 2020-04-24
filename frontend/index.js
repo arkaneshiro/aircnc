@@ -15,7 +15,7 @@ app.get('/listings', (req, res) => {
     res.render('listingMain');
 
 
-app.get('/kitchens/create', (req, res) => {
+app.get('/listings/create', (req, res) => {
     res.render('createKitchen');
 });
 

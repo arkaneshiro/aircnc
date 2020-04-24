@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             },
         });
         if (res.status === 401) {
-            window.location.href = "/kitchens";
+            window.location.href = "/listings";
             return;
         }
 

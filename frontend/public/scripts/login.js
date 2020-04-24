@@ -58,7 +58,7 @@ logInForm.addEventListener("submit", async (e) => {
         // localStorage.setItem("AIRCNC_CURRENT_USER_ROLE", role);
 
         // redirect to /kitchens for guests, dashboard for hosts:
-        window.location.href = "/kitchens";
+        window.location.href = "/listings";
 
 
     } catch (err) {
