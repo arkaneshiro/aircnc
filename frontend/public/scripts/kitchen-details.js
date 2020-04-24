@@ -17,7 +17,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       throw res;
     }
 
-    const { kitchen, starRating } = await res.json();
+    const {
+      kitchen,
+      kitchenFeatures,
+      starRating,
+      kitchenReviews
+    } = await res.json();
 
     /*********************************
      *  Contains 
@@ -49,12 +54,27 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     document.querySelector(".kitchenDetails__images").innerHTML = imgs;
 
-    document.querySelector(".kitchenDetails__features").innerHTML = ``;
+    let features = "";
+    kitchenFeatures.forEach(({ feature }) => {
+      features += `
+      <div class="kitchenDetails__feature">
+        ${feature.feature}
+      </div>
+      `
+    });
 
-    document.querySelector(".kitchenDetails__reviews").innerHTML = ``;
+    document.querySelector(".kitchenDetails__features").innerHTML = features;
 
+    let kitchenReviewHTML = "";
+    kitchenReviews.forEach(kitchenReview => {
+      kitchenReviewHTML += `
+      <div class="kitchenDetails__review">
+        ${kitchenReview.comment}
+      </div>`
+    });
 
-    console.log(kitchen);
+    document.querySelector(".kitchenDetails__reviews").innerHTML = kitchenReviewHTML;
+
   } catch (err) {
     console.error(err);
   }

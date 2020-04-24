@@ -1,0 +1,22 @@
+include includes/utils.pug
+
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Sign Up
+  body
+    form(class="hidden sign-up-form")
+      +createInput("input", "userName", "userName", "Username", true, false)
+      +createInput("input", "firstName", "firstName", "First Name", true, false)
+      +createInput("input", "lastName", "lastName", "Last Name", true, false)
+      +createInput("email", "userEmail", "userEmail", "Email", true, false)
+      label(for="roles") Roles
+      select(id="roles" name="roleId")
+        option(value=1) Host
+        option(value=2) Renter
+      +createInput("password", "password", "password", "Password", true, false)
+      +createInput("password", "confirmPassword", "confirmPassword", "Confirm Password", true, false)
+      button(type="submit") Submit
+    script(scr="scripts/signup.js")

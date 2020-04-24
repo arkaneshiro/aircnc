@@ -24,18 +24,29 @@ app.get('/profile', (req, res) => {
 });
 
 app.get('/bookings/(:id(\\d+))', (req, res) => {
-    // localStorage.setItem("AIRCNC_CURRENT_BOOKING", req.params.id)
-    res.render('bookings')
-});
+    res.render('bookings');
+}); 
 
+app.get('/signup', (req, res) => {
+    res.render('sign-up');
+});
 /*******************************************
  *  Route '/kitchen/:id'
  *      GET endpoint
  *          - renders kitchen details page
  *          - API call to GET '/kitchen/:id'
- *******************************************/
-app.get('/kitchen/:id(\\d+)', (req, res) => {
-    res.render('kitchen-details');
-});
+ *******************************************/                  
+app.get('/kitchens/:id(\\d+)', (req, res) => {
+        res.render('kitchen-details');              
+        });
+
+app.get('/bookings/:id(\\d+)/review', (req, res) => {
+        res.cookie("id", req.params.id);
+        res.render('guest-review');
+    });
+
+app.get('/kitchen/:id/review', (req, res) => {
+res.render('kitchen-review')
+    });
 
 app.listen(4000, () => console.log(`Listening on port 4000...`));
