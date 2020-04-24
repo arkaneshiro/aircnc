@@ -6,34 +6,38 @@ html(lang="en")
         script(src="/scripts/create-kitchen.js")
         title Create a Kitchen
     body
-        //- <form action="./" class="dropzone" id='my-awesome-dropzone' enctype="multipart/form-data">
-        //-     <div class="fallback">
-        //-         <input name="file" type="file" multiple />
-        //-     </div>
-        //-     button(type='submit') upload pictures
-        //- </form>
-        form(action="" id='kitchen-form')
-            div
-                label(for="name") Name
-                input(type = 'text', name='name')
-            div
-                label(for="state") Select State
-                select(name="state", id='states')
-            div
-                label(for="city") Select City
-                select(name="city", id='cities')
-            div
-                label(for="address") Address
-                input(type = 'text', name='address')
-            div
-                label(for="description") Description
-                textarea(name="description", cols="30", rows="10", type='text')
-            div
-                label(for="rate") Rate
-                input(type="number", name='rate')
-            div(id='features')
-
-            div
-                input(type='file', name='file' multiple, id='img-upload')
-            div
-                button(type='submit') Create Kitchen
+        div.create-navbar
+            button(class="dashboard" href="http://localhost:4000/dashboard") DashBoard
+            button(class="CreateListing" href="http://localhost:4000/kitchens/create") Create Listing
+            button(class="logoutButton" href="http://localhost:4000/log-out") Log out
+        div.kitchen-form
+            form(action="" id='kitchen-form')
+                div.kitchen-form__top
+                    div.kitchen-form__top-left
+                        div.kitchen-form__name-input
+                            label(for="name") Name
+                            input(type = 'text', name='name')
+                        div.kitchen-form__state-input
+                            label(for="state") Select State
+                            select(name="state", id='states')
+                        div.kitchen-form__city-input
+                            label(for="city") Select City
+                            select(name="city", id='cities')
+                        div.kitchen-form__address-input
+                            label(for="address") Address
+                            input(type = 'text', name='address')
+                        div.kitchen-form__rate-input
+                            label(for="rate") Rate
+                            input(type="number", name='rate')
+                    div.kitchen-form__top-right
+                        div.top-right__top
+                            div.kitchen-form__img-input
+                                input(type='file', name='file' multiple, id='img-upload')
+                        div.top-right__bottom
+                            div.kitchen-form__description-input
+                                label(for="description") Description
+                                textarea(name="description", cols="30", rows="10", type='text')
+                div.kitchen-form__middle
+                    div(id='features' class='features')
+                div.kitchen-form__bottom
+                    button(type='submit') Create Kitchen
