@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     let res = await fetch(`http://localhost:8080/kitchens/${kitchenId}`, {
       headers: {
+        'Authorization': `Bearer ${localStorage.getItem('AIRCNC_ACCESS_TOKEN')}`,
         "Content-Type": "application/json"
       }
     });
@@ -20,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const { kitchen, starRating } = await res.json();
 
     /*********************************
-     *  Contains 
+     *  Contains
      *    - kitchen.name
      *    - kitchen.reviews.starRating
      *    - kitchen.rate
@@ -39,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
     document.querySelector(".kitchenDetails__staticMap").innerHTML = `
-      <img src="http://maps.googleapis.com/maps/api/staticmap?center=${kitchen.lat},${kitchen.lng}&zoom=12&size=375x350&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c"> 
+      <img src="http://maps.googleapis.com/maps/api/staticmap?center=${kitchen.lat},${kitchen.lng}&zoom=12&size=375x350&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c">
     `;
 
     let imgs = "";
