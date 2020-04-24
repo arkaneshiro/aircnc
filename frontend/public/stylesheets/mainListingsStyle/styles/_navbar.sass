@@ -1,19 +1,12 @@
-<<<<<<< HEAD
-body
-    background-color: $sandOpaque
-=======
 
 body
     background-color: $white
+    
     // display: flex
->>>>>>> master
 
 .navListings
     display: flex
     align-items: center
-<<<<<<< HEAD
-    justify-content: flex-end
-=======
     justify-content: space-between
     background: none
     border: none
@@ -24,15 +17,13 @@ body
     // align-content: center
 
 
-
 .searchBar
     display: flex
     justify-content: flex-start
->>>>>>> master
     background: none
     border: none
     outline: none
-    width: 25%
+    // width: 25%
     border: 1.25px solid $blue
     border-radius: 5px
     height: 30px
@@ -44,45 +35,6 @@ body
 
 .profile, .listingsButton, .logoutButton
     &:hover
-<<<<<<< HEAD
-        // background-color:#D9CAC5
-        padding: 5px 16px
-        border-radius: 21px
-        // border: 2px solid #D9CAC5
-        box-shadow: 2px 2px 2px $sand
-        // text-decoration: underline
-        // height: 10px
-        // padding: 0px 16px
-        text-align: center
-        font-size: 16px
-        font-family: $mainFont
-        color: $lightMain
-        text-decoration: none
-        height: 100%
-        box-sizing: border-box
-        height: 42px
-        padding: 0px 16px
-        -webkit-appearance: none
-        background: none
-        border: none
-        outline: none
-        font-weight: bold
-
-#searchBar
-    display: flex
-    justify-content: flex-start
-    background: none
-    border: none
-    outline: none
-    width: 25%
-    position: relative
-    display: flex
-    border: 1px solid $darkMain
-    border-radius: 5px
-    // height: 40px
-    // margin-top: 15px
-    // margin-bottom: 15px
-=======
         border-radius: 30px
         border: 1.25px solid $blue
         // box-shadow: 2px 2px 2px $taupe
@@ -102,10 +54,18 @@ body
     background: none
     border: none
     outline: none
-    font-weight: bold
+    font-weight: 400
 
-.searchButton::after
-    content: "/U+1F50E"
+// .searchButton::after
+//     content: "/U+1F50E"
     
 
->>>>>>> master
+.navListings 
+    display: flex
+    width: 100%
+    justify-content: space-between
+    position: fixed
+    background-color: $white
+    z-index: 100
+    border-bottom: 1px solid #3b3b3bcc
+    

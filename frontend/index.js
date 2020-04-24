@@ -9,11 +9,11 @@ app.set("view engine", "pug");
 
 app.get('/', (req, res) => {
     res.render('home')
-
+})
 
 app.get('/listings', (req, res) => {
-    res.render('listingMain');
-
+        res.render('listingMain');
+    })
 
 app.get('/kitchens/create', (req, res) => {
     res.render('createKitchen');

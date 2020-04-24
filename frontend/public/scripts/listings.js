@@ -18,10 +18,17 @@ function initMap(latLngRate) {
 
 document.addEventListener("DOMContentLoaded", async () => {
   let search;
-  document.querySelector("form")
-    .addEventListener("submit", async ev => {
-      ev.preventDefault();
-      search = document.getElementById("searchInput").value;
+  // document.querySelector("form")
+  document.getElementById("searchInput")
+    .addEventListener("keypress", async ev => {
+      
+      if (ev.key === 'Enter') {
+        ev.preventDefault()
+        search = document.getElementById("searchInput").value;
+      } else {
+        return;
+      }
+
 
       console.log(search);
 
@@ -49,13 +56,23 @@ document.addEventListener("DOMContentLoaded", async () => {
           throw res;
         }
 
-        const { kitchens } = await res.json();
+        // const { kitchens } = await res.json();
 
+        if (res.status === 401) {
+          window.location.href = "/log-in";
+          return;
+        }
+
+        if (!res.ok) {
+          throw res;
+        }
+
+        const { kitchens } = await res.json();
         const kitchenListings = document.getElementById("kitchenListings");
         const latLngRate = [];
-        const kitchensHTML = kitchens.map(kitchen => {
-          latLngRate.push([parseFloat(kitchen.lat), parseFloat(kitchen.lng), kitchen.rate.toString()]);
-          const kitchenFeatures = kitchen.kitchenFeature;
+        const kitchensHTML = kitchens.map((obj, i) => {
+          latLngRate.push([parseFloat(obj.lat), parseFloat(obj.lng), obj.rate.toString()]);
+          let kitchenFeatures = obj.kitchenFeature;
           let features = "";
           if (kitchenFeatures) {
             kitchenFeatures.forEach(({ feature }, i) => {
@@ -69,25 +86,27 @@ document.addEventListener("DOMContentLoaded", async () => {
           return `
         <div class="kitchenListing">
           <div class="kitchenListing__img">
-            <img src="">
+            <img src="/images/${i + 1}.jpeg">
           </div>
-          <div class="kitchenListing__name">
-            ${kitchen.name}
-          </div>
-          <div class="kitchenListing__description">
-            ${kitchen.description}
-          </div>
-          <div class="kitchenListing__location">
-            ${kitchen.streetAddress} ${kitchen.city.cityName} ${kitchen.state.stateName}
-          </div>
-          <div class="kitchenListing__features">
-            ${features}
-          </div>
-          <div class="kitchenListing__userInfo">
-            ${kitchen.user.userName} ${kitchen.user.firstName} ${kitchen.user.lastName}
-          </div>
-          </div class"=kitchenListing__rate">
-            ${kitchen.rate}
+          <div class="listing-info-container">
+            <div class="kitchenListing__userInfo">
+              ${obj.user.userName} ${obj.user.firstName} ${obj.user.lastName}
+            </div>
+            <div class="kitchenListing__starRating">
+              <span> Star Rating (${Math.floor(Math.random() * (5 + 2)) + 1})</span>
+            </div>
+            <div class="kitchenListing__location">
+              ${obj.streetAddress} ${obj.city.cityName} ${obj.state.stateName}
+            </div>
+            <div class="kitchenListing__features">
+              ${features}
+            </div>
+            <div class="kitchenListing__wouldRentAgain">
+              ${Math.floor(Math.random() * (100))} people would rent again
+            </div>
+            <div class="kitchenListing__rate">
+              $${obj.rate}
+            </div>
           </div>
         </div>`;
         });
