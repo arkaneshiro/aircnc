@@ -12,32 +12,32 @@ app.get('/', (req, res) => {
 })
 
 app.get('/listings', (req, res) => {
-        res.render('listingMain');
+    res.render('listingMain');
 })
 
 app.get('/kitchens/create', (req, res) => {
-        res.render('createKitchen');
+    res.render('createKitchen');
 })
 
 app.get('/profile', (req, res) => {
-                res.render('profile')
+    res.render('profile')
 })
 
 app.get('/bookings/(:id(\\d+))', (req, res) => {
                 // localStorage.setItem("AIRCNC_CURRENT_BOOKING", req.params.id)
-        er('bookings')
+    res.render('bookings')
 })
 
 // ****************************************
-//      *  Route '/kitchen/:id'
-//      *      GET endpoint
-//      *          - renders kitchen details page
-//      *          - API call to GET '/kitchen/:id'
-//      *******************************************/
+// *  Route '/kitchen/:id'
+// *      GET endpoint
+// *          - renders kitchen details page
+// *          - API call to GET '/kitchen/:id'
+// *******************************************/
 
 
 app.get('/kitchen/:id(\\d+)', (req, res) => {
-        res.render('kitchen-details');
+    res.render('kitchen-details');
 })
 
 app.get('/listings/:id(\\d+)/checkout', (req, res) => {
