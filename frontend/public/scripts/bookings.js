@@ -44,8 +44,15 @@ cancelButton.addEventListener("click", async () => {
 
 // review booking event listener
 reviewButton.addEventListener("click", () => {
-    window.location.href = `/bookings/${bookingId}/review`;
-    return;
+    // event.preventDefault()
+    if(localStorage.getItem("AIRCNC_CURRENT_USER_ROLE") === "1") {
+        window.location.href = `/bookings/${bookingId}/guestReview`;
+        return;
+    } else if(localStorage.getItem("AIRCNC_CURRENT_USER_ROLE") === "2") {
+        window.location.href = `/bookings/${bookingId}/kitchenReview`;
+        return;
+    }
+
 })
 
 // DOMContentLoaded event listener, makes fetch call to GET bookings/:id from backend to display booking details

@@ -23,6 +23,10 @@ app.get('/profile', (req, res) => {
     res.render('profile')
 });
 
+app.get('/dashboard', (req, res) => {
+    res.render('dashboard')
+});
+
 app.get('/bookings/(:id(\\d+))', (req, res) => {
     // localStorage.setItem("AIRCNC_CURRENT_BOOKING", req.params.id)
     res.render('bookings')
