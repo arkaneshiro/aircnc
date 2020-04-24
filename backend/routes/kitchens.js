@@ -19,6 +19,7 @@ const fetch = require("node-fetch");
 
 router.get(
   "/",
+  requireAuth,
   asyncHandler(async (req, res) => {
     // Currently displaying all Kitchens from oldest to newest
     const kitchens = await Kitchen.findAll({
@@ -72,12 +73,12 @@ router.get(
 //  validations not showing specific error?
 router.post(
   "/",
+  requireAuth,
   kitchenValidation,
   handleValidationErrors,
   asyncHandler(async (req, res, next) => {
     // front end sets the local storage for the token and id of user
     // need to pass id from frontend
-
     let {
       name,
       cityId,
@@ -88,6 +89,14 @@ router.post(
       imgPath,
       rate
     } = req.body;
+
+    if (req.user.id !== hostId || req.user.roleId !== 1) {
+      const err = Error('Unauthorized');
+      err.status = 401;
+      err.message = 'Not authorized to create Kitchen'
+      err.title = 'Unauthorized'
+      throw err;
+    }
 
     let cityName = await City.findByPk(cityId);
     cityName = cityName.dataValues.cityName;
@@ -135,7 +144,7 @@ router.post(
 // we dont need kitchen validations?
 router.get(
   "/:id(\\d+)",
-  kitchenValidation,
+  requireAuth,
   asyncHandler(async (req, res, next) => {
     const kitchenId = parseInt(req.params.id, 10);
     const kitchen = await Kitchen.findByPk(kitchenId)
@@ -173,9 +182,18 @@ router.get(
 *******************************************************/
 router.delete(
   "/:id(\\d+)",
+  requireAuth,
   asyncHandler(async (req, res, next) => {
     const id = parseInt(req.params.id, 10);
     const kitchen = await Kitchen.findByPk(id);
+
+    if (!kitchen || kitchen.hostId !== req.user.id) {
+      const err = Error('Unauthorized');
+      err.status = 401;
+      err.message = 'Not authorized to delete Kitchen'
+      err.title = 'Unauthorized'
+      throw err;
+    }
 
     if (kitchen) {
       await kitchen.destroy();
@@ -193,6 +211,7 @@ router.delete(
 ********************************************************/
 router.post(
   "/search",
+  requireAuth,
   asyncHandler(async (req, res, next) => {
     // what are we searching on?
 
@@ -273,6 +292,7 @@ router.post(
 // validations for reviews
 router.post(
   "/:id(\\d+)/reviews",
+  requireAuth,
   //validation to check if user is logged in?
   asyncHandler(async (req, res) => {
     // may need validation that the user.isDeactivated === false
@@ -288,6 +308,14 @@ router.post(
       cleanRating,
       wouldRentAgain
     } = req.body;
+
+    if (req.user.roleId !== 2 || req.user.id !== authorId || req.user.isDeactivated === true) {
+      const err = Error('Unauthorized');
+      err.status = 401;
+      err.message = 'Not authorized to leave review on Kitchen'
+      err.title = 'Unauthorized'
+      throw err;
+    }
 
     const kitchenReview = await KitchenReview.create({
       kitchenId,
@@ -312,6 +340,7 @@ router.post(
 // user auth
 router.get(
   "/:id(\\d+)/reviews",
+  requireAuth,
   //validation to check if user is logged in?
   asyncHandler(async (req, res) => {
     // may need validation that the user.isDeactivated === false
@@ -334,7 +363,17 @@ router.get(
 ************************************************/
 router.get(
   "/:id(\\d+)/bookings",
+  requireAuth,
   asyncHandler(async (req, res) => {
+
+    if (req.user.roleId !== 1 || req.user.isDeactivated === true) {
+      const err = Error('Unauthorized');
+      err.status = 401;
+      err.message = 'Not authorized to get boookings on Kitchen'
+      err.title = 'Unauthorized'
+      throw err;
+    }
+
     const kitchenId = parseInt(req.params.id, 10);
     const bookings = await Booking.findAll({
       where: {
@@ -358,6 +397,16 @@ router.post(
   "/:id(\\d+)",
   requireAuth,
   asyncHandler(async (req, res) => {
+
+    if (req.user.roleId !== 2 || req.user.isDeactivated === true) {
+      const err = Error('Unauthorized');
+      err.status = 401;
+      err.message = 'Not authorized to create boooking on Kitchen'
+      err.title = 'Unauthorized'
+      throw err;
+    }
+
+
     const kitchenId = parseInt(req.params.id, 10)
     const kitchen = await Kitchen.findByPk(kitchenId);
     const {

@@ -41,8 +41,23 @@ window.addEventListener('DOMContentLoaded', async () => {
     let featuresHTML = ``;
     for (let i = 0; i < featuresData.features.length; i++) {
         const feature = featuresData.features[i]
-        featuresHTML += `<div><label for=${featureNames[i]}>${feature.feature}</label>
-                         <input type="checkbox" id=${featureNames[i]} name=${featureNames[i]} value=${feature.id}></div>
+        featuresHTML += `<div class='features__feature'>
+                            <div class='features__left'>
+                                <div class='features__img features__img-${featureNames[i]}'>
+                                    <img src="" alt=${featureNames[i]}>
+                                </div>
+                            </div>
+                            <div class='features__middle'>
+                                <div class='features__text features__text-${featureNames[i]}'>
+                                    <label for=${featureNames[i]}>${feature.feature}</label>
+                                </div>
+                            </div>
+                            <div class='features__right'>
+                                <div class='features__checkbox features__checkbox-${featureNames[i]}'>
+                                    <input type="checkbox" id=${featureNames[i]} name=${featureNames[i]} value=${feature.id}>
+                                </div>
+                            </div>
+                        </div>
                         `
     }
 
@@ -90,7 +105,7 @@ window.addEventListener('DOMContentLoaded', async () => {
             cityId: parseInt(formData.get('city'), 10),
             streetAddress: formData.get('address'),
             description: formData.get('description'),
-            hostId: 2, // change for future
+            hostId: parseInt(localStorage.getItem('AIRCNC_CURRENT_USER_ID'), 10), // change for future
             imgPath: secureUrlArray,
             rate: parseInt(formData.get('rate'), 10)
         }
@@ -106,7 +121,8 @@ window.addEventListener('DOMContentLoaded', async () => {
 
         const createKitchen = await fetch('http://localhost:8080/kitchens', {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('AIRCNC_ACCESS_TOKEN')}`
             },
             method: 'POST',
             body: JSON.stringify(kitchenBody)

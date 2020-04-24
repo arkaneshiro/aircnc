@@ -12,34 +12,41 @@ app.get('/', (req, res) => {
 })
 
 app.get('/listings', (req, res) => {
-        res.render('listingMain');
-    })
+    res.render('listingMain');
+})
 
 app.get('/listings/create', (req, res) => {
     res.render('createKitchen');
-});
+})
 
 app.get('/profile', (req, res) => {
     res.render('profile')
-});
+})
 
 app.get('/dashboard', (req, res) => {
     res.render('dashboard')
 });
 
 app.get('/bookings/(:id(\\d+))', (req, res) => {
-    // localStorage.setItem("AIRCNC_CURRENT_BOOKING", req.params.id)
+                // localStorage.setItem("AIRCNC_CURRENT_BOOKING", req.params.id)
     res.render('bookings')
-});
+})
 
-/*******************************************
- *  Route '/kitchen/:id'
- *      GET endpoint
- *          - renders kitchen details page
- *          - API call to GET '/kitchen/:id'
- *******************************************/
+// ****************************************
+// *  Route '/kitchen/:id'
+// *      GET endpoint
+// *          - renders kitchen details page
+// *          - API call to GET '/kitchen/:id'
+// *******************************************/
+
+
 app.get('/kitchen/:id(\\d+)', (req, res) => {
     res.render('kitchen-details');
-});
+})
+
+app.get('/listings/:id(\\d+)/checkout', (req, res) => {
+    res.render('listing-checkout')
+ });
+        
 
 app.listen(4000, () => console.log(`Listening on port 4000...`));
