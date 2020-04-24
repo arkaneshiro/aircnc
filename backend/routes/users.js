@@ -77,7 +77,7 @@ router.post(
     }
 
     const token = getUserToken(user);
-    res.json({ token, user: { id: user.id } });
+    res.json({ token, user: { id: user.id, role: user.roleId } });
   })
 );
 
@@ -214,7 +214,6 @@ router.post('/:id(\\d+)/reviews', requireAuth, guestReviewValidation, handleVali
 //returns all of guest bookings
 router.get('/:id(\\d+)/bookings', requireAuth, asyncHandler(async (req, res) => {
   const guest = await User.findByPk(req.params.id);
-  console.log(req.user.id, guest.id);
   if (!guest || guest.roleId !== 2 || req.user.id !== guest.id) {
     const err = Error('Unauthorized');
     err.status = 401;
@@ -224,7 +223,9 @@ router.get('/:id(\\d+)/bookings', requireAuth, asyncHandler(async (req, res) => 
   }
 
   const guestBookings = await Booking.findAll({
+    include: { model: Kitchen },
     where: { renterId: guest.id }
+
   });
 
   res.json({ guestBookings });
@@ -238,7 +239,6 @@ router.get('/:id(\\d+)/bookings', requireAuth, asyncHandler(async (req, res) => 
  *****************************/
 router.get('/:id(\\d+)/kitchens/bookings', requireAuth, asyncHandler(async (req, res) => {
   const host = await User.findByPk(req.params.id);
-  console.log(host);
   if (!host || host.roleId !== 1 || req.user.id !== host.id) {
     const err = Error('Unauthorized');
     err.status = 401;

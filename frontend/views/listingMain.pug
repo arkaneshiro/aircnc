@@ -10,22 +10,21 @@ html(lang="en")
         title Document
     body
         div.navListings
-        div
-            button(class="profile" href="http://profile") Profile
-            button(class="listingsButton" href="http://listings") Listings
-            button(class="logoutButton" href="http://log-out") Log out
-
-        form(action="/listings" method="get")
-            input(id="searchInput" type="search" class="searchBar" name="search" placeholder="search")
-            button(id="searchButton" type="submit") Search
-
-        #mapAndListings
-            #kitchenListings
-            div.mapContainer
-                #map
-        //- script
-        //-     include ../public/scripts/map.js
-        //- remove api key and replace with environmental variable
+            form(action="/listings" method="get")
+                input(id="searchInput" type="search" class="searchBar" name="search" placeholder="search")
+                    //- button(id="searchButton" type="submit") Search
+            div
+                button(class="profile" href="http://profile") Profile
+                button(class="listingsButton" href="http://listings") Listings
+                button(class="logoutButton" href="http://log-out") Log out
+        .mapContainer
+            #mapAndListings
+                #kitchenListings
+                .map-container
+                    #map
+        script
+            include ../public/scripts/map.js
+        //- //- remove api key and replace with environmental variable
         script(async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c&callback=initMap")
 
         //- body

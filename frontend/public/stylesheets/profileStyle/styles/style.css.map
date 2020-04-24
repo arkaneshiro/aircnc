@@ -3,7 +3,8 @@
     "mappings": "",
     "sources": [
         "style.sass",
-        "_variables.sass"
+        "_variables.sass",
+        "_utils.sass"
     ],
     "names": [],
     "file": "style.css"

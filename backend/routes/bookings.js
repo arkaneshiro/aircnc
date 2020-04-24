@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 // const bcrypt = require("bcryptjs");
-const { Booking } = require("../db/models");
+const { Booking, Kitchen } = require("../db/models");
 const { asyncHandler, handleValidationErrors } = require("../utils");
 const { getUserToken, requireAuth } = require("../auth");
 const { bookingNotFound, bookingValidation } = require("../validations");
@@ -19,14 +19,18 @@ router.get(
   "/:id(\\d+)",
   bookingValidation,
   asyncHandler(async (req, res, next) => {
-    const id = parseInt(req.params.id, 10);
-    const booking = await Booking.findByPk(id);
+    const bookingId = parseInt(req.params.id, 10);
+    const booking = await Booking.findAll({
+      include: { model: Kitchen },
+      where: { id: bookingId }
+    });
 
-    if (booking) {
-      res.json({ booking });
-    } else {
-      next(bookingNotFound(id));
+    if(!booking) {
+      next(bookingNotFound(id))
     }
+
+    res.json({ booking });
+
   }))
 
 /********************************
