@@ -189,11 +189,12 @@ router.get(
       sumOfRating += rating.dataValues.starRating;
     });
 
+    sumOfRating /= kitchenReviews.length;
     if (kitchen) {
       res.json({
         kitchen,
         kitchenFeatures,
-        starRating: sumOfRating / kitchenReviews.length,
+        starRating: (sumOfRating ? sumOfRating : 0),
         kitchenReviews
       });
     } else {

@@ -1,6 +1,6 @@
 body
-   margin: 0 auto 
-    
+    margin: 0 auto
+
 .navBar
     @include fontStyleWhite()
     background-color: $blue
@@ -11,14 +11,11 @@ body
 .profile, .listings, .logoutButton
     @include buttonStyle()
 
-
 .kitchenDetails__row-1__staticMap
-   
 
 .kitchenDetails__row-1
     display: flex
-    
-    
+
 .kitchenDetails__row-1__info
     display: flex
     flex-direction: column
@@ -26,8 +23,17 @@ body
     justify-content: center
     align-content: center
     margin-top: 80px
-    
-    
+
+.kitchenDetails__row-2
+    display: flex
+    flex-direction: column
+    justify-content: space-evenly
+    width: 80%
+
+.kitchenDetails__row-2__images > img
+    width: 300px
+    height: 275px
+
 .kitchenDetails__info__name, .kitchenDetails__info__star-rating, .kitchenDetails__info__rate
     @include fontStyle()
     font-size: 30px
@@ -37,7 +43,6 @@ body
     outline: none
     text-align: center
     width: 40%
-    
 
 .kitchenDetails__info_button-bookings
     @include buttonStyleBlue()
@@ -51,4 +56,3 @@ body
     display: flex
     justify-content: center
     width: 53%
-    
