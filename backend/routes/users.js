@@ -41,7 +41,7 @@ router.post(
 
     const token = getUserToken(user);
     res.status(201).json({
-      user: { id: user.id },
+      user: { id: user.id, role: user.roleId },
       token
     });
   })
