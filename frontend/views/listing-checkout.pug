@@ -6,9 +6,18 @@ html(lang="en")
         script( src='/scripts/listing-checkout.js')
         title Listing Checkout
     body
+        div.navListings
+            button(class="listingsButton" href="/kitchens") Listings
+            button(class="logoutButton" href="/") Log out
         div.bookings-form
             form(action="", id='bookings-form')
-                div.left
-                    div.calendar
+                div.bookings-form__left
+                    div.bookings-form__calendar
                         //- put calendar stuff in here?
-                div.right
+                div.bookings-form__right
+                    div.right__top
+                        div(class="bookings-form__img", id="bookings-form__img")
+                            //- image goes here
+                    div.right__bottom
+                        div.bookings-form__button
+                            button(type='submit')
