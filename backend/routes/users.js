@@ -7,8 +7,9 @@ const { getUserToken, requireAuth } = require("../auth");
 const { validateUserSignUp, validateUsernameAndPassword, userNotFound, guestReviewValidation } = require("../validations");
 
 /********************************
- *  Route '/users/'
+ *  Route '/users'
  *    POST Endpoint
+ *      - creates new user
  *      - creates hashedPassword
  *      - creates new user in DB
  *      - creates a JWT token
@@ -40,7 +41,7 @@ router.post(
 
     const token = getUserToken(user);
     res.status(201).json({
-      user: { id: user.id },
+      user: { id: user.id, role: user.roleId },
       token
     });
   })

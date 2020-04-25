@@ -1,5 +1,7 @@
 'use strict';
 
+const faker = require('faker');
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Kitchens', [
@@ -84,6 +86,62 @@ module.exports = {
         rate: 125,
         lat: 37.7906153,
         lng: -122.3895871,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: 'Modern New York Kitchen',
+        cityId: 1,
+        stateId: 32,
+        streetAddress: '3095 Hoffman Avenue',
+        hostId: 2,
+        description: 'Modern kitchen with lots of appliances',
+        imgPath: ['https://res.cloudinary.com/aircncaa/image/upload/v1587509948/dahtbdfnui4v2pvyxhvd.jpg'],
+        rate: 150,
+        lat: 40.712914,
+        lng: -73.7285039,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: 'Arts and Crafts Kitchen',
+        cityId: 15,
+        stateId: 5,
+        streetAddress: '1674 Boring Lane',
+        hostId: 3,
+        description: 'Kitchen with lots of utensils for baking!',
+        imgPath: ['https://res.cloudinary.com/aircncaa/image/upload/v1587509948/dahtbdfnui4v2pvyxhvd.jpg'],
+        rate: 150,
+        lat: 37.724277,
+        lng: -122.513077,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: 'Contemporary Kitchen',
+        cityId: 15,
+        stateId: 5,
+        streetAddress: '137 Clifford Street',
+        hostId: 2,
+        description: 'Contemporary kitchen designs date from the 1940s to the present, and trace many of their stylistic origins in Europe.',
+        imgPath: ['https://res.cloudinary.com/aircncaa/image/upload/v1587509948/dahtbdfnui4v2pvyxhvd.jpg'],
+        rate: 150,
+        lat: 40.7199023,
+        lng: -73.99914260000001,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: 'Country Kitchen',
+        cityId: 19,
+        stateId: 6,
+        streetAddress: '3647 Leo Street',
+        hostId: 3,
+        description: 'Kitchen you would find on a ranch. Smells like cow shit.',
+        imgPath: ['https://res.cloudinary.com/aircncaa/image/upload/v1587509948/dahtbdfnui4v2pvyxhvd.jpg'],
+        rate: 150,
+        lat: 39.682041,
+        lng: -105.067307,
         createdAt: new Date(),
         updatedAt: new Date()
       },
