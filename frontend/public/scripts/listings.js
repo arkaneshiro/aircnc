@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // document.querySelector("form")
   document.getElementById("searchInput")
     .addEventListener("keypress", async ev => {
-      
+
       if (ev.key === 'Enter') {
         ev.preventDefault()
         search = document.getElementById("searchInput").value;
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           {
             method: "POST",
             headers: {
-              // "authorization": `Bearer ${userId}`,
+              "authorization": `Bearer ${localStorage.getItem('AIRCNC_ACCESS_TOKEN')}`,
               "Content-Type": "application/json"
             },
             body: JSON.stringify({ search })
@@ -89,11 +89,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             <img src="/images/${i + 1}.jpeg">
           </div>
           <div class="listing-info-container">
-            <div class="kitchenListing__userInfo">
-              ${obj.user.userName} ${obj.user.firstName} ${obj.user.lastName}
-            </div>
-            <div class="kitchenListing__starRating">
-              <span> Star Rating (${Math.floor(Math.random() * (5 + 2)) + 1})</span>
+            <div class="kitchenListing__topLine">
+              <div class="kitchenListing__userInfo">
+                ${obj.user.userName} ${obj.user.firstName} ${obj.user.lastName}
+              </div>
+                <div class="kitchenListing__starRating"> Star Rating (${Math.floor(Math.random() * (5 + 2)) + 1})</div>
             </div>
             <div class="kitchenListing__location">
               ${obj.streetAddress} ${obj.city.cityName} ${obj.state.stateName}
@@ -101,11 +101,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             <div class="kitchenListing__features">
               ${features}
             </div>
-            <div class="kitchenListing__wouldRentAgain">
-              ${Math.floor(Math.random() * (100))} people would rent again
-            </div>
-            <div class="kitchenListing__rate">
-              $${obj.rate}
+            <div class="kitchenListing__bottomLine">
+              <div class="kitchenListing__wouldRentAgain">
+                ${Math.floor(Math.random() * (100))} people would rent again
+              </div>
+              <div class="kitchenListing__rate">
+                $${obj.rate}
+              </div>
             </div>
           </div>
         </div>`;

@@ -1,19 +1,3 @@
-div.nav {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  min-height: 70px;
-  background-color: none;
-  padding-left: 80px;
-  padding-right: 80px;
-}
-
 a, .signupButton, .loginButton {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -54,5 +38,21 @@ body {
   height: 100vh;
   cursor: pointer;
   caret-color: #A68776;
+}
+
+div.nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  min-height: 70px;
+  background-color: none;
+  padding-left: 80px;
+  padding-right: 80px;
 }
 /*# sourceMappingURL=style.css.map */
