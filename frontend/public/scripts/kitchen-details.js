@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     let res = await fetch(`http://localhost:8080/kitchens/${kitchenId}`, {
       headers: {
+        'Authorization': `Bearer ${localStorage.getItem('AIRCNC_ACCESS_TOKEN')}`,
         "Content-Type": "application/json"
       }
     });
@@ -25,7 +26,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     } = await res.json();
 
     /*********************************
-     *  Contains 
+     *  Contains
      *    - kitchen.name
      *    - kitchen.reviews.starRating
      *    - kitchen.rate
