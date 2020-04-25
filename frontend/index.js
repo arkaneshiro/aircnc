@@ -20,7 +20,7 @@ app.get('/kitchens/create', (req, res) => {
 })
 
 app.get('/profile', (req, res) => {
-    res.render('profile');
+res.render('profile');
 });
 
 app.get('/bookings/(:id(\\d+))', (req, res) => {
@@ -63,7 +63,7 @@ app.get('/bookings/(:id(\\d+))', (req, res) => {
 app.get('/listings/:id(\\d+)/checkout', (req, res) => {
     res.render('listing-checkout')
 });
-       
+
 app.get('/set-time', (req, res) => {
     res.render('set-time');
 });
