@@ -27,7 +27,8 @@ window.addEventListener('DOMContentLoaded', async () => {
     cityDropDown.innerHTML = citiesListHTML;
 
     //display features to choose from
-    const featuresDiv = document.getElementById('features');
+    const featuresDivLeft = document.getElementById('features__left');
+    const featuresDivRight = document.getElementById('features__right');
     const features = await fetch('http://localhost:8080/tools/features')
     const featuresData = await features.json();
     //eleminates whitespace in feature for use in name attribute
@@ -35,16 +36,21 @@ window.addEventListener('DOMContentLoaded', async () => {
         return feature.feature.split(" ").join("");
     });
 
-
-
-
-    let featuresHTML = ``;
+    let featuresHTMLLeft = ``;
+    let featuresHTMLRight = ``;
+    let extraApplianceIndex = 50000;
     for (let i = 0; i < featuresData.features.length; i++) {
         const feature = featuresData.features[i]
-        featuresHTML += `<div class='features__feature'>
+        if (featureNames[i] === 'ExtraAppliances') {
+            featuresHTMLRight += `<div class='features__extra-appliances'>
+                                <h2>${feature.feature}</h2>
+                            </div>`
+            extraApplianceIndex = i;
+        } else if (i > extraApplianceIndex) {
+            featuresHTMLRight += `<div class='features__feature'>
                             <div class='features__left'>
                                 <div class='features__img features__img-${featureNames[i]}'>
-                                    <img src="" alt=${featureNames[i]}>
+                                    <img src="/images/feature-images/${featureNames[i]}.jpg" alt=${featureNames[i]}>
                                 </div>
                             </div>
                             <div class='features__middle'>
@@ -59,9 +65,31 @@ window.addEventListener('DOMContentLoaded', async () => {
                             </div>
                         </div>
                         `
+        } else {
+            featuresHTMLLeft += `<div class='features__feature'>
+                            <div class='features__left'>
+                                <div class='features__img features__img-${featureNames[i]}'>
+                                    <img src="/images/feature-images/${featureNames[i]}.jpg" alt=${featureNames[i]}>
+                                </div>
+                            </div>
+                            <div class='features__middle'>
+                                <div class='features__text features__text-${featureNames[i]}'>
+                                    <label for=${featureNames[i]}>${feature.feature}</label>
+                                </div>
+                            </div>
+                            <div class='features__right'>
+                                <div class='features__checkbox features__checkbox-${featureNames[i]}'>
+                                    <input type="checkbox" id=${featureNames[i]} name=${featureNames[i]} value=${feature.id}>
+                                </div>
+                            </div>
+                        </div>
+                        `
+        }
+
     }
 
-    featuresDiv.innerHTML = featuresHTML;
+    featuresDivLeft.innerHTML = featuresHTMLLeft;
+    featuresDivRight.innerHTML = featuresHTMLRight;
 
 
 
@@ -135,9 +163,9 @@ window.addEventListener('DOMContentLoaded', async () => {
         //logic to check if check boxes have beeen checked
         for (let i = 0; i < featureNames.length; i++) {
             let checkBox = document.getElementById(featureNames[i]);
-            console.log('in main for');
+
             if (checkBox.checked) {
-                console.log('in if statement');
+
                 const featureBody = {
                     kitchenId,
                     featureId: parseInt(formData.get(featureNames[i]))

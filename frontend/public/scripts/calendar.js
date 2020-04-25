@@ -98,11 +98,28 @@ const kitchenDetails = async () => {
 
   const { kitchen } = await res.json();
   console.log(kitchen);
-  // let imgHTML = '';
+
+  document.querySelector(".bookings-form__left-top").innerHTML = `
+    <div class=".bookings-form__left-top__kitchen-name">
+      ${kitchen.name}
+    </div>
+    <div class=".bookings-form__left-top__kitchen-address">
+      ${kitchen.streetAddress}
+    </div>
+    <div class=".bookings-form__left-top__kitchen-city">
+      ${kitchen.city.cityName}
+    </div>
+    <div class=".bookings-form__left-top__kitchen-state">
+      ${kitchen.state.stateName}
+    </div>
+  `;
+
+
+  let imgHTML = `<img src="http://maps.googleapis.com/maps/api/staticmap?center=${kitchen.lat},${kitchen.lng}&zoom=12&size=375x350&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c">`;
   // kitchen.imgPath.forEach((img, i) => {
   //   imgHTML += `<img id="bookings-form__img-${i + 1}" src="${img}">`;
   // });
-  // document.querySelector(".bookings-form__imgs").innerHTML = imgHTML;
+  document.querySelector(".bookings-form__imgs").innerHTML = imgHTML;
 
 
 };
@@ -194,7 +211,7 @@ document.querySelector(".checkout__submit-booking")
         throw res;
       }
 
-      window.location.href = '/listings/1/checkout';
+      window.location.href = '/listings';
     } catch (err) {
       console.error(err);
     }
