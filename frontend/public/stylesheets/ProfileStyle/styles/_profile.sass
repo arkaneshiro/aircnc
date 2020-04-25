@@ -1,0 +1,48 @@
+body
+    margin: 0 auto
+
+h1
+    display: flex
+    justify-content: center
+    @include fontStyle()
+
+.listingsButton, .logoutButton
+    @include buttonStyle()
+    
+
+.navListings
+    display: flex
+    flex-direction: row
+    justify-content: flex-end
+    background-color: $blue
+    // height: 8%
+    // width: 100%
+
+.bookings
+    display: flex
+    flex-direction: columns
+    justify-content: space-between
+    @include fontStyle()
+    width: 60%
+    padding: 10px
+    margin-left: 30px
+
+
+// .past-booking__header:last-child
+//     color: $white
+
+.currentBookings, .past-booking__header
+    justify-content: flex-end
+    font-size: 20px
+    font-weight: bold
+
+
+.details-booking-1, .details-booking-5
+    @include fontStyle()
+    padding: 10px
+
+.past-booking-confirmed, .past-booking-kitchen-name
+    padding: 10px
+#booking-5, #booking-1
+    padding: 10px 10px 30px 10px
+    border-bottom: 1px solid $blue

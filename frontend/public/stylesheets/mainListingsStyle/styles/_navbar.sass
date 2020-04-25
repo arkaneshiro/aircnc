@@ -13,8 +13,7 @@ body
     outline: none
 
 .searchBox
-    // display: flex
-    // align-content: center
+
 
 
 .searchBar
@@ -24,48 +23,33 @@ body
     border: none
     outline: none
     // width: 25%
-    border: 1.25px solid $blue
+    border: 1.25px solid $white
     border-radius: 5px
     height: 30px
     margin-top: 10px auto
     font-size: 20px
     margin-left: 15px
+    color: $white
+    
     
     
 
 .profile, .listingsButton, .logoutButton
     &:hover
-        border-radius: 30px
-        border: 1.25px solid $blue
-        // box-shadow: 2px 2px 2px $taupe
-            // text-decoration: underline
-            // height: 10px
-            // padding: 0px 16px
-    text-align: center
-    font-size: 19px
-    font-family: $mainFont
-    color: $blue
-    text-decoration: none
-    height: 100%
-    box-sizing: border-box
-    height: 50px
-    padding: 5px 16px
-    -webkit-appearance: none
-    background: none
-    border: none
-    outline: none
-    font-weight: 400
+    @include buttonShadow()
+    @include buttonStyle()
+    color: $white
 
-// .searchButton::after
-//     content: "/U+1F50E"
+
     
 
 .navListings 
     display: flex
     width: 100%
+    height: 9%
     justify-content: space-between
     position: fixed
-    background-color: $white
+    background-color: $blue
     z-index: 100
     border-bottom: 1px solid #3b3b3bcc
     
