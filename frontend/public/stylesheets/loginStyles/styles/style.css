@@ -64,6 +64,7 @@ form {
   width: 80%;
   margin: 15px auto;
   font-weight: 400;
+  outline: none;
 }
 
 .password {
