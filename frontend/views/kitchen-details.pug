@@ -8,12 +8,19 @@ html(lang="en")
     .navListings
 
     .kitchenDetails
-      .kitchenDetails__info
-      .kitchenDetails__staticMap
-      .kitchenDetails__images
-      .kitchenDetails__detailsHostBio
-      .kitchenDetails__features
-      .kitchenDetails__reviews
+      .kitchenDetails__row-1
+        .kitchenDetails__row-1__info
+        .kitchenDetails__row-1__staticMap
+      .kitchenDetails__row-2
+        .kitchenDetails__row-2__images
+      .kitchenDetails__row-3
+        .kitchenDetails__row-3__detailsHostBio
+      .kitchenDetails__row-4
+        .kitchenDetails__row-4__features
+      .kitchenDetails__row-5
+        .kitchenDetails__row-5__reviews
 
+    script
+      include ../public/scripts/utils.js
     script
       include ../public/scripts/kitchen-details.js
