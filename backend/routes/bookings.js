@@ -20,12 +20,12 @@ router.get(
   bookingValidation,
   asyncHandler(async (req, res, next) => {
     const bookingId = parseInt(req.params.id, 10);
-    const booking = await Booking.findAll({
+    const booking = await Booking.findOne({
       include: { model: Kitchen },
       where: { id: bookingId }
     });
 
-    if(!booking) {
+    if (!booking) {
       next(bookingNotFound(id))
     }
 

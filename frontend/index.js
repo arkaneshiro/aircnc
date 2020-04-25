@@ -9,40 +9,63 @@ app.set("view engine", "pug");
 
 app.get('/', (req, res) => {
     res.render('home')
-})
+});
 
 app.get('/listings', (req, res) => {
     res.render('listingMain');
-})
+});
 
 app.get('/kitchens/create', (req, res) => {
     res.render('createKitchen');
 })
 
 app.get('/profile', (req, res) => {
-    res.render('profile')
-})
+    res.render('profile');
+});
 
 app.get('/bookings/(:id(\\d+))', (req, res) => {
-                // localStorage.setItem("AIRCNC_CURRENT_BOOKING", req.params.id)
-    res.render('bookings')
-})
+    res.render('bookings');
+});
 
-// ****************************************
-// *  Route '/kitchen/:id'
-// *      GET endpoint
-// *          - renders kitchen details page
-// *          - API call to GET '/kitchen/:id'
-// *******************************************/
-
-
-app.get('/kitchen/:id(\\d+)', (req, res) => {
+app.get('/signup', (req, res) => {
+    res.render('sign-up');
+});
+/*******************************************
+ *  Route '/kitchen/:id'
+ *      GET endpoint
+ *          - renders kitchen details page
+ *          - API call to GET '/kitchen/:id'
+ *******************************************/
+app.get('/listings/:id(\\d+)', (req, res) => {
+    res.cookie("kitchenId", req.params.id);
     res.render('kitchen-details');
-})
+});
+
+app.get('/bookings/:id(\\d+)/guestReview', (req, res) => {
+    res.cookie("id", req.params.id);
+    res.render('guest-review');
+});
+
+app.get('/bookings/:id(\\d+)/kitchenReview', (req, res) => {
+    res.cookie("bookingId", req.params.id);
+    res.render('kitchen-review')
+});
+
+app.get('/calendar', (req, res) => {
+    res.render('calendar');
+});
+
+app.get('/bookings/(:id(\\d+))', (req, res) => {
+    // localStorage.setItem("AIRCNC_CURRENT_BOOKING", req.params.id)
+    res.render('bookings')
+});
 
 app.get('/listings/:id(\\d+)/checkout', (req, res) => {
     res.render('listing-checkout')
- });
-        
+});
+       
+app.get('/set-time', (req, res) => {
+    res.render('set-time');
+});
 
 app.listen(4000, () => console.log(`Listening on port 4000...`));

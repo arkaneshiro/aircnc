@@ -1,0 +1,24 @@
+include includes/utils.pug
+
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Guest Review
+  body
+    .guest-review
+      form(class="guest-review-form")
+        label(for="starRating") Star Rating
+        select(id="starRating" class="guest-review-form__starRating" name="starRating" required)
+          option(value=1) 1
+          option(value=2) 2
+          option(value=3) 3
+          option(value=4) 4
+          option(value=5) 5
+        +createInput("checkbox", "wouldHostAgain", "guest-review-form__wouldHostAgain", "wouldHostAgain", "Would Host Again?", false, false)
+        +createInput("text", "comment", "guest-review-form__comment", "comment", "Comments", false, true)
+        button(type="submit") Submit
+    script
+      include ../public/scripts/utils.js
+    script(src="/scripts/guest-review.js")

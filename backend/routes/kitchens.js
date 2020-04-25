@@ -52,7 +52,8 @@ router.get(
         },
         {
           model: KitchenReview,
-          as: "kitchenReview"
+          as: "kitchenReview",
+          attributes: ["starRating", "wouldRentAgain"]
         },
       ],
       order: [["createdAt", "DESC"]] // displaying newest kitchen listings first
@@ -129,6 +130,7 @@ router.post(
       lat,
       lng
     });
+
     res.status(201).json({ kitchen });
   })
 );
@@ -149,24 +151,35 @@ router.get(
     const kitchenId = parseInt(req.params.id, 10);
     const kitchen = await Kitchen.findByPk(kitchenId)
     const kitchenFeatures = await KitchenFeature.findAll({
+      include: [{
+        model: Feature,
+        as: "feature",
+        attributes: ["feature"],
+      }],
       where: {
-
+        kitchenId
       }
-    })
-    const starRatings = await KitchenReview.findAll({
+    });
+
+    const kitchenReviews = await KitchenReview.findAll({
       where: {
         kitchenId
       },
-      attributes: ["starRating"]
+      attributes: ["starRating", "comment"]
     });
 
     let sumOfRating = 0;
-    starRatings.forEach(rating => {
+    kitchenReviews.forEach(rating => {
       sumOfRating += rating.dataValues.starRating;
     });
 
     if (kitchen) {
-      res.json({ kitchen, starRating: sumOfRating / starRatings.length });
+      res.json({
+        kitchen,
+        kitchenFeatures,
+        starRating: sumOfRating / kitchenReviews.length,
+        kitchenReviews
+      });
     } else {
       next(kitchenNotFound(id));
     }
@@ -215,24 +228,7 @@ router.post(
   asyncHandler(async (req, res, next) => {
     // what are we searching on?
 
-    // general search
-    // const search = req.query.search;
     const { search } = req.body;
-    // search = search.split(" ").join("+");
-    console.log(search);
-    // can search by city if we have a city input or drop down
-    // const city = req.query.city;
-    // let loc;
-    // try {
-    //   loc = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${search}&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c`);
-    //   loc = await loc.json();
-    //   loc = loc.results[0].geometry.bounds.northeast;
-    //   console.log(loc);
-    // } catch (err) {
-    //   next(err);
-    // }
-    // const lat = loc.lat;
-    // const lng = loc.lng;
 
     const kitchens = await Kitchen.findAll({
       include: [
@@ -429,11 +425,11 @@ router.post(
       kitchenId,
       startDate,
       endDate,
-      isConfirmed: false,
+      isConfirmed: true,
       renterId: req.user.id
     });
 
-    res.json({ booking });
+    res.status(201).json({ booking });
     // } else {
     //   next(handleBookingErrors);
     // }
