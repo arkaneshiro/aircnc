@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             window.location.href = "/profile";
             return;
         }
-        const currentBooking = booking[0]
+        const currentBooking = booking
 
         // these are the queryselectors for the sections on the page, and the destructuring of the properties to be displayed
         const bookingDetail = document.querySelector(".booking-detail-container")
