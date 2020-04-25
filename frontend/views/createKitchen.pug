@@ -4,6 +4,8 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         script(src="/scripts/create-kitchen.js")
+        style 
+            include ../public/stylesheets/createKitchenStyles/styles/style.css
         title Create a Kitchen
     body
         div.create-navbar
@@ -15,28 +17,30 @@ html(lang="en")
                 div.kitchen-form__top
                     div.kitchen-form__top-left
                         div.kitchen-form__name-input
-                            label(for="name") Name
-                            input(type = 'text', name='name')
+                            label.kitchen-form__label(for="name") Name
+                            input.kitchen-form__text-input(type = 'text', name='name')
                         div.kitchen-form__state-input
-                            label(for="state") Select State
+                            label.kitchen-form__label(for="state") Select State
                             select(name="state", id='states')
                         div.kitchen-form__city-input
-                            label(for="city") Select City
+                            label.kitchen-form__label(for="city") Select City
                             select(name="city", id='cities')
                         div.kitchen-form__address-input
-                            label(for="address") Address
-                            input(type = 'text', name='address')
+                            label.kitchen-form__label(for="address") Address
+                            input.kitchen-form__text-input(type = 'text', name='address')
                         div.kitchen-form__rate-input
-                            label(for="rate") Rate
-                            input(type="number", name='rate')
+                            label.kitchen-form__label(for="rate") Rate
+                            input.kitchen-form__text-input(type="number", name='rate')
                     div.kitchen-form__top-right
                         div.top-right__top
+                            div.kitchen-form__img-text
+                                label(for="file", class="imgFile") Upload Image
                             div.kitchen-form__img-input
-                                input(type='file', name='file' multiple, id='img-upload')
+                                input(type='file', name='file' multiple, class="imgButton" id='img-upload')
                         div.top-right__bottom
                             div.kitchen-form__description-input
-                                label(for="description") Description
-                                textarea(name="description", cols="30", rows="10", type='text')
+                                label(for="description", class="descriptionText") Description
+                                textarea(name="description", type='text', class= "descriptionTextArea")
                 div.kitchen-form__middle
                     div(id='features' class='features')
                 div.kitchen-form__bottom

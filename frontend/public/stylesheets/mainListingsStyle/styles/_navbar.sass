@@ -35,29 +35,10 @@ body
 
 .profile, .listingsButton, .logoutButton
     &:hover
-        border-radius: 30px
-        border: 1.25px solid $blue
-        // box-shadow: 2px 2px 2px $taupe
-            // text-decoration: underline
-            // height: 10px
-            // padding: 0px 16px
-    text-align: center
-    font-size: 19px
-    font-family: $mainFont
-    color: $blue
-    text-decoration: none
-    height: 100%
-    box-sizing: border-box
-    height: 50px
-    padding: 5px 16px
-    -webkit-appearance: none
-    background: none
-    border: none
-    outline: none
-    font-weight: 400
+    @include buttonShadow()
+    @include buttonStyle()
 
-// .searchButton::after
-//     content: "/U+1F50E"
+
     
 
 .navListings 
