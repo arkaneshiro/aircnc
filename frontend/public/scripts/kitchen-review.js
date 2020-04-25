@@ -1,42 +1,46 @@
-const guestReview = document.querySelector(".kitchen-review-form");
+const kitchenReview = document.querySelector(".kitchen-review-form");
 
-const getCookie = (cname) => {
-  let name = cname + "=";
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(';');
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-};
-
-guestReview.addEventListener("submit", async (ev) => {
+kitchenReview.addEventListener("submit", async (ev) => {
   ev.preventDefault();
-  const formData = new FormData(guestReview);
+  const formData = new FormData(kitchenReview);
   const starRating = formData.get("starRating");
   const comment = formData.get("comment");
-  const guestId = getCookie("id"); // change
-  const authorId = 1; //localStorage.getItem("AIRCNC_CURRENT_USER_ID");
-  const wouldHostAgain = document.getElementById("wouldHostAgain");
-  const body = {
-    guestId,
-    starRating,
-    comment,
-    authorId,
-    wouldHostAgain: `${wouldHostAgain.checked ? true : false}`
-  };
+  const cleanRating = formData.get("cleanRating");
+  const bookingId = getCookie("bookingId");
+  const authorId = localStorage.getItem("AIRCNC_CURRENT_USER_ID");
+  const bearerToken = localStorage.getItem("AIRCNC_ACCESS_TOKEN");
+  const wouldRentAgain = document.getElementById("wouldRentAgain");
+  const featureBool = document.getElementById("featureBool");
 
   try {
-    const createReview = await fetch(`http://localhost:8080/users/${guestId}/reviews`, {
-      method: "POST",
+    let res = await fetch(`http://localhost:8080/bookings/${bookingId}`, {
       headers: {
         "Content-Type": "application/json"
+      }
+    });
+
+    if (!res.ok) {
+      throw res;
+    }
+
+    const { booking } = await res.json();
+    // if (booking.authorId !== authorId) throw Error("You cannot leave a review for this kitchen...");
+    const kitchenId = booking.kitchenId;
+    const body = {
+      kitchenId,
+      cleanRating,
+      starRating,
+      comment,
+      authorId,
+      wouldRentAgain: `${wouldRentAgain.checked ? true : false}`,
+      featureBool: `${featureBool.checked ? true : false}`
+    };
+
+    res = await fetch(`http://localhost:8080/kitchens/${kitchenId}/reviews`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${bearerToken}`
       },
       body: JSON.stringify(body)
     });
@@ -45,8 +49,8 @@ guestReview.addEventListener("submit", async (ev) => {
       throw res
     }
 
-    const res = res.json();
-    window.href.location = "/listings";
+    res = res.json();
+    // window.location.href = "/listings";
   } catch (err) {
     console.error(err);
   }

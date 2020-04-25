@@ -20,7 +20,7 @@ app.get('/kitchens/create', (req, res) => {
 });
 
 app.get('/profile', (req, res) => {
-    res.render('profile')
+    res.render('profile');
 });
 
 app.get('/bookings/(:id(\\d+))', (req, res) => {
@@ -36,17 +36,22 @@ app.get('/signup', (req, res) => {
  *          - renders kitchen details page
  *          - API call to GET '/kitchen/:id'
  *******************************************/                  
-app.get('/kitchens/:id(\\d+)', (req, res) => {
-        res.render('kitchen-details');              
+app.get('/listings/:id(\\d+)', (req, res) => {
+    res.cookie("kitchenId", req.params.id);
+            res.render('kitchen-details');              
         });
-
-app.get('/bookings/:id(\\d+)/review', (req, res) => {
+    
+app.get('/bookings/:id(\\d+)/guestReview', (req, res) => {
         res.cookie("id", req.params.id);
         res.render('guest-review');
-    });
+    }); 
 
-app.get('/kitchen/:id/review', (req, res) => {
-res.render('kitchen-review')
+app.get('/bookings/:id(\\d+)/kitchenReview', (req, res) => {
+    res.cookie("bookingId", req.params.id); res.render('kitchen-review')
+        });
+
+    app.get('/calendar', (req, res) => {
+        res.render('calendar');
     });
 
 app.listen(4000, () => console.log(`Listening on port 4000...`));

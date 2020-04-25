@@ -2,7 +2,7 @@ const signUpForm = document.querySelector(".sign-up-form");
 
 signUpForm.addEventListener("submit", async (ev) => {
   ev.preventDefault();
-
+  console.log("HERE!!!!!!!!!!!");
   const formData = new FormData(signUpForm);
   const body = {};
   for (let data of formData.entries()) {
@@ -29,13 +29,14 @@ signUpForm.addEventListener("submit", async (ev) => {
 
     const {
       token,
-      user: { id }
+      user: { id, role }
     } = await res.json();
 
-    localStorage.setItem("TWITTER_LITE_ACCESS_TOKEN", token);
-    localStorage.setItem("TWITTER_LITE_CURRENT_USER_ID", id);
+    localStorage.setItem("AIRCNC_ACCESS_TOKEN", token);
+    localStorage.setItem("AIRCNC_CURRENT_USER_ID", id);
+    localStorage.setItem("AIRCNC_CURRENT_USER_ROLE", role);
 
-    if (roleId === 1) {
+    if (role === 1) {
       window.location.href = '/dashboard'
     } else {
       window.location.href = '/listings'

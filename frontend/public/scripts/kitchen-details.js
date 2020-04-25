@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", async () => {
   // const kitchenId = localStorage.getItem("AIRCNC_KITCHEN_ID");
-  const kitchenId = 2;
+  const kitchenId = getCookie("kitchenId");
   try {
     let res = await fetch(`http://localhost:8080/kitchens/${kitchenId}`, {
       headers: {
@@ -30,7 +30,9 @@ document.addEventListener("DOMContentLoaded", async () => {
      *    - kitchen.reviews.starRating
      *    - kitchen.rate
      *********************************/
-    document.querySelector(".kitchenDetails__info").innerHTML = `
+    const roleId = localStorage.getItem("AIRCNC_CURRENT_USER_ROLE");
+
+    document.querySelector(".kitchenDetails__row-1__info").innerHTML = `
       <div class="kitchenDetails__info__name">
         ${kitchen.name}
       </div>
@@ -40,19 +42,22 @@ document.addEventListener("DOMContentLoaded", async () => {
       <div class="kitchenDetails__info__rate">
         ${kitchen.rate}
       </div>
+      <div class="kitchenDetails__info__button">
+        <button class="kitchenDetails__info_button-bookings">${roleId === '1' ? 'See All Bookings' : 'Book Now'}</button>
+      </div>
     `;
 
 
-    document.querySelector(".kitchenDetails__staticMap").innerHTML = `
+    document.querySelector(".kitchenDetails__row-1__staticMap").innerHTML = `
       <img src="http://maps.googleapis.com/maps/api/staticmap?center=${kitchen.lat},${kitchen.lng}&zoom=12&size=375x350&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c"> 
     `;
 
     let imgs = "";
-    kitchen.imgPath.forEach(img => {
-      imgs += `<img src="${img}>`
+    kitchen.imgPath.forEach((img, i) => {
+      imgs += `<img class="kitchenDetails__images-${i + 1} src="${img}>`
     });
 
-    document.querySelector(".kitchenDetails__images").innerHTML = imgs;
+    document.querySelector(".kitchenDetails__row-2__images").innerHTML = imgs;
 
     let features = "";
     kitchenFeatures.forEach(({ feature }) => {
@@ -63,7 +68,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       `
     });
 
-    document.querySelector(".kitchenDetails__features").innerHTML = features;
+    document.querySelector(".kitchenDetails__row-4__features").innerHTML = features;
 
     let kitchenReviewHTML = "";
     kitchenReviews.forEach(kitchenReview => {
@@ -73,7 +78,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       </div>`
     });
 
-    document.querySelector(".kitchenDetails__reviews").innerHTML = kitchenReviewHTML;
+    document.querySelector(".kitchenDetails__row-5__reviews").innerHTML = kitchenReviewHTML;
 
   } catch (err) {
     console.error(err);
