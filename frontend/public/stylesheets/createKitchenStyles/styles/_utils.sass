@@ -8,6 +8,11 @@
     font-family: $mainFont
     font-weight: 300
 
+@mixin fontStyleBold()
+    color: $blue
+    font-family: $mainFont
+    font-weight: bold
+
 @mixin fontStyleWhite()
     color: $white
     font-family: $mainFont
@@ -31,9 +36,7 @@
 
 @mixin buttonShadow()
     &:hover
-        border-radius: 30px
-        border: 1.25px solid $blue
-
-    
-
-    
+        border-radius: 15px
+        text-decoration: $white underline solid
+        padding-bottom: 5px
+        
