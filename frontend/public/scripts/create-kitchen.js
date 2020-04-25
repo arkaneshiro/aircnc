@@ -1,7 +1,11 @@
 //dont forget to set hostId in body to localStorage Id
-
+import { logOut, isLoggedIn, createListing, goToDashboard } from "./tools.js";
 //set up the form
 window.addEventListener('DOMContentLoaded', async () => {
+    isLoggedIn();
+    logOut();
+    createListing();
+    goToDashboard();
     const stateDropDown = document.getElementById('states');
     const cityDropDown = document.getElementById('cities');
 
