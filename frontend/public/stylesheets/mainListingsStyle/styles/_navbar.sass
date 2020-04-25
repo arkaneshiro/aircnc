@@ -13,8 +13,7 @@ body
     outline: none
 
 .searchBox
-    // display: flex
-    // align-content: center
+
 
 
 .searchBar
@@ -24,12 +23,14 @@ body
     border: none
     outline: none
     // width: 25%
-    border: 1.25px solid $blue
+    border: 1.25px solid $white
     border-radius: 5px
     height: 30px
     margin-top: 10px auto
     font-size: 20px
     margin-left: 15px
+    color: $white
+    
     
     
 
@@ -37,6 +38,7 @@ body
     &:hover
     @include buttonShadow()
     @include buttonStyle()
+    color: $white
 
 
     
@@ -44,9 +46,10 @@ body
 .navListings 
     display: flex
     width: 100%
+    height: 9%
     justify-content: space-between
     position: fixed
-    background-color: $white
+    background-color: $blue
     z-index: 100
     border-bottom: 1px solid #3b3b3bcc
     

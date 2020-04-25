@@ -1,4 +1,3 @@
-doctype html
 html(lang="en")
     head
         meta(charset="UTF-8")
@@ -8,10 +7,10 @@ html(lang="en")
         title Profile
     body
         div.navListings
-            a(class="listingsButton" href="/kitchens") Listings
-            a(class="logoutButton" href="/") Log out
+            button(type="submit" class="listingsButton") Listings
+            button(type="submit" class="logoutButton") Log out
         h1 Your Bookings
-        div
+        div.bookings
             div.pastBookings
             div.currentBookings
     script(src="/scripts/profile.js")

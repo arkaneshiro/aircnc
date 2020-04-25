@@ -1,3 +1,7 @@
+body
+    background-color: $white
+    margin: 0 auto
+
 .dashboard, .CreateListing, .logoutButton
    @include buttonStyle()
    @include buttonShadow()
@@ -5,6 +9,8 @@
 .create-navbar
     display: flex
     justify-content: flex-end
+    background-color: $blue
+    height: 10%
 
 .kitchen-form__top
     display: flex
@@ -103,6 +109,16 @@
 // .features__img > img
     height: 100%
     width: 100%
+.features
+    width: 50%
+
+.features__feature
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    width: 80%
+
+
 
 
 

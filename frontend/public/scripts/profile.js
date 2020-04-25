@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 if(isConfirmed){
                     return `
                 <div class="past-booking" id="booking-${id}">
+                    <div class="past-booking__header"> Past Bookings </div>
                     <div class="past-booking-kitchen-name"> ${name} </div>
                     <div class="past-booking-confirmed"> Confirmed! </div>
                     <a class="details-booking-${id}" href="/bookings/${id}">Details</a>
@@ -63,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 }
                 // Here is the code to add the image, once the images in the database makes sense: <img src="${imgPath[0]}">
             });
-        pastBookingsContainer.innerHTML = `Past Bookings ${pastBookHtml.join("")}`;
+        pastBookingsContainer.innerHTML = `${pastBookHtml.join("")}`;
 
         const currentBookingsContainer = document.querySelector(".currentBookings");
         const currentBookHtml = currentBookings.map(
