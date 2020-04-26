@@ -200,6 +200,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             </div>`;
         });
 
+
+        // generates options for review-options
         const reviewOptionsHtml = pastBookings.map(({
             Kitchen: { name },
             isConfirmed,

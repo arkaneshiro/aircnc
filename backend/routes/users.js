@@ -104,6 +104,10 @@ router.get(
         ]
       },
       {
+        model: User,
+        as: "user"
+      },
+      {
         model: City,
         as: "city",
         attributes: ["cityName"],

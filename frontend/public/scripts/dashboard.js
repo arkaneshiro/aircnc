@@ -1,11 +1,15 @@
 import { logOut, isLoggedIn, createListing, goToDashboard } from "./tools.js";
-const userId = localStorage.getItem("AIRCNC_CURRENT_USER_ID")
+const userId = localStorage.getItem("AIRCNC_CURRENT_USER_ID");
+const reviewSelector = document.getElementById("reviewSelector");
 const pastBookingsContainer = document.querySelector(".pastBookings");
 const currentBookingsContainer = document.querySelector(".currentBookings");
 const kitchensContainer = document.querySelector(".kitchens-container");
+const welcomeTextDiv = document.querySelector(".welcome-text");
+const guestReview = document.querySelector(".guest-review-form");
 
+// redirects users to /profile if they are a guest
 if (localStorage.getItem("AIRCNC_CURRENT_USER_ROLE") === 2) {
-    window.location.href = "/listings";
+    window.location.href = "/profile";
 }
 
 // event listener for cancel buttons
@@ -30,6 +34,60 @@ currentBookingsContainer.addEventListener("click", async () => {
     }
 })
 
+// event listener for review form submit
+guestReview.addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const formData = new FormData(guestReview);
+    const id = formData.get("reviewSelector");
+    const starRating = formData.get("starRating");
+    const comment = document.getElementById("comment").value;
+    const wouldHostAgain = document.getElementById("wouldHostAgain");
+    const bearerToken = localStorage.getItem("AIRCNC_ACCESS_TOKEN");
+
+    try {
+        let bookingData = await fetch(`http://localhost:8080/bookings/${id}`, {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!bookingData.ok) {
+            throw bookingData
+        }
+
+        const { booking } = await bookingData.json();
+
+        const body = {
+            guestId: booking.renterId,
+            starRating,
+            comment,
+            authorId: localStorage.getItem("AIRCNC_CURRENT_USER_ID"),
+            wouldHostAgain: `${wouldHostAgain.checked ? true : false}`
+        };
+
+        res = await fetch(`http://localhost:8080/users/${booking.renterId}/reviews`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${bearerToken}`
+            },
+            body: JSON.stringify(body)
+        });
+
+        if (!res.ok) {
+            throw res
+        }
+        res = await res.json();
+        window.location.href = "/dashboard";
+    } catch (err) {
+        console.error(err);
+    }
+
+});
+
+
+
+// DOMContentLoaded event listener makes fetch calls to get a hosts bookings and kitchens
 document.addEventListener("DOMContentLoaded", async () => {
     isLoggedIn();
     logOut();
@@ -55,8 +113,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             },
         });
 
+        //data returned from fetch calls
         const { kitchens: hostKitchens } = await res.json();
         const { hostBookings } = await resII.json();
+
+        // generate welcome text
+        const { user } = hostKitchens[0];
+        const { firstName, lastName } = user;
+        const welcomeHtml = `${firstName} ${lastName}'s Kitchens and Bookings`
 
         // generate kitchen details
         const kitchenDetailHtml = hostKitchens.map(({
@@ -100,7 +164,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             `
         });
 
-
         // divides bookings into current and past by comparing to today's date
         const pastBookings = [];
         const currentBookings = [];
@@ -124,12 +187,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             endDate }) => {
 
             let confirmation = '';
-            const startYear = startDate.substring(0,4);
-            const startMonth = startDate.substring(5,7);
-            const startDay = startDate.substring(8,10);
-            const endYear = endDate.substring(0,4);
-            const endMonth = endDate.substring(5,7);
-            const endDay = endDate.substring(8,10);
+            const startYear = startDate.substring(0, 4);
+            const startMonth = startDate.substring(5, 7);
+            const startDay = startDate.substring(8, 10);
+            const endYear = endDate.substring(0, 4);
+            const endMonth = endDate.substring(5, 7);
+            const endDay = endDate.substring(8, 10);
 
 
             if (isConfirmed) {
@@ -159,12 +222,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             let confirmation = '';
             let cancelButton = '';
-            const startYear = startDate.substring(0,4);
-            const startMonth = startDate.substring(5,7);
-            const startDay = startDate.substring(8,10);
-            const endYear = endDate.substring(0,4);
-            const endMonth = endDate.substring(5,7);
-            const endDay = endDate.substring(8,10);
+            const startYear = startDate.substring(0, 4);
+            const startMonth = startDate.substring(5, 7);
+            const startDay = startDate.substring(8, 10);
+            const endYear = endDate.substring(0, 4);
+            const endMonth = endDate.substring(5, 7);
+            const endDay = endDate.substring(8, 10);
 
             if (isConfirmed) {
                 confirmation = "Confirmed!";
@@ -185,11 +248,30 @@ document.addEventListener("DOMContentLoaded", async () => {
             </div>`;
         });
 
+        //generates options for review-options
+        const reviewOptionsHtml = pastBookings.map(({
+            Kitchen: { name },
+            isConfirmed,
+            startDate,
+            id }) => {
+
+            const startYear = startDate.substring(0, 4);
+            const startMonth = startDate.substring(5, 7);
+            const startDay = startDate.substring(8, 10);
+
+            if (isConfirmed) {
+                return `
+                <option class="review-option review-option-${id}" value="${id}"> ${name}, on: ${startMonth}/${startDay}/${startYear} </option>
+                `
+            }
+        });
 
         // setting generated html to innerHTML
         kitchensContainer.innerHTML = `${kitchenDetailHtml.join("")}`;
+        reviewSelector.innerHTML = `<option class="review-option review-option-desc" value="desc"> -- please choose a booking to review -- </option>${reviewOptionsHtml.join("")}`
         pastBookingsContainer.innerHTML = `<div class="past-booking-header"> Past Bookings </div> <div class="past-bookings">${pastBookHtml.join("")}</div>`;
         currentBookingsContainer.innerHTML = `<div class="current-booking-header"> Current Bookings </div> <div class="current-bookings">${currentBookHtml.join("")}</div>`;
+        welcomeTextDiv.innerHTML = welcomeHtml;
 
     } catch (e) {
         console.error(e);
