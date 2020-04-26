@@ -7,16 +7,20 @@ html(lang="en")
             //- include ../public/stylesheets/DashboardStyle/styles/style.css
         title Dashboard
     body
-        div.navListings
-            a(class="listingsButton" href="/listings") Listings
-            a(class="logoutButton" href="/") Log out
+        include includes/host-navbar.pug
         h1
-        div.host-kitchens
-        div.host-bookings
-            div.bookings-button-container
-                a(class="host-bookings-button" href="dashboard/bookings/") See all Bookings
-            div.bookings-container
-                div.pastBookings
-                div.currentBookings
+        div.dashboard-top
+            div.welcome-text
+        div.dashboard-middle
+            div.host-kitchens
+                div.kitchens-container-label Kitchens
+                div.kitchens-container
+            div.host-bookings
+                div.bookings-container-label Bookings
+                div.bookings-container
+                    div.pastBookings
+                    div.currentBookings
+        div.dashboard-bottom
+            div.host-review-form
 
-    script(src="/scripts/dashboard.js")
+    script(type="module" src="/scripts/dashboard.js")

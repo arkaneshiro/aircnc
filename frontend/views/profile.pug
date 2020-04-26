@@ -8,9 +8,7 @@ html(lang="en")
             include ../public/stylesheets/ProfileStyle/styles/style.css
         title Profile
     body
-        div.navListings
-            button(type="submit" class="listingsButton" id="listings-button") Listings
-            button(type="submit" class="logoutButton" id="logout-button") Log out
+        include includes/guest-navbar.pug
         h1 Your Bookings
         div.bookings
             div.bookings-top-half

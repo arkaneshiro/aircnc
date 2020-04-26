@@ -276,7 +276,20 @@ router.get('/:id(\\d+)/kitchens/bookings', requireAuth, asyncHandler(async (req,
   }
 
   const hostBookings = await Booking.findAll({
-    include: { model: Kitchen, where: { hostId: host.id } }
+    include: {
+      model: Kitchen,
+      include: [{
+        model: City,
+        as: "city",
+        attributes: ["cityName"],
+      },
+      {
+        model: State,
+        as: "state",
+        attributes: ["stateName"]
+      },],
+      where: { hostId: host.id }},
+      order: [['startDate', 'ASC']]
     // where: { kitchenId: Kitchen.id }
   });
 
