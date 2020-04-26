@@ -20,7 +20,7 @@ app.get('/kitchens/create', (req, res) => {
 })
 
 app.get('/profile', (req, res) => {
-    res.render('profile');
+res.render('profile');
 });
 
 app.get('/bookings/(:id(\\d+))', (req, res) => {
@@ -51,10 +51,6 @@ app.get('/bookings/:id(\\d+)/kitchenReview', (req, res) => {
     res.render('kitchen-review')
 });
 
-app.get('/calendar', (req, res) => {
-    res.render('calendar');
-});
-
 app.get('/bookings/(:id(\\d+))', (req, res) => {
     // localStorage.setItem("AIRCNC_CURRENT_BOOKING", req.params.id)
     res.render('bookings')
@@ -62,10 +58,6 @@ app.get('/bookings/(:id(\\d+))', (req, res) => {
 
 app.get('/listings/:id(\\d+)/checkout', (req, res) => {
     res.render('listing-checkout')
-});
-       
-app.get('/set-time', (req, res) => {
-    res.render('set-time');
 });
 
 app.listen(4000, () => console.log(`Listening on port 4000...`));
