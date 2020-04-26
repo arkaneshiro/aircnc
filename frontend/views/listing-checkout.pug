@@ -5,116 +5,120 @@ html(lang="en")
 		meta(name="viewport" content="width=device-width, initial-scale=1.0")
 		link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous")
 		title Listings Checkout
+		script(async defer type="module" src="/scripts/listings-checkout.js")
 		style
-			include ../public/stylesheets/loginStyles/styles/style.css
+			include ../public/stylesheets/ListingCheckoutStyles/styles/style.css
 		//- style
 		//- 	include ../public/stylesheets/KitchenDetailsStyle/styles/style.css
 	body
 		.navBar
-			button(class="listingsButton" href="/kitchens") Listings
-			button(class="logoutButton" href="/") Log out
+			button(id="profile-button" class="profile") Profile
+			button(id="listings-button" class="listingsButton" href="/kitchens") Listings
+			button(id="logout-button" class="logoutButton" href="/") Log out
 		.navListings
-		#booking-form.bookings-form.d-flex.flex-row.justify-content-around
-			.bookings-form__left.d-flex.flex-column
+		#booking-form.bookings-form
+			.bookings-form__left
 				#bookings-form__left-headerReview 
 				.bookings-form__left-top
 				.bookings-form__left-bottom
-					button(class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#bookings-form__calendar-container" aria-expanded="false") Choose booking time!
-				#bookings-form__calendar-container.card.collapse
-					h3#monthAndYear
-					table#calendar.table.table-striped
-						thead
-						tr
-							th Sun
-							th Mon
-							th Tue
-							th Wed
-							th Thu
-							th Fri
-							th Sat
-						tbody#calendar-body
+					.bookings-form__left-bottom__features
+					.bookings-form__left-bottom__calendar
+						button(class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#bookings-form__calendar-container" aria-expanded="false") Check Availability
+					#bookings-form__calendar-container.card.collapse
+						h3#monthAndYear
+						table#calendar.table.table-striped
+							thead
+							tr
+								th Sun
+								th Mon
+								th Tue
+								th Wed
+								th Thu
+								th Fri
+								th Sat
+							tbody#calendar-body
 
-					.bookings-form__calendar-pn.form-inline
-						button(id="previous" class="btn btn-outline-primary") Previous
-						button(id="next" class="btn btn-outline-primary") Next
-					.form-inline
-						label(for="month" class="lead mr-2 ml-2") Jump To:
-						select(id="month" class="form-control col-sm-4" name="month")
-							option(value="0") Jan
-							option(value="1") Feb
-							option(value="2") Mar
-							option(value="3") Apr
-							option(value="4") May
-							option(value="5") Jun
-							option(value="6") Jul
-							option(value="7") Aug
-							option(value="8") Sep
-							option(value="9") Oct
-							option(value="10") Nov
-							option(value="11") Dec
+						.bookings-form__calendar-pn.form-inline
+							button(id="previous" class="btn btn-outline-primary") Previous
+							button(id="next" class="btn btn-outline-primary") Next
+						.form-inline
+							label(for="month" class="lead mr-2 ml-2") Jump To:
+							select(id="month" class="form-control col-sm-4" name="month")
+								option(value="0") Jan
+								option(value="1") Feb
+								option(value="2") Mar
+								option(value="3") Apr
+								option(value="4") May
+								option(value="5") Jun
+								option(value="6") Jul
+								option(value="7") Aug
+								option(value="8") Sep
+								option(value="9") Oct
+								option(value="10") Nov
+								option(value="11") Dec
 
-						label(for="year")
-						select(id="year" class="form-control col-sm-4" name="year")
-							option(value=2020) 2020
-							option(value=2021) 2021
-							option(value=2022) 2022
-							option(value=2023) 2023
-							option(value=2024) 2024
+							label(for="year")
+							select(id="year" class="form-control col-sm-4" name="year")
+								option(value=2020) 2020
+								option(value=2021) 2021
+								option(value=2022) 2022
+								option(value=2023) 2023
+								option(value=2024) 2024
 
-						#set-time-form.booking-details__set-time.hidden
-							form(class="bookings__start-end-time")
-								label(for="startTime" class="bookings__start-end-time__label") Start Time
-								select(id="startTime" class="form-control" name="startTime")
-									option(value="05:00:00") 05:00AM
-									option(value="06:00:00") 06:00AM
-									option(value="07:00:00") 07:00AM
-									option(value="08:00:00") 08:00AM
-									option(value="09:00:00") 09:00AM
-									option(value="10:00:00") 10:00AM
-									option(value="11:00:00") 11:00AM
-									option(value="12:00:00") 12:00PM
-									option(value="13:00:00") 01:00PM
-									option(value="14:00:00") 02:00PM
-									option(value="15:00:00") 03:00PM
-									option(value="16:00:00") 04:00PM
-									option(value="17:00:00") 05:00PM
-									option(value="18:00:00") 06:00PM
-									option(value="19:00:00") 07:00PM
-									option(value="20:00:00") 08:00PM
-									option(value="21:00:00") 09:00PM
-									option(value="22:00:00") 10:00PM
-									option(value="23:00:00") 11:00PM
-								label(for="endTime" class="bookings__start-end-time__label") End Time
-								select(id="endTime" class="form-control" name="startTime")
-									option(value="06:00:00") 06:00AM
-									option(value="07:00:00") 07:00AM
-									option(value="08:00:00") 08:00AM
-									option(value="09:00:00") 09:00AM
-									option(value="10:00:00") 10:00AM
-									option(value="11:00:00") 11:00AM
-									option(value="12:00:00") 12:00PM
-									option(value="13:00:00") 01:00PM
-									option(value="14:00:00") 02:00PM
-									option(value="15:00:00") 03:00PM
-									option(value="16:00:00") 04:00PM
-									option(value="17:00:00") 05:00PM
-									option(value="18:00:00") 06:00PM
-									option(value="19:00:00") 07:00PM
-									option(value="20:00:00") 08:00PM
-									option(value="21:00:00") 09:00PM
-									option(value="22:00:00") 10:00PM
-									option(value="23:00:00") 11:00PM
-									option(value="23:00:00") 12:00AM
-								button(type="submit" id="confirmTime") Confirm Time
-			.bookings-form__right.d-flex.flex-column.justify-content-center
+							#set-time-form.booking-details__set-time.hidden
+								form(class="bookings__start-end-time")
+									label(for="startTime" class="bookings__start-end-time__label") Start Time
+									select(id="startTime" class="form-control" name="startTime")
+										option(value="05:00:00") 05:00AM
+										option(value="06:00:00") 06:00AM
+										option(value="07:00:00") 07:00AM
+										option(value="08:00:00") 08:00AM
+										option(value="09:00:00") 09:00AM
+										option(value="10:00:00") 10:00AM
+										option(value="11:00:00") 11:00AM
+										option(value="12:00:00") 12:00PM
+										option(value="13:00:00") 01:00PM
+										option(value="14:00:00") 02:00PM
+										option(value="15:00:00") 03:00PM
+										option(value="16:00:00") 04:00PM
+										option(value="17:00:00") 05:00PM
+										option(value="18:00:00") 06:00PM
+										option(value="19:00:00") 07:00PM
+										option(value="20:00:00") 08:00PM
+										option(value="21:00:00") 09:00PM
+										option(value="22:00:00") 10:00PM
+										option(value="23:00:00") 11:00PM
+									label(for="endTime" class="bookings__start-end-time__label") End Time
+									select(id="endTime" class="form-control" name="startTime")
+										option(value="06:00:00") 06:00AM
+										option(value="07:00:00") 07:00AM
+										option(value="08:00:00") 08:00AM
+										option(value="09:00:00") 09:00AM
+										option(value="10:00:00") 10:00AM
+										option(value="11:00:00") 11:00AM
+										option(value="12:00:00") 12:00PM
+										option(value="13:00:00") 01:00PM
+										option(value="14:00:00") 02:00PM
+										option(value="15:00:00") 03:00PM
+										option(value="16:00:00") 04:00PM
+										option(value="17:00:00") 05:00PM
+										option(value="18:00:00") 06:00PM
+										option(value="19:00:00") 07:00PM
+										option(value="20:00:00") 08:00PM
+										option(value="21:00:00") 09:00PM
+										option(value="22:00:00") 10:00PM
+										option(value="23:00:00") 11:00PM
+										option(value="23:00:00") 12:00AM
+									button(type="submit" id="confirmTime") Confirm Time
+			.bookings-form__right
 				.bookings-form__right-top
-					.bookings-form__imgs.d-flex.justify-content-end
+					.bookings-form__imgs
 				.bookings-form__right-bottom
+					.bookings-form__right-bottom-checkout-total
 					.bookings-form__submit-button
 						form(class="checkout__submit-booking")
-							button(class="btn btn-primary" type="submit") Book!
+							button(id="bookings-form__right-bottom-submit" class="btn btn-primary" type="submit") Book!
 					//- script(async defer src="/scripts/listing-checkout.js")
-		script(async defer src="/scripts/listings-checkout.js")
 		script(src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous")
 		script(src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous")
 		script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous")

@@ -204,6 +204,10 @@ body {
   padding-top: 20px;
 }
 
+.kitchenListing__userInfo-link {
+  text-decoration: none;
+}
+
 body {
   background-color: #ffffff;
 }
