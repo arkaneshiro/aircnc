@@ -1,3 +1,5 @@
+include includes/utils.pug
+
 html(lang="en")
     head
         meta(charset="UTF-8")
@@ -7,11 +9,42 @@ html(lang="en")
         title Profile
     body
         div.navListings
-            button(type="submit" class="profile") Profile
-            button(type="submit" class="listingsButton") Listings
-            button(type="submit" class="logoutButton") Log out
+            button(type="submit" class="listingsButton" id="listings-button") Listings
+            button(type="submit" class="logoutButton" id="logout-button") Log out
         h1 Your Bookings
         div.bookings
-            div.pastBookings
-            div.currentBookings
-    script(src="/scripts/profile.js")
+            div.bookings-top-half
+                div.pastBookings
+                div.currentBookings
+            div.bookings-bottom-half
+                div.kitchen-review
+                    form.kitchen-review-form
+                        form(class="kitchen-review-form")
+                            div.review-selector-container
+                                label(for="reviewSelector") Booking
+                                select(id="reviewSelector" class="kitchen-review-form__reviewSelector" name="reviewSelector" required)
+                            div.start-rating-container
+                                label(for="starRating") Star Rating
+                                select(id="starRating" class="kitchen-review-form__starRating" name="starRating" required)
+                                    option(value=1) 1
+                                    option(value=2) 2
+                                    option(value=3) 3
+                                    option(value=4) 4
+                                    option(value=5) 5
+                            div.clean-rating-container
+                                label(for="cleanRating") Cleanliness Rating
+                                select(id="cleanRating" class="kitchen-review-form__cleanRating" name="cleanRating" required)
+                                    option(value=1) 1
+                                    option(value=2) 2
+                                    option(value=3) 3
+                                    option(value=4) 4
+                                    option(value=5) 5
+                            div.feature-bool-container
+                                +createInput("checkbox", "featureBool", "kitchen-review-form__featureBool", "featureBool", "As Described", false, false)
+                            div.wouldRentAgain-container
+                                +createInput("checkbox", "wouldRentAgain", "kitchen-review-form__wouldRentAgain", "wouldRentAgain", "Would Rent Again", false, false)
+                            div.comment-container
+                                +createInput("text", "comment", "comment", "kitchen-review-form__comment", "comment", "Comments", true, true)
+                            div.submit-button-container
+                                button(type="submit") Submit
+    script(type="module" src="/scripts/profile.js")

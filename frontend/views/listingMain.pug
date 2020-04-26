@@ -5,7 +5,7 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         script
             include ../public/scripts/listings.js
-        style 
+        style
             include ../public/stylesheets/mainListingsStyle/styles/style.css
         title Document
     body
@@ -18,30 +18,10 @@ html(lang="en")
                 button(class="profile" href="http://profile") Profile
                 button(class="listingsButton" href="http://listings") Listings
                 button(class="logoutButton" href="http://log-out") Log out
-        .mapContainer 
-            #mapAndListings 
+        .mapContainer
+            #mapAndListings
                 #kitchenListings
                 .map-container
                     #map
-        //- script
-        //-     include ../public/scripts/map.js
-        //- //- remove api key and replace with environmental variable
+
         script(async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c&callback=initMap")
-        
-        //- body
-        //- div.navListings
-        //-     button(class="profile" href="http://profile") Profile
-        //-     button(class="listingsButton" href="http://listings") Listings
-        //-     button(class="logoutButton" href="http://log-out") Log out
-        //- .searchBar
-        //-     form(action="/listings" method="post")
-        //-         input(id="searchInput" type="search" class="searchBar" name="search" placeholder="search")
-        //-         button(id="searchButton" type="submit") Search
-        //- #kitchenListings
-        
-        //- //- #floating-panel
-        //- #map
-        //- //- script
-        //- //-     include ../public/scripts/map.js
-        //- //- //- remove api key and replace with environmental variable
-        //- script(async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c&callback=initMap")

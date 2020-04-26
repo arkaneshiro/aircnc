@@ -149,12 +149,28 @@ router.get(
   requireAuth,
   asyncHandler(async (req, res, next) => {
     const kitchenId = parseInt(req.params.id, 10);
-    const kitchen = await Kitchen.findByPk(kitchenId)
+    const kitchen = await Kitchen.findByPk(kitchenId, {
+      include: [
+        {
+          model: City,
+          as: "city"
+
+        },
+        {
+          model: State,
+          as: "state",
+        },
+        {
+          model: User,
+          as: "user"
+        }
+      ]
+    })
     const kitchenFeatures = await KitchenFeature.findAll({
       include: [{
         model: Feature,
         as: "feature",
-        attributes: ["feature"],
+        attributes: ["feature", "imgPath"],
       }],
       where: {
         kitchenId
@@ -173,11 +189,12 @@ router.get(
       sumOfRating += rating.dataValues.starRating;
     });
 
+    sumOfRating /= kitchenReviews.length;
     if (kitchen) {
       res.json({
         kitchen,
         kitchenFeatures,
-        starRating: sumOfRating / kitchenReviews.length,
+        starRating: (sumOfRating ? sumOfRating : 0),
         kitchenReviews
       });
     } else {
@@ -305,7 +322,10 @@ router.post(
       wouldRentAgain
     } = req.body;
 
-    if (req.user.roleId !== 2 || req.user.id !== authorId || req.user.isDeactivated === true) {
+    // console.log(`this is the first condition: ${authorId}`)
+    // console.log(`this is the second condition: ${req.user.isDeactivated === true}`)
+
+    if ((req.user.roleId === 1 || req.user.id.toString() !== authorId.toString()) || req.user.isDeactivated === true) {
       const err = Error('Unauthorized');
       err.status = 401;
       err.message = 'Not authorized to leave review on Kitchen'

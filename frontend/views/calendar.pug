@@ -2,9 +2,9 @@ doctype html
 html(lang="en")
   head
     meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
     link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous")
+      integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous")
     title Document
     style
       include ../public/stylesheets/loginStyles/styles/style.css
@@ -42,7 +42,7 @@ html(lang="en")
             option(value="9") Oct
             option(value="10") Nov
             option(value="11") Dec
-          
+
           label(for="year")
           select(id="year" class="form-control col-sm-4" name="year")
             option(value=2020) 2020
@@ -110,6 +110,7 @@ html(lang="en")
                   option(value="23:00:00") 12:00PM
                 button(type="submit" id="submitButton") Book
           script(async defer src="/scripts/calendar.js")
+          script(async defer src="/scripts/listing-checkout.js")
           script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
           integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
           crossorigin="anonymous")

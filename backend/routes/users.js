@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const { User, GuestReview, Booking, Kitchen } = require("../db/models");
+const { User, GuestReview, Booking, Kitchen, KitchenFeature, Feature, City, State } = require("../db/models");
 const { asyncHandler, handleValidationErrors } = require("../utils");
 const { getUserToken, requireAuth } = require("../auth");
 const { validateUserSignUp, validateUsernameAndPassword, userNotFound, guestReviewValidation } = require("../validations");
@@ -92,9 +92,29 @@ router.get(
   asyncHandler(async (req, res) => {
     const hostId = parseInt(req.params.id, 10);
     const kitchens = await Kitchen.findAll({
-      where: {
-        hostId
-      }
+      include: [{
+        model: KitchenFeature,
+        as: "kitchenFeature",
+        include: [
+          {
+            model: Feature,
+            as: "feature",
+            attributes: ["feature", "imgPath"] // *** may not need imgPath
+          }
+        ]
+      },
+      {
+        model: City,
+        as: "city",
+        attributes: ["cityName"],
+      },
+      {
+        model: State,
+        as: "state",
+        attributes: ["stateName"]
+      },
+      ],
+      where: { hostId }
     });
 
     // should we allow other users query a list of the hosts kitchen through an id?
@@ -224,8 +244,15 @@ router.get('/:id(\\d+)/bookings', requireAuth, asyncHandler(async (req, res) => 
   }
 
   const guestBookings = await Booking.findAll({
-    include: { model: Kitchen },
-    where: { renterId: guest.id }
+    include: {
+      model: Kitchen,
+      include: [
+        { model: City, as: "city" },
+        { model: State, as: "state" }
+      ]
+    },
+    where: { renterId: guest.id },
+    order: [['startDate', 'ASC']]
 
   });
 

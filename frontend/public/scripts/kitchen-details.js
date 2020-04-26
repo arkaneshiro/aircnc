@@ -32,39 +32,49 @@ document.addEventListener("DOMContentLoaded", async () => {
      *    - kitchen.rate
      *********************************/
     const roleId = localStorage.getItem("AIRCNC_CURRENT_USER_ROLE");
-
+    console.log(starRating);
     document.querySelector(".kitchenDetails__row-1__info").innerHTML = `
       <div class="kitchenDetails__info__name">
         ${kitchen.name}
       </div>
       <div class="kitchenDetails__info__star-rating">
-        ${starRating}
+        ${starRating} Star Rating
       </div>
       <div class="kitchenDetails__info__rate">
-        ${kitchen.rate}
+        Rate: $${kitchen.rate} / hour
       </div>
       <div class="kitchenDetails__info__button">
-        <button class="kitchenDetails__info_button-bookings">${roleId === '1' ? 'See All Bookings' : 'Book Now'}</button>
+        <button id="kitchenDetails__info-button" class="kitchenDetails__info_button-bookings">${roleId === '1' ? 'See All Bookings' : 'Book Now'}</button>
       </div>
     `;
 
 
     document.querySelector(".kitchenDetails__row-1__staticMap").innerHTML = `
-      <img src="http://maps.googleapis.com/maps/api/staticmap?center=${kitchen.lat},${kitchen.lng}&zoom=12&size=375x350&markers=color:blue%7Clabel:S%7C${kitchen.lat},${kitchen.lng}&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c"> 
+      <img class="card" src="http://maps.googleapis.com/maps/api/staticmap?center=${kitchen.lat},${kitchen.lng}&zoom=12&size=375x350&markers=color:red%7C${kitchen.lat},${kitchen.lng}&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c">  
     `;
 
     let imgs = "";
     kitchen.imgPath.forEach((img, i) => {
-      imgs += `<img class="kitchenDetails__images-${i + 1} src="${img}>`
+      console.log(img);
+      imgs += `
+      <div class="kitchenDetails__kitchen-img">
+        <img class="card-img kitchenDetails__images" src="${img}">
+      </div>`
     });
 
     document.querySelector(".kitchenDetails__row-2__images").innerHTML = imgs;
 
     let features = "";
     kitchenFeatures.forEach(({ feature }) => {
+      console.log(feature.imgPath);
       features += `
-      <div class="kitchenDetails__feature">
-        ${feature.feature}
+      <div class="kitchenDetails__feature-container">
+        <div class="kitchenDetails__feature-img">
+          <img class="kitchenDetails__feature__img card-img-top" src="${feature.imgPath}">
+        </div>
+        <div class="kitchenDetails__feature">
+          ${feature.feature}
+        </div>
       </div>
       `
     });
@@ -74,8 +84,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     let kitchenReviewHTML = "";
     kitchenReviews.forEach(kitchenReview => {
       kitchenReviewHTML += `
-      <div class="kitchenDetails__review">
-        ${kitchenReview.comment}
+      <div class="kitchenDetails__review card-text">
+        <li class="list-group-item">${kitchenReview.comment}</li>
       </div>`
     });
 
@@ -84,4 +94,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (err) {
     console.error(err);
   }
+
+
 });
+
+// window.onload = () => {
+document.getElementById("kitchenDetails__info-button")
+    addEventListener("click", (ev) => {
+      if (ev.target.id === "kitchenDetails__info-button") {
+        const currentURL = window.location.href;
+        const kitchenId = currentURL.match(/\d+/g)[1];
+        // console.log(kitchenId)
+        window.location.href = `/listings/${kitchenId}/checkout`;
+      } else {
+        return;
+      }
+    });
+// };
