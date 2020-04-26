@@ -1,3 +1,8 @@
+import { logOut, isLoggedIn, goToProfile, goToListings } from "./tools.js";
+isLoggedIn();
+logOut();
+goToProfile();
+goToListings();
 let today = new Date();
 let currYear = today.getFullYear();
 let currMonth = today.getMonth();
@@ -125,7 +130,7 @@ const kitchenDetails = async () => {
   //   imgHTML += `<img id="bookings-form__img-${i + 1}" src="${img}">`;
   // });
   document.querySelector(".bookings-form__imgs").innerHTML = imgHTML;
-  
+
 
 };
 

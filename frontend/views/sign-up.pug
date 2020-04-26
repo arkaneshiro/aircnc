@@ -7,6 +7,7 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title Sign Up
   body
+    div.errors-container
     .sign-up
       form(class="sign-up-form")
         +createInput("input", "username", "sign-up-form__username", "userName", "Username", true, false, "username")

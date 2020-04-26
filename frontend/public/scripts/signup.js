@@ -42,30 +42,30 @@ signUpForm.addEventListener("submit", async (ev) => {
       window.location.href = '/listings'
     }
   } catch (err) {
-    //   if (err.status >= 400 && err.status < 600) {
-    //     const errorJSON = await err.json();
-    //     const errorsContainer = document.querySelector(".errors-container");
-    //     // TODO: Generate and render errors
-    //     let errorsHtml = [
-    //       `<div class="alert alert-danger">
-    //           Something went wrong. Please try again.
-    //         </div>`,
-    //     ];
+    if (err.status >= 400 && err.status < 600) {
+      const errorJSON = await err.json();
+      const errorsContainer = document.querySelector(".errors-container");
+      // TODO: Generate and render errors
+      let errorsHtml = [
+        `<div class="alert alert-danger">
+              Something went wrong. Please try again.
+            </div>`,
+      ];
 
-    //     if (errors && Array.isArray(errors)) {
-    //       errorsHtml = errors.map(
-    //         (message) => `
-    //           <div class="alert alert-danger">
-    //               ${message}
-    //           </div>
-    //         `
-    //       );
-    //       errorsContainer.innerHTML = errorsHtml.join("");
-    //     } else {
-    //       // TODO: Alert user about bad internet connection
-    //       alert("Something went wrong. Please check your internet connection and try again!");
-    //     }
-    //   }
+      if (errors && Array.isArray(errors)) {
+        errorsHtml = errors.map(
+          (message) => `
+              <div class="alert alert-danger">
+                  ${message}
+              </div>
+            `
+        );
+        errorsContainer.innerHTML = errorsHtml.join("");
+      } else {
+        // TODO: Alert user about bad internet connection
+        alert("Something went wrong. Please check your internet connection and try again!");
+      }
+    }
     console.error(err);
   }
 

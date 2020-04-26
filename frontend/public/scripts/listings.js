@@ -1,3 +1,28 @@
+function logOut() {
+  document.getElementById("logout-button").addEventListener("click", () => {
+    localStorage.clear();
+    window.location.href = "/";
+  });
+}
+
+function isLoggedIn() {
+  if (localStorage.getItem("AIRCNC_ACCESS_TOKEN") === null) {
+    window.location.href = "/";
+  }
+}
+
+function goToProfile() {
+  document.getElementById("profile-button").addEventListener('click', () => {
+    window.location.href = '/profile'
+  });
+}
+
+function goToListings() {
+  document.getElementById("listings-button").addEventListener('click', () => {
+    window.location.href = '/listings'
+  });
+}
+
 function initMap(latLngRate) {
   if (latLngRate) {
     const map = new google.maps.Map(
@@ -95,7 +120,7 @@ const getListings = async (search) => {
               <div class="kitchenListing__userInfo">
                 ${obj.user.userName} ${obj.user.firstName} ${obj.user.lastName}
               </div>
-                <div class="kitchenListing__starRating"> Star Rating (${Math.floor(Math.random() * (5)) + 1})</div> 
+                <div class="kitchenListing__starRating"> Star Rating (${Math.floor(Math.random() * (5)) + 1})</div>
             </div>
             <div class="kitchenListing__location">
               ${obj.streetAddress} ${obj.city.cityName} ${obj.state.stateName}
@@ -105,7 +130,7 @@ const getListings = async (search) => {
             </div>
             <div class="kitchenListing__bottomLine">
               <div class="kitchenListing__wouldRentAgain">
-                ${Math.floor(Math.random() * (100))} people would rent again 
+                ${Math.floor(Math.random() * (100))} people would rent again
               </div>
               <div class="kitchenListing__rate">
                 $${obj.rate}
@@ -126,6 +151,10 @@ window.addEventListener("load", () => {
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
+  isLoggedIn();
+  goToProfile();
+  goToListings();
+  logOut();
   let search;
   // document.querySelector("form")
   document.getElementById("searchInput")

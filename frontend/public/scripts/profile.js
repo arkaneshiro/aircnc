@@ -2,7 +2,7 @@ const pastBookingsContainer = document.querySelector(".pastBookings");
 const currentBookingsContainer = document.querySelector(".currentBookings");
 const reviewSelector = document.getElementById("reviewSelector");
 const kitchenReview = document.querySelector(".kitchen-review-form");
-import { logOut, isLoggedIn, goToListings } from "./tools.js";
+import { logOut, isLoggedIn, goToProfile, goToListings } from "./tools.js";
 
 if (localStorage.getItem("AIRCNC_CURRENT_USER_ROLE") === '1') {
     window.location.href = "/dashboard";
@@ -32,65 +32,66 @@ currentBookingsContainer.addEventListener("click", async () => {
 
 // event listener for form submit
 kitchenReview.addEventListener("submit", async (ev) => {
-  ev.preventDefault();
-  const formData = new FormData(kitchenReview);
-  const starRating = formData.get("starRating");
-  const comment = document.getElementById("comment").value;
-  const cleanRating = formData.get("cleanRating");
-  const bookingId = formData.get("reviewSelector");
-  const authorId = localStorage.getItem("AIRCNC_CURRENT_USER_ID");
-  const bearerToken = localStorage.getItem("AIRCNC_ACCESS_TOKEN");
-  const wouldRentAgain = document.getElementById("wouldRentAgain");
-  const featureBool = document.getElementById("featureBool");
+    ev.preventDefault();
+    const formData = new FormData(kitchenReview);
+    const starRating = formData.get("starRating");
+    const comment = document.getElementById("comment").value;
+    const cleanRating = formData.get("cleanRating");
+    const bookingId = formData.get("reviewSelector");
+    const authorId = localStorage.getItem("AIRCNC_CURRENT_USER_ID");
+    const bearerToken = localStorage.getItem("AIRCNC_ACCESS_TOKEN");
+    const wouldRentAgain = document.getElementById("wouldRentAgain");
+    const featureBool = document.getElementById("featureBool");
 
-  try {
-    let bookingData = await fetch(`http://localhost:8080/bookings/${bookingId}`, {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+    try {
+        let bookingData = await fetch(`http://localhost:8080/bookings/${bookingId}`, {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
 
-    if (!bookingData.ok) {
-      throw bookingData;
+        if (!bookingData.ok) {
+            throw bookingData;
+        }
+
+        const { booking } = await bookingData.json();
+
+        const kitchenId = booking.kitchenId;
+        const body = {
+            cleanRating,
+            starRating,
+            comment,
+            authorId,
+            wouldRentAgain: `${wouldRentAgain.checked ? true : false}`,
+            featureBool: `${featureBool.checked ? true : false}`
+        };
+
+        const res = await fetch(`http://localhost:8080/kitchens/${kitchenId}/reviews`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${bearerToken}`
+            },
+            body: JSON.stringify(body)
+        });
+
+        if (!res.ok) {
+            throw res
+        }
+
+        // res = res.json();
+
+    } catch (err) {
+        console.error(err);
     }
-
-    const { booking } = await bookingData.json();
-
-    const kitchenId = booking.kitchenId;
-    const body = {
-      cleanRating,
-      starRating,
-      comment,
-      authorId,
-      wouldRentAgain: `${wouldRentAgain.checked ? true : false}`,
-      featureBool: `${featureBool.checked ? true : false}`
-    };
-
-    const res = await fetch(`http://localhost:8080/kitchens/${kitchenId}/reviews`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${bearerToken}`
-      },
-      body: JSON.stringify(body)
-    });
-
-    if (!res.ok) {
-      throw res
-    }
-
-    // res = res.json();
-
-  } catch (err) {
-    console.error(err);
-  }
 });
 
 // DOMContentLoaded event listener makes fetch call to get bookings and display some form options
 document.addEventListener("DOMContentLoaded", async () => {
     isLoggedIn();
     logOut();
-    goToListings()
+    goToProfile();
+    goToListings();
 
     const userId = localStorage.getItem("AIRCNC_CURRENT_USER_ID")
 
@@ -187,12 +188,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             startDate,
             id }) => {
 
-            const startYear = startDate.substring(0,4);
-            const startMonth = startDate.substring(5,7);
-            const startDay = startDate.substring(8,10);
+            const startYear = startDate.substring(0, 4);
+            const startMonth = startDate.substring(5, 7);
+            const startDay = startDate.substring(8, 10);
 
             if (isConfirmed) {
-                return`
+                return `
                 <option class="review-option review-option-${id}" value="${id}"> ${name}, on: ${startMonth}/${startDay}/${startYear} </option>
                 `
             }

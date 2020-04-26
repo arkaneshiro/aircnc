@@ -1,4 +1,33 @@
+function logOut() {
+  document.getElementById("logout-button").addEventListener("click", () => {
+    localStorage.clear();
+    window.location.href = "/";
+  });
+}
+
+function isLoggedIn() {
+  if (localStorage.getItem("AIRCNC_ACCESS_TOKEN") === null) {
+    window.location.href = "/";
+  }
+}
+
+function goToProfile() {
+  document.getElementById("profile-button").addEventListener('click', () => {
+    window.location.href = '/profile'
+  });
+}
+
+function goToListings() {
+  document.getElementById("listings-button").addEventListener('click', () => {
+    window.location.href = '/listings'
+  });
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
+  isLoggedIn();
+  logOut();
+  goToListings();
+  goToProfile();
   // const kitchenId = localStorage.getItem("AIRCNC_KITCHEN_ID");
   const kitchenId = getCookie("kitchenId");
   try {
@@ -49,8 +78,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     `;
 
 
-    document.querySelector(".kitchenDetails__row-1__staticMap").innerHTML = `
-      <img class="card" src="http://maps.googleapis.com/maps/api/staticmap?center=${kitchen.lat},${kitchen.lng}&zoom=12&size=375x350&markers=color:red%7C${kitchen.lat},${kitchen.lng}&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c">  
+    document.querySelector(".kitchenDetails__row-1__featured-img").innerHTML = `
+      <img class="card" src="http://maps.googleapis.com/maps/api/staticmap?center=${kitchen.lat},${kitchen.lng}&zoom=12&size=375x350&markers=color:red%7C${kitchen.lat},${kitchen.lng}&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c">
     `;
 
     let imgs = "";
@@ -100,14 +129,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // window.onload = () => {
 document.getElementById("kitchenDetails__info-button")
-    addEventListener("click", (ev) => {
-      if (ev.target.id === "kitchenDetails__info-button") {
-        const currentURL = window.location.href;
-        const kitchenId = currentURL.match(/\d+/g)[1];
-        // console.log(kitchenId)
-        window.location.href = `/listings/${kitchenId}/checkout`;
-      } else {
-        return;
-      }
-    });
+addEventListener("click", (ev) => {
+  if (ev.target.id === "kitchenDetails__info-button") {
+    const currentURL = window.location.href;
+    const kitchenId = currentURL.match(/\d+/g)[1];
+    // console.log(kitchenId)
+    window.location.href = `/listings/${kitchenId}/checkout`;
+  } else {
+    return;
+  }
+});
 // };
