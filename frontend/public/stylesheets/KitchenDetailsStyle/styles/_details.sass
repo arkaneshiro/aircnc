@@ -15,25 +15,39 @@ body
             font-size: 20px
             font-weight: bold
 
-
-.kitchenDetails__row-1__staticMap img
-    border-radius: 20px
-    
-
 .kitchenDetails__row-1
     background-color: #f6f6f6
     display: flex
     flex-direction: row
-    justify-content: space-between
+    // justify-content: space-evenly
+
 
 .kitchenDetails__row-1__info
     display: flex
     flex-direction: column
     // flex: 1
-    justify-content: space-evenly
-    align-items: center
-    // align-content: center
+    justify-content: center
+    // align-items: center
+    align-content: center
     // margin-top: 80px
+    margin-bottom: 20px
+    margin-left: 80px
+
+.kitchenDetails__row-1__featured-img img
+    margin-top: 20px
+    margin-bottom: 20px
+    width: 400px
+    height: 300px
+    object-fit: fill
+    // padding-right: 25px
+
+.kitchenDetails__info-logo-text
+    font-family: cursive
+    font-size: 40px
+
+.kitchenDetails__info__description
+    @include fontStyle()
+    text-align: center
 
 .kitchenDetails__info__button
     padding-left: 25px
@@ -42,11 +56,15 @@ body
     @include star()
 
 .kitchenDetails__row-2__images
-    background-color: #ececec
+    background-color: #f6f6f6
     display: flex
     flex-direction: row
     justify-content: space-evenly
+<<<<<<< HEAD
+    max-width: 100%
+=======
     // max-width: 1300px
+>>>>>>> master
     max-height: 720px
     overflow: auto
     
@@ -54,12 +72,11 @@ body
 .kitchenDetails__kitchen-img img
     width: 250px
     height: 200px
-    object-fit: contain
-    border-radius: 20px
+    
 
 
 .kitchenDetails__row-4
-    background-color: #f6f6f6
+    background-color: #ffffff
 
 .kitchenDetails__row-4__features
     display: flex
@@ -67,7 +84,7 @@ body
     justify-content: space-evenly
 
 .kitchenDetails__row-5__reviews
-    background-color: #ececec
+    background-color: #f6f6f6
     display: flex
     flex-direction: column
     // justify-content: space-evenly
@@ -75,11 +92,13 @@ body
 .kitchenDetails__feature-img img
     width: 175px
     height: 150px
-    object-fit: contain
-    border-radius: 20px
+    object-fit: fill
     background-color: #f6f6f6
 
-.kitchenDetails__info__name, .kitchenDetails__info__star-rating, .kitchenDetails__info__rate
+.kitchenDetails__info__name, 
+.kitchenDetails__info__star-rating, 
+.kitchenDetails__info__rate, 
+.kitchenDetails__info__description
     @include fontStyle()
     font-size: 30px
     margin: 8px 25px 8px
@@ -103,20 +122,60 @@ body
     width: 53%
 
 .kitchenDetails__row-header
-    text-align: center
+    text-align: start
     font-weight: bold
     font-size: 24px
-
+    padding-bottom: 10px
+    padding-left: 40px
 #features-header
     padding-top: 15px
+    @include fontStyle()
+    font-weight: bold
 
 .kitchenDetails__feature
     text-align: center
     font-size: 18px
     padding-top: 10px
 
+<<<<<<< HEAD
+.kitchenDetails__row-3.card
+    background-color: #ffffff
+    height: 200px
+    justify-content: center
+
+.kitchenDetails__row-3__description-text
+    font-size: 24px
+    font-style: italic
+    text-align: center
+    justify-content: center
+    paddint-top: 50px
+
+.kitchenDetails__row-3__host-text
+    justify-content: start
+    padding-left: 20px
+    padding-bottom: 10px
+    font-weight: bold
+
+.kitchenDetails__review-name
+    font-weight: bold
+    font-size: 16px
+    padding-left: 20px
+    padding-bottom: 10px
+    padding-top: 10px
+
+.kitchenDetails__review-comment
+    font-style: italic
+    font-size: 14px
+    padding-bottom: 10px
+    padding-left: 45px
+    border-bottom: 1px solid #ececec
+
+.kitchenDetails__row-5
+    background-color: #f6f6f6
+=======
 
 
+>>>>>>> master
 // .bookings-form
 //     display: flex
 //     flex-direction: row

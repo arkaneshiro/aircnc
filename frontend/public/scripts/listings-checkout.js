@@ -1,3 +1,15 @@
+import {  
+  goToProfile, 
+  logOut, 
+  isLoggedIn, 
+  goToListings 
+} from './tools.js';
+
+goToProfile();
+logOut();
+isLoggedIn();
+goToListings();
+
 let today = new Date();
 let currYear = today.getFullYear();
 let currMonth = today.getMonth();
@@ -11,6 +23,7 @@ const months = ["January", "February", "March", "April", "May", "June", "July", 
 let dateStr;
 let getStartTime;
 let getEndTime;
+let rate;
 
 const daysInMonth = () => {
   return 32 - new Date(currYear, currMonth, 32).getDate();
@@ -40,10 +53,9 @@ const showCalendar = (month, year) => {
 
   const table = document.getElementById("calendar-body"); // body of the calendar
 
-  // clearing all previous cells
+  // clears all previous cells
   table.innerHTML = "";
 
-  // filing data about month and in the page via DOM.
   monthAndYear.innerHTML = months[month] + " " + year;
   selectYear.value = year;
   selectMonth.value = month;
@@ -53,6 +65,7 @@ const showCalendar = (month, year) => {
     let row = document.createElement("tr");
 
     for (let j = 0; j < 7; j++) {
+      let cell, cellText;
       if (i === 0 && j < firstDay) {
         cell = document.createElement("td");
         cell.setAttribute("class", "calendarTD")
@@ -73,10 +86,10 @@ const showCalendar = (month, year) => {
           // setTime.setAttribute("class", "collapsed")
           setTime.setAttribute("href", "#");
           setTime.setAttribute("class", "bookings__start-end-time__popup");
-          setTime.setAttribute("data-toggle", "collapse");
-          setTime.setAttribute("role", "button");
-          setTime.setAttribute("aria-expanded", "false");
-          setTime.setAttribute("aria-controls", "#set-time-form");
+          // setTime.setAttribute("data-toggle", "collapse");
+          // setTime.setAttribute("role", "button");
+          // setTime.setAttribute("aria-expanded", "false");
+          // setTime.setAttribute("aria-controls", "#set-time-form");
           setTime.setAttribute("id", `day-${date >= 10 ? date.toString() : '0' + date}`);
           setTime.appendChild(cellText);
           cell.appendChild(setTime);
@@ -102,25 +115,43 @@ const kitchenDetails = async () => {
     }
   });
 
-  const { kitchen } = await res.json();
-  console.log(kitchen);
+  const { kitchen, kitchenReviews, starRating, kitchenFeatures } = await res.json();
+  console.log(kitchenReviews);
+  console.log(kitchenFeatures);
+  
+  let featuresHTML = "";
+  kitchenFeatures.forEach(({ feature }) => {
+    featuresHTML += `
+    <div class="bookings-form__left-bottom__features-name">
+      ${feature.feature}
+    </div>
+    <div class="bookings-form__left-bottom__features-image">
+      <img class="bookings-form__left-bottom__features-img" src="${feature.imgPath}">
+    </div>
+    `;
+  });
 
+  document.querySelector(".bookings-form__left-bottom__features").innerHTML = featuresHTML;
   document.querySelector(".bookings-form__left-top").innerHTML = `
   <div class="bookings-form__left-top-container card">
     <div class="bookings-form__left-top__kitchen-name card-body font-weight-bold d-flex justify-content-center">
       ${kitchen.name}
     </div>
-    <div class="bookings-form__left-top__kitchen-description card-body">
-      ${kitchen.description}
+    <div class="bookings-form__left-top__kitchen-location card-body">
+      Kitchen in ${kitchen.city.cityName}, ${kitchen.state.stateName} 
+    </div>
+    <div class="bookings-form__left-top__kitchen-star-rating">
+      ${starRating} rating ${kitchenReviews.length} reviews
+    </div>
+    <div class="bookings-form__left-top__kitchen-feature-img">
+      <img class="bookings-form__left-top__kitchen-img" src="${kitchen.imgPath[0]}">
     </div>
   </div>
   `;
 
-  document.querySelector(".bookings-form__right-bottom").innerHTML = `
-    <div class="bookings-form__left-bottom__kitchen-rate card-body">
-      Rate: $${kitchen.rate} / hr
-    </div>`;
-  let imgHTML = `<img src=${kitchen.imgPath[0]}>`;
+  rate = kitchen.rate;
+  console.log(rate);
+  let imgHTML = `<img src="http://maps.googleapis.com/maps/api/staticmap?center=${kitchen.lat},${kitchen.lng}&markers=color:red%7Clabel:SS%7C${kitchen.lat},${kitchen.lng}&zoom=12&size=375x350&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c">`;
   // kitchen.imgPath.forEach((img, i) => {
   //   imgHTML += `<img id="bookings-form__img-${i + 1}" src="${img}">`;
   // });
@@ -161,9 +192,33 @@ document.querySelector(".bookings__start-end-time")
     ev.preventDefault();
     getStartTime = startTime.value;
     getEndTime = endTime.value;
-
+    const totalTime = parseInt(endTime.value.slice(0, 2)) - parseInt(startTime.value.slice(0, 2));
     console.log(new Date(`${dateStr} ${startTime.value}`));
     document.getElementById("set-time-form").classList.toggle("hidden");
+    
+    const checkoutTotal = document.querySelector(".bookings-form__right-bottom-checkout-total");
+    checkoutTotal.innerHTML = `
+      <div class="bookings-form__right-bottom-checkout-total">
+        <div class="bookings-form__right-bottom-checkout-header">
+          Date and time of rental:
+        </div>
+        <div class="bookings-form__right-bottom-checkout-date-time">
+          ${dateStr} ${getStartTime} - ${getEndTime}
+        </div>
+        <div class="bookings-form__right-bottom-checkout-cleaning">
+          Cleaning fee $0.00
+        </div>
+        <div class="bookings-form__right-bottom-checkout-rate">
+          Rate $${rate}
+        </div>
+        <div class="bookings-form__right-bottom-checkout-subtotal">
+          Rate $${rate * totalTime}
+        </div>
+      </div>
+      <div class="bookings-form__right-bottom-checkout-due-now">
+          Due now $${rate * totalTime}
+      </div>
+    `;
   });
 
 document.querySelector(".checkout__submit-booking")
@@ -216,7 +271,7 @@ document.querySelector(".checkout__submit-booking")
         throw res;
       }
 
-      window.location.href = '/listings';
+      window.location.href = '/profile';
     } catch (err) {
       console.error(err);
     }
