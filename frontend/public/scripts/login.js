@@ -11,12 +11,12 @@ loginButton.addEventListener('click', () => {
 })
 
 signupButton.addEventListener('click', () => {
-    window.location.href = "/sign-up";
+    window.location.href = "/signup";
     localStorage.setItem("AIRCNC_CURRENT_USER_ROLE", "2");
 })
 
 hostSignupButton.addEventListener('click', () => {
-    window.location.href = "/sign-up";
+    window.location.href = "/signup";
     localStorage.setItem("AIRCNC_CURRENT_USER_ROLE", "1");
 })
 
@@ -56,8 +56,8 @@ logInForm.addEventListener("submit", async (e) => {
     localStorage.setItem("AIRCNC_CURRENT_USER_ID", id);
     localStorage.setItem("AIRCNC_CURRENT_USER_ROLE", role);
 
-    // redirect to /kitchens, when hosts are sent there they will be sent to /dashboard:
-    window.location.href = "/kitchens";
+        // redirect to /kitchens for guests, dashboard for hosts:
+        window.location.href = "/listings";
 
 
     } catch (err) {

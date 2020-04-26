@@ -1,8 +1,8 @@
 - /                                         Splash page
     - /login                                Login
     - /sign-up                              Sign-up
-        - /kitchens                         Listings
-        - /kitchens/ (something?)           Search Listings by location
+        - /listings                         Listings
+        - /listings/ (something?)           Search Listings by location
             - /:id                          Listing Detail
                 - /checkout                 Checkout / confirmation this page is for guests to review bookings before confirming
         - /profile                          Profile

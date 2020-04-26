@@ -15,12 +15,16 @@ app.get('/listings', (req, res) => {
     res.render('listingMain');
 });
 
-app.get('/kitchens/create', (req, res) => {
+app.get('/listings/create', (req, res) => {
     res.render('createKitchen');
-})
+});
 
 app.get('/profile', (req, res) => {
-res.render('profile');
+    res.render('profile');
+});
+
+app.get('/dashboard', (req, res) => {
+    res.render('dashboard');
 });
 
 app.get('/bookings/(:id(\\d+))', (req, res) => {

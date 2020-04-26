@@ -37,6 +37,19 @@ body {
   font-weight: 400;
 }
 
+<<<<<<< HEAD
+=======
+.profile:hover, .listings:hover, .logoutButton:hover {
+  color: #8BD9D9;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.kitchenDetails__row-1__staticMap img {
+  border-radius: 20px;
+}
+
+>>>>>>> master
 .kitchenDetails__row-1 {
   background-color: #f6f6f6;
   display: -webkit-box;
@@ -107,7 +120,10 @@ body {
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
+<<<<<<< HEAD
   max-width: 100%;
+=======
+>>>>>>> master
   max-height: 720px;
   overflow: auto;
 }

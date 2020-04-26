@@ -6,6 +6,10 @@ import {
 } from './tools.js';
 
 document.addEventListener("DOMContentLoaded", async () => {
+  isLoggedIn();
+  logOut();
+  goToListings();
+  goToProfile();
   // const kitchenId = localStorage.getItem("AIRCNC_KITCHEN_ID");
   isLoggedIn();
   goToProfile();
@@ -48,7 +52,7 @@ document.addEventListener("DOMContentLoaded", async () => {
      *    - kitchen.rate
      *********************************/
     const roleId = localStorage.getItem("AIRCNC_CURRENT_USER_ROLE");
-    console.log(starRating);
+    // console.log(starRating);
     document.querySelector(".kitchenDetails__row-1__info").innerHTML = `
       <div class="kitchenDetails__info__name">
         ${kitchen.name}
@@ -68,12 +72,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     `;
 
 
+<<<<<<< HEAD
     document.querySelector(".kitchenDetails__row-1__featured-img").innerHTML = `
       <img class="card" src="${kitchen.imgPath[0]}">  
     `;
 
     let imgs = "";
     kitchen.imgPath.forEach(img => {
+=======
+    document.querySelector(".kitchenDetails__row-1__staticMap").innerHTML = `
+      <img class="card" src="http://maps.googleapis.com/maps/api/staticmap?center=${kitchen.lat},${kitchen.lng}&zoom=12&size=375x350&markers=color:red%7C${kitchen.lat},${kitchen.lng}&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c">
+    `;
+
+    let imgs = "";
+    kitchen.imgPath.forEach((img, i) => {
+>>>>>>> master
       // console.log(img);
       imgs += `
       <div class="kitchenDetails__kitchen-img">
@@ -93,7 +106,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     let features = "";
     kitchenFeatures.forEach(({ feature }) => {
-      console.log(feature.imgPath);
+      // console.log(feature.imgPath);
       features += `
       <div class="kitchenDetails__feature-container">
         <div class="kitchenDetails__feature-img">

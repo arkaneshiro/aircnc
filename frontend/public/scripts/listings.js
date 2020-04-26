@@ -1,3 +1,9 @@
+import { logOut, isLoggedIn, goToProfile } from "./tools.js";
+
+if (localStorage.getItem("AIRCNC_CURRENT_USER_ROLE") === '1') {
+  window.location.href = "/dashboard";
+}
+
 function initMap(latLngRate) {
   if (latLngRate) {
     const map = new google.maps.Map(
@@ -51,7 +57,7 @@ const getListings = async (search) => {
     }
 
     const { kitchens } = await res.json();
-    console.log(kitchens);
+    // console.log(kitchens);
     const kitchenListings = document.getElementById("kitchenListings");
     const latLngRate = [];
     const kitchensHTML = kitchens.map((obj, i) => {
@@ -70,7 +76,7 @@ const getListings = async (search) => {
       }
 
       let starRatings = obj.kitchenReview;
-      console.log(starRatings);
+      // console.log(starRatings);
       let avgStarRating = 0;
       let willRentAgain = 0;
       if (starRatings) {
@@ -87,7 +93,7 @@ const getListings = async (search) => {
       // would rent again
       // ${willRentAgain} people would rent again
       return `
-        <div class="kitchenListing">
+        <div class="kitchenListing" id="kitchen${obj.id}">
           <div class="kitchenListing__img">
             <img src="${obj.imgPath[0]}">
           </div>
@@ -96,7 +102,7 @@ const getListings = async (search) => {
               <div class="kitchenListing__userInfo">
                 <a class="kitchenListing__userInfo-link" href="/listings/${obj.id}">${obj.name}</a>
               </div>
-                <div class="kitchenListing__starRating"> Star Rating (${Math.floor(Math.random() * (5)) + 1})</div> 
+                <div class="kitchenListing__starRating"> Star Rating (${Math.floor(Math.random() * (5)) + 1})</div>
             </div>
             <div class="kitchenListing__location">
               ${obj.streetAddress} ${obj.city.cityName} ${obj.state.stateName}
@@ -106,7 +112,7 @@ const getListings = async (search) => {
             </div>
             <div class="kitchenListing__bottomLine">
               <div class="kitchenListing__wouldRentAgain">
-                ${Math.floor(Math.random() * (100))} people would rent again 
+                ${Math.floor(Math.random() * (100))} people would rent again
               </div>
               <div class="kitchenListing__rate">
                 $${obj.rate}
@@ -117,6 +123,17 @@ const getListings = async (search) => {
     });
     initMap(latLngRate);
     kitchenListings.innerHTML = kitchensHTML.join("");
+
+    document.querySelectorAll(".kitchenListing").forEach(kitchenListing => {
+      kitchenListing.addEventListener('click', event => {
+        let listing = event.currentTarget
+        const listingId = (listing.id).substring(7);
+        window.location.href = `./listings/${listingId}`;
+      })
+    })
+    // console.log(thing)
+
+
   } catch (err) {
     console.error(err);
   }
@@ -127,6 +144,11 @@ window.addEventListener("load", () => {
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
+  isLoggedIn();
+  logOut();
+  goToProfile()
+
+
   let search;
   // document.querySelector("form")
   document.getElementById("searchInput")
@@ -141,4 +163,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       getListings(search);
     });
+
+
 });

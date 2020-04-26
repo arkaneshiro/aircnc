@@ -12,8 +12,10 @@ body
     border: none
     outline: none
 
-.searchBox
-
+// .searchBox
+//     &::placeholder
+//         color: $white
+    
 
 
 .searchBar
@@ -28,11 +30,22 @@ body
     height: 30px
     margin-top: 10px auto
     font-size: 20px
-    margin-left: 15px
+    margin-left: 20px
     color: $white
+    padding: 5px
+    &::placeholder
+        color: $white
+        opacity: .6
     
-    
-    
+form
+    width: 30vw   
+    display: flex
+    justify-content: flex-start
+    padding-top: 10px
+.logo
+    padding-left: 5px
+    margin-bottom: 5px
+
 
 .profile, .listingsButton, .logoutButton
     &:hover
