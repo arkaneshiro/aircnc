@@ -98,4 +98,89 @@ form {
   top: 10px;
   color: #0FBFAE;
 }
+
+.bookings-form__imgs img {
+  margin-top: 50px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50px;
+}
+
+.bookings-form__left-top__kitchen-name {
+  color: #004873;
+}
+
+.bookings-form__left-top-container {
+  background-color: #ececec;
+  font-size: 24px;
+}
+
+.bookings-form__left-bottom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: start;
+  padding: 50px;
+}
+
+.bookings-form__left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 20px;
+}
+
+.bookings__start-end-time {
+  width: 370px;
+  height: 295px;
+}
+
+.navBar {
+  color: #ffffff;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 300;
+  background-color: #004873;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.listingsButton, .logoutButton {
+  text-align: center;
+  font-size: 19px;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #ffffff;
+  text-decoration: none;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 50px;
+  padding: 5px 16px;
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  outline: none;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.listingsButton:hover, .logoutButton:hover {
+  border-radius: 15px;
+  -webkit-text-decoration: #ffffff underline solid;
+          text-decoration: #ffffff underline solid;
+  padding-bottom: 5px;
+}
 /*# sourceMappingURL=style.css.map */
