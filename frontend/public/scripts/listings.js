@@ -88,12 +88,12 @@ const getListings = async (search) => {
       return `
         <div class="kitchenListing">
           <div class="kitchenListing__img">
-            <img src="/images/${i + 1}.jpeg">
+            <a href="/listings/${obj.id}"><img src="${obj.imgPath[0]}.jpeg"></a>
           </div>
           <div class="listing-info-container">
             <div class="kitchenListing__topLine">
               <div class="kitchenListing__userInfo">
-                ${obj.user.userName} ${obj.user.firstName} ${obj.user.lastName}
+                ${obj.name}
               </div>
                 <div class="kitchenListing__starRating"> Star Rating (${Math.floor(Math.random() * (5)) + 1})</div> 
             </div>
