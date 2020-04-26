@@ -1,26 +1,7 @@
-function logOut() {
-  document.getElementById("logout-button").addEventListener("click", () => {
-    localStorage.clear();
-    window.location.href = "/";
-  });
-}
+import { logOut, isLoggedIn, goToProfile } from "./tools.js";
 
-function isLoggedIn() {
-  if (localStorage.getItem("AIRCNC_ACCESS_TOKEN") === null) {
-    window.location.href = "/";
-  }
-}
-
-function goToProfile() {
-  document.getElementById("profile-button").addEventListener('click', () => {
-    window.location.href = '/profile'
-  });
-}
-
-function goToListings() {
-  document.getElementById("listings-button").addEventListener('click', () => {
-    window.location.href = '/listings'
-  });
+if (localStorage.getItem("AIRCNC_CURRENT_USER_ROLE") === '1') {
+  window.location.href = "/dashboard";
 }
 
 function initMap(latLngRate) {
@@ -76,7 +57,7 @@ const getListings = async (search) => {
     }
 
     const { kitchens } = await res.json();
-    console.log(kitchens);
+    // console.log(kitchens);
     const kitchenListings = document.getElementById("kitchenListings");
     const latLngRate = [];
     const kitchensHTML = kitchens.map((obj, i) => {
@@ -95,7 +76,7 @@ const getListings = async (search) => {
       }
 
       let starRatings = obj.kitchenReview;
-      console.log(starRatings);
+      // console.log(starRatings);
       let avgStarRating = 0;
       let willRentAgain = 0;
       if (starRatings) {
@@ -112,7 +93,7 @@ const getListings = async (search) => {
       // would rent again
       // ${willRentAgain} people would rent again
       return `
-        <div class="kitchenListing">
+        <div class="kitchenListing" id="kitchen${obj.id}">
           <div class="kitchenListing__img">
             <img src="${obj.imgPath[0]}">
           </div>
@@ -142,6 +123,17 @@ const getListings = async (search) => {
     });
     initMap(latLngRate);
     kitchenListings.innerHTML = kitchensHTML.join("");
+
+    document.querySelectorAll(".kitchenListing").forEach(kitchenListing => {
+      kitchenListing.addEventListener('click', event => {
+        let listing = event.currentTarget
+        const listingId = (listing.id).substring(7);
+        window.location.href = `./listings/${listingId}`;
+      })
+    })
+    // console.log(thing)
+
+
   } catch (err) {
     console.error(err);
   }
@@ -153,9 +145,10 @@ window.addEventListener("load", () => {
 
 document.addEventListener("DOMContentLoaded", async () => {
   isLoggedIn();
-  goToProfile();
-  goToListings();
   logOut();
+  goToProfile()
+
+
   let search;
   // document.querySelector("form")
   document.getElementById("searchInput")
@@ -170,4 +163,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       getListings(search);
     });
+
+
 });

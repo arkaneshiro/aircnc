@@ -90,7 +90,6 @@ kitchenReview.addEventListener("submit", async (ev) => {
 document.addEventListener("DOMContentLoaded", async () => {
     isLoggedIn();
     logOut();
-    goToProfile();
     goToListings();
 
     const userId = localStorage.getItem("AIRCNC_CURRENT_USER_ID")
@@ -134,12 +133,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             endDate }) => {
 
             let confirmation = '';
-            const startYear = startDate.substring(0,4);
-            const startMonth = startDate.substring(5,7);
-            const startDay = startDate.substring(8,10);
-            const endYear = endDate.substring(0,4);
-            const endMonth = endDate.substring(5,7);
-            const endDay = endDate.substring(8,10);
+            const startYear = startDate.substring(0, 4);
+            const startMonth = startDate.substring(5, 7);
+            const startDay = startDate.substring(8, 10);
+            const endYear = endDate.substring(0, 4);
+            const endMonth = endDate.substring(5, 7);
+            const endDay = endDate.substring(8, 10);
 
 
             if (isConfirmed) {
@@ -172,12 +171,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             let confirmation = '';
             let cancelButton = '';
-            const startYear = startDate.substring(0,4);
-            const startMonth = startDate.substring(5,7);
-            const startDay = startDate.substring(8,10);
-            const endYear = endDate.substring(0,4);
-            const endMonth = endDate.substring(5,7);
-            const endDay = endDate.substring(8,10);
+            const startYear = startDate.substring(0, 4);
+            const startMonth = startDate.substring(5, 7);
+            const startDay = startDate.substring(8, 10);
+            const endYear = endDate.substring(0, 4);
+            const endMonth = endDate.substring(5, 7);
+            const endDay = endDate.substring(8, 10);
 
             if (isConfirmed) {
                 confirmation = "Confirmed!";
