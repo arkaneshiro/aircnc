@@ -12,13 +12,7 @@ module.exports = {
         streetAddress: '152 Grand Street',
         hostId: 1,
         description: 'Treat yourself to my personal kitchen in the heart of New York City! I keep only the finest groceries and equipment from around the world, so enjoy what the best has to offer.',
-<<<<<<< HEAD
         imgPath: ['https://res.cloudinary.com/aircncaa/image/upload/v1587857868/zuyocjfm0yysiwzklu8h.jpg', 'https://res.cloudinary.com/aircncaa/image/upload/v1587857783/ghly0an49kjlnthaez7b.jpg', "https://res.cloudinary.com/aircncaa/image/upload/v1587857895/v1zvseiusvnqmx8gdijt.jpg", 'https://res.cloudinary.com/aircncaa/image/upload/v1587857916/vjwus47ga5nggaobi4wa.jpg'],
-=======
-        imgPath: ["https://images.unsplash.com/photo-1556912173-3bb406ef7e77?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
-          "https://images.unsplash.com/photo-1556912167-f556f1f39fdf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=760&q=80",
-          "https://images.unsplash.com/photo-1556037843-347ddff9f4b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"],
->>>>>>> master
         rate: 150,
         lat: 40.7199023,
         lng: -73.99914260000001,
