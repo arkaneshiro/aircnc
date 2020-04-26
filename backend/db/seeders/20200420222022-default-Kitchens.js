@@ -68,7 +68,7 @@ module.exports = {
         streetAddress: '189 The Grove Drive',
         hostId: 3,
         description: 'You won\'t get another chance to work in the kitchen of famed Chef Galen Lambsey\'s new restaurant! Available for a limited time.',
-        imgPath: ['"https://res.cloudinary.com/aircncaa/image/upload/v1587858699/ltk8lwrx8a4zfgs55aew.jpg"', 'https://res.cloudinary.com/aircncaa/image/upload/v1587858723/kphjuotdpqze2rhdroce.jpg', 'https://res.cloudinary.com/aircncaa/image/upload/v1587858761/rgxgeitwz3xc5r8xjjoi.jpg'],
+        imgPath: ['https://res.cloudinary.com/aircncaa/image/upload/v1587858699/ltk8lwrx8a4zfgs55aew.jpg', 'https://res.cloudinary.com/aircncaa/image/upload/v1587858723/kphjuotdpqze2rhdroce.jpg', 'https://res.cloudinary.com/aircncaa/image/upload/v1587858761/rgxgeitwz3xc5r8xjjoi.jpg'],
         rate: 175,
         lat: 34.07351999999999,
         lng: -118.3595218,
