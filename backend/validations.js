@@ -18,7 +18,13 @@ const validateUserSignUp = [
     .withMessage("Please provide a valid email."),
   check("roleId")
     .exists({ checkFalsy: true })
-    .withMessage("Please choose a role for this account.")
+    .withMessage("Please choose a role for this account."),
+  check("password")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a password."),
+  check('confirmPassword', 'passwordConfirmation field must have the same value as the password field')
+    .exists({ checkFalsy: true })
+    .custom((value, { req }) => value === req.body.password)
 ];
 
 const validateUsernameAndPassword = [

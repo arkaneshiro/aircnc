@@ -9,14 +9,15 @@ html(lang="en")
           include ../public/stylesheets/signupStyles/styles/style.css
     title Sign Up
   body
-    div.errors-container
     .nav
       button(class="hostSignupButton") Host Your Kitchen
       button(class="help") Help
       button(class="signupButton") Sign Up
       button(class="loginButton" href="/log-in") Log in
     .sign-up
+
       form(class="sign-up-form")
+        div.errors-container
         .signup-form__username-container
           +createInput("input", "username", "sign-up-form__username", "userName", "Username", true, false, "username")
         .signup-form__first-name-container
