@@ -31,7 +31,7 @@ export function goToListings() {
 
 export function createListing() {
     document.getElementById("create-listing-button").addEventListener('click', () => {
-        window.location.href = '/kitchens/create'
+        window.location.href = '/listings/create'
     });
 }
 
