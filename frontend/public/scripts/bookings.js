@@ -1,6 +1,3 @@
-const logout = document.querySelector(".logoutButton")
-const cancelButton = document.querySelector(".cancel-booking")
-const reviewButton = document.querySelector(".leave-review")
 const url = window.location.pathname;
 const bookingId = url.substring(url.lastIndexOf('/') + 1);
 
@@ -8,22 +5,8 @@ if (localStorage.getItem("AIRCNC_ACCESS_TOKEN") === null) {
     window.location.href = "/";
 }
 
-
-
-// TODO: add conditional to remove "hidden" class from review button if endDate is past today.
-
-
-
-// log out event listener
-logout.addEventListener("click", () => {
-    localStorage.removeItem("AIRCNC_ACCESS_TOKEN");
-    localStorage.removeItem("AIRCNC_CURRENT_USER_ID");
-    localStorage.removeItem("AIRCNC_CURRENT_USER_ROLE");
-})
-
-// cancel booking event listener
-cancelButton.addEventListener("click", async () => {
-    event.preventDefault()
+// cancels booking when DOMContentLoaded
+document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         const res = await fetch(`http://localhost:8080/bookings/${bookingId}`, {
@@ -34,9 +17,9 @@ cancelButton.addEventListener("click", async () => {
                 )}`,
                 "Content-Type": "application/json",
             },
-        });
-        window.location.href = `/bookings/${bookingId}`;
-        return;
+          });
+          window.location.href = `/bookings/${bookingId}`;
+          return;
     } catch (e) {
         console.error(e);
     }
@@ -44,8 +27,15 @@ cancelButton.addEventListener("click", async () => {
 
 // review booking event listener
 reviewButton.addEventListener("click", () => {
-    window.location.href = `/bookings/${bookingId}/review`;
-    return;
+    // event.preventDefault()
+    if(localStorage.getItem("AIRCNC_CURRENT_USER_ROLE") === "1") {
+        window.location.href = `/bookings/${bookingId}/guestReview`;
+        return;
+    } else if(localStorage.getItem("AIRCNC_CURRENT_USER_ROLE") === "2") {
+        window.location.href = `/bookings/${bookingId}/kitchenReview`;
+        return;
+    }
+
 })
 
 // DOMContentLoaded event listener, makes fetch call to GET bookings/:id from backend to display booking details
@@ -65,16 +55,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             window.location.href = "/profile";
             return;
         }
-        const currentBooking = booking[0]
+        const currentBooking = booking
 
         // these are the queryselectors for the sections on the page, and the destructuring of the properties to be displayed
         const bookingDetail = document.querySelector(".booking-detail-container")
         const bookingImage = document.querySelector(".booking-image-container")
-        const { endDate, startDate, isConfirmed, Kitchen: { id: kitchenId, name, streetAddress, imgPath } } = currentBooking
+        const { endDate, startDate, isConfirmed, Kitchen: { id: kitchenId, name, streetAddress, imgPath} } = currentBooking
 
         let bookingDetailHtml = ''
         let bookingImageHtml = `<img src="${imgPath[0]}">`
-        if (isConfirmed) {
+        if(isConfirmed) {
             bookingDetailHtml = `
             <a class="booking-detail-kitchen-name" href="/kitchens/${kitchenId}"> ${name} </a>
             <div class="booking-detail-address"> Address: ${streetAddress} </div>
@@ -82,7 +72,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <div class="booking-detail-start"> Start Date: ${startDate} </div>
             <div class="booking-detail-end"> Start Date: ${endDate} </div>
         `
-        } else if (!isConfirmed) {
+        } else if(!isConfirmed) {
             bookingDetailHtml = `
             <a class="booking-detail-kitchen-name" href="/kitchens/${kitchenId}"> ${name} </a>
             <div class="booking-detail-address"> Address: ${streetAddress} </div>

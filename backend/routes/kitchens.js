@@ -170,7 +170,7 @@ router.get(
       include: [{
         model: Feature,
         as: "feature",
-        attributes: ["feature"],
+        attributes: ["feature", "imgPath"],
       }],
       where: {
         kitchenId
@@ -322,7 +322,10 @@ router.post(
       wouldRentAgain
     } = req.body;
 
-    if (req.user.roleId !== 2 || req.user.id !== authorId || req.user.isDeactivated === true) {
+    // console.log(`this is the first condition: ${authorId}`)
+    // console.log(`this is the second condition: ${req.user.isDeactivated === true}`)
+
+    if ((req.user.roleId === 1 || req.user.id.toString() !== authorId.toString()) || req.user.isDeactivated === true) {
       const err = Error('Unauthorized');
       err.status = 401;
       err.message = 'Not authorized to leave review on Kitchen'

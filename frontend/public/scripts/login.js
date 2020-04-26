@@ -57,8 +57,8 @@ logInForm.addEventListener("submit", async (e) => {
     localStorage.setItem("AIRCNC_CURRENT_USER_ID", id);
     localStorage.setItem("AIRCNC_CURRENT_USER_ROLE", role);
 
-    // redirect to /kitchens, when hosts are sent there they will be sent to /dashboard:
-    window.location.href = "/kitchens";
+        // redirect to /kitchens for guests, dashboard for hosts:
+        window.location.href = "/listings";
 
 
   } catch (err) {
