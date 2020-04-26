@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', async () => {
 
     //redirect if user is host? or not logged in or booking id DNE

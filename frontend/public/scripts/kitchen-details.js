@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
      *    - kitchen.rate
      *********************************/
     const roleId = localStorage.getItem("AIRCNC_CURRENT_USER_ROLE");
-
+    console.log(starRating);
     document.querySelector(".kitchenDetails__row-1__info").innerHTML = `
       <div class="kitchenDetails__info__name">
         ${kitchen.name}
@@ -55,7 +55,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let imgs = "";
     kitchen.imgPath.forEach((img, i) => {
-      imgs += `<img class="kitchenDetails__images-${i + 1} src="${img}>`
+      console.log(img);
+      imgs += `<img class="kitchenDetails__images" src="${img}">`
     });
 
     document.querySelector(".kitchenDetails__row-2__images").innerHTML = imgs;
