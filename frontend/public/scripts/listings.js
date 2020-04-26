@@ -87,8 +87,8 @@ const getListings = async (search) => {
       // ${willRentAgain} people would rent again
       return `
         <div class="kitchenListing">
-          <div class="kitchenListing__img">
-            <img src="/images/${i + 1}.jpeg">
+          <div id="kitchenListings__img-container" class="kitchenListing__img">
+            <img src="${kitchens.imgPath[0]}">
           </div>
           <div class="listing-info-container">
             <div class="kitchenListing__topLine">

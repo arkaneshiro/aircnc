@@ -240,6 +240,27 @@ body {
   font-size: 20px;
   margin-left: 15px;
   color: #ffffff;
+  padding: 5px;
+}
+
+.searchBar::-webkit-input-placeholder {
+  color: #ffffff;
+  opacity: .6;
+}
+
+.searchBar:-ms-input-placeholder {
+  color: #ffffff;
+  opacity: .6;
+}
+
+.searchBar::-ms-input-placeholder {
+  color: #ffffff;
+  opacity: .6;
+}
+
+.searchBar::placeholder {
+  color: #ffffff;
+  opacity: .6;
 }
 
 .profile, .listingsButton, .logoutButton {

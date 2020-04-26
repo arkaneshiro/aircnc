@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
     document.querySelector(".kitchenDetails__row-1__staticMap").innerHTML = `
-      <img src="http://maps.googleapis.com/maps/api/staticmap?center=${kitchen.lat},${kitchen.lng}&zoom=12&size=375x350&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c"> 
+      <img src="http://maps.googleapis.com/maps/api/staticmap?center=${kitchen.lat},${kitchen.lng}&zoom=12&size=375x350&markers=color:blue%7Clabel:S%7C${kitchen.lat},${kitchen.lng}&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c"> 
     `;
 
     let imgs = "";

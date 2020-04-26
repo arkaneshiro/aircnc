@@ -37,6 +37,10 @@ body {
   font-weight: 400;
 }
 
+.kitchenDetails__row-1__staticMap > img {
+  border-radius: 30px;
+}
+
 .kitchenDetails__row-1 {
   display: -webkit-box;
   display: -ms-flexbox;
