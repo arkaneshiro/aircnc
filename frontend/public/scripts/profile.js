@@ -129,9 +129,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         const pastBookHtml = pastBookings.map(({
             Kitchen: { name, imgPath, streetAddress, city: { cityName: city }, state: { stateName: state } },
             isConfirmed,
-            id }) => {
+            id,
+            startDate,
+            endDate }) => {
 
             let confirmation = '';
+            const startYear = startDate.substring(0,4);
+            const startMonth = startDate.substring(5,7);
+            const startDay = startDate.substring(8,10);
+            const endYear = endDate.substring(0,4);
+            const endMonth = endDate.substring(5,7);
+            const endDay = endDate.substring(8,10);
+
 
             if (isConfirmed) {
                 confirmation = "Confirmed!";
@@ -147,6 +156,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <div class="past-booking-detail">
                     <div class="past-booking-kitchen-name"> ${name} </div>
                     <div class="past-booking-kitchen-address"> ${streetAddress} ${city}, ${state} </div>
+                    <div class="past-booking-date"> ${startMonth}/${startDay}/${startYear} to ${endMonth}/${endDay}/${endYear} </div>
                     <div class="past-booking-confirmation"> ${confirmation} </div>
                 </div>
             </div>`;
@@ -156,10 +166,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         const currentBookHtml = currentBookings.map(({
             Kitchen: { name, imgPath, streetAddress, city: { cityName: city }, state: { stateName: state } },
             isConfirmed,
-            id }) => {
+            id,
+            startDate,
+            endDate }) => {
 
             let confirmation = '';
             let cancelButton = '';
+            const startYear = startDate.substring(0,4);
+            const startMonth = startDate.substring(5,7);
+            const startDay = startDate.substring(8,10);
+            const endYear = endDate.substring(0,4);
+            const endMonth = endDate.substring(5,7);
+            const endDay = endDate.substring(8,10);
 
             if (isConfirmed) {
                 confirmation = "Confirmed!";
@@ -176,12 +194,15 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <div class="current-booking-detail">
                     <div class="current-booking-kitchen-name"> ${name} </div>
                     <div class="current-booking-kitchen-address"> ${streetAddress} ${city}, ${state} </div>
+                    <div class="current-booking-date"> ${startMonth}/${startDay}/${startYear} to ${endMonth}/${endDay}/${endYear} </div>
                     <div class="current-booking-confirmation"> ${confirmation} </div>
                     ${cancelButton}
                 </div>
             </div>`;
         });
 
+
+        // generates options for review-options
         const reviewOptionsHtml = pastBookings.map(({
             Kitchen: { name },
             isConfirmed,
