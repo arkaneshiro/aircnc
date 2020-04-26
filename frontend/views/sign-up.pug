@@ -5,20 +5,34 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    style
+          include ../public/stylesheets/signupStyles/styles/style.css
     title Sign Up
   body
+    .nav
+      button(class="hostSignupButton") Host Your Kitchen
+      button(class="help") Help
+      button(class="signupButton") Sign Up
+      button(class="loginButton" href="/log-in") Log in
     .sign-up
       form(class="sign-up-form")
-        +createInput("input", "username", "sign-up-form__username", "userName", "Username", true, false, "username")
-        +createInput("input", "firstName", "sign-up-form__firstName","firstName", "First Name", true, false)
-        +createInput("input", "lastName", "sign-up-form__lastName", "lastName", "Last Name", true, false)
-        +createInput("email", "userEmail", "sign-up-form__email", "email", "Email", true, false, "username")
-        label(for="roles") Roles
-        select(id="roles" class="sign-up-form__roleId" name="roleId")
-          option(value=1) Host
-          option(value=2) Renter
-        +createInput("password", "password", "sign-up-form__password", "password", "Password", true, false, "new-password")
-        +createInput("password", "confirmPassword", "sign-up-form__confirmPassword", "confirmPassword", "Confirm Password", true, false, "new-password")
-        button(type="submit") Sign Up
+        .signup-form__username-container
+          +createInput("input", "username", "sign-up-form__username", "userName", "Username", true, false, "username")
+        .signup-form__first-name-container
+          +createInput("input", "firstName", "sign-up-form__firstName","firstName", "First Name", true, false)
+        .signup-form__last-name-container
+          +createInput("input", "lastName", "sign-up-form__lastName", "lastName", "Last Name", true, false)
+        .signup-form__email-container  
+          +createInput("email", "userEmail", "sign-up-form__email", "email", "Email", true, false, "username")
+        .signup-form__roles-container  
+          label(for="roles") Roles
+          select(id="roles" class="sign-up-form__roleId" name="roleId")
+            option(value=1) Host
+            option(value=2) Renter
+        .signup-form__password-container
+          +createInput("password", "password", "sign-up-form__password", "password", "Password", true, false, "new-password")
+        .signup-form__confirm-password-container
+          +createInput("password", "confirmPassword", "sign-up-form__confirmPassword", "confirmPassword", "Confirm Password", true, false, "new-password")
+        button(type="submit" class="signupButton") Sign Up
     script
       include ../public/scripts/signup.js

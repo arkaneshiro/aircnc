@@ -38,7 +38,7 @@ form {
   min-height: 400px;
 }
 
-.demoUser {
+.demoUser, .demoHost {
   height: 40px;
   width: 180px;
   border: 1px solid #8BD9D9;
@@ -178,9 +178,6 @@ form {
 }
 
 .listingsButton:hover, .logoutButton:hover {
-  border-radius: 15px;
-  -webkit-text-decoration: #ffffff underline solid;
-          text-decoration: #ffffff underline solid;
-  padding-bottom: 5px;
+  color: rgba(243, 237, 219, 0.678);
 }
 /*# sourceMappingURL=style.css.map */

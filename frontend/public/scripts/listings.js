@@ -87,6 +87,7 @@ const getListings = async (search) => {
           }
         });
       }
+      console.log(obj.imgPath[0]);
       // star rating
       // <span> Star Rating (${avgStarRating / starRatings.length ? avgStarRating / starRatings.length : 0})</span>
       // would rent again
@@ -94,12 +95,16 @@ const getListings = async (search) => {
       return `
         <div class="kitchenListing" id="kitchen${obj.id}">
           <div class="kitchenListing__img">
-            <img src="/images/${i + 1}.jpeg">
+            <img src="${obj.imgPath[0]}">
           </div>
           <div class="listing-info-container">
             <div class="kitchenListing__topLine">
               <div class="kitchenListing__userInfo">
+<<<<<<< HEAD
                 ${obj.name}
+=======
+                <a class="kitchenListing__userInfo-link" href="/listings/${obj.id}">${obj.name}</a>
+>>>>>>> master
               </div>
                 <div class="kitchenListing__starRating"> Star Rating (${Math.floor(Math.random() * (5)) + 1})</div>
             </div>
