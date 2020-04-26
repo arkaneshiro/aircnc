@@ -7,8 +7,13 @@ body
     justify-content: flex-end
     background-color: $blue
     
+    
 .hostSignupButton, .help, .signupButton, .loginButton
     @include buttonStyle()
+    &:hover
+            color: $lightMain
+            font-size: 20px
+            font-weight: bold
     
     
 .sign-up

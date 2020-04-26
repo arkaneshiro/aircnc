@@ -37,6 +37,12 @@ body {
   font-weight: 400;
 }
 
+.profile:hover, .listings:hover, .logoutButton:hover {
+  color: #8BD9D9;
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .kitchenDetails__row-1__staticMap img {
   border-radius: 20px;
 }

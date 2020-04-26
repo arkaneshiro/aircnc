@@ -9,6 +9,8 @@ html(lang="en")
     title Kitchen Details
   body
     div.navBar
+      .navImage
+        img(class="logo" src="/images/logo/aircnc-navbar-white.png")
       button(class="profile" id='profile-button') Profile
       button(class="listings" id='listings-button') Listings
       button(class="logoutButton" id='logout-button' href="http://localhost:4000/log-out") Log out
@@ -16,7 +18,7 @@ html(lang="en")
 
     .kitchenDetails
       .kitchenDetails__row-1.card
-        .kitchenDetails__row-1__info.card-body
+        .kitchenDetails__row-1__staticMap
         .kitchenDetails__row-1__staticMap.card-body
       .kitchenDetails__row-2.card
         .kitchenDetails__row-2__images.card-body
