@@ -20,7 +20,7 @@ app.get('/listings/create', (req, res) => {
 });
 
 app.get('/profile', (req, res) => {
-res.render('profile');
+    res.render('profile');
 });
 
 app.get('/dashboard', (req, res) => {
