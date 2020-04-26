@@ -11,12 +11,12 @@ loginButton.addEventListener('click', () => {
 })
 
 signupButton.addEventListener('click', () => {
-    window.location.href = "/sign-up";
+    window.location.href = "/signup";
     localStorage.setItem("AIRCNC_CURRENT_USER_ROLE", "2");
 })
 
 hostSignupButton.addEventListener('click', () => {
-    window.location.href = "/sign-up";
+    window.location.href = "/signup";
     localStorage.setItem("AIRCNC_CURRENT_USER_ROLE", "1");
 })
 
