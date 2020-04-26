@@ -3,15 +3,12 @@ html(lang="en")
     head
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        script(src="/scripts/create-kitchen.js")
-        style 
+        script(type="module" src="/scripts/create-kitchen.js")
+        style
             include ../public/stylesheets/createKitchenStyles/styles/style.css
         title Create a Kitchen
     body
-        div.create-navbar
-            button(class="dashboard" href="http://localhost:4000/dashboard") DashBoard
-            button(class="CreateListing" href="http://localhost:4000/kitchens/create") Create Listing
-            button(class="logoutButton" href="http://localhost:4000/log-out") Log out
+        include includes/host-navbar.pug
         div.kitchen-form
             form(action="" id='kitchen-form')
                 div.kitchen-form__top

@@ -1,59 +1,71 @@
 'use strict';
+const { Kitchen } = require("../models");
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Bookings', [
-      {
-        startDate: new Date('December 17, 2001'),
-        endDate: new Date('April 20, 2020'),
-        isConfirmed: true,
-        kitchenId: 3,
-        renterId: 6,
-        hostId: 5,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        startDate: new Date('December 12, 2002'),
-        endDate: new Date('January 7, 2003'),
-        isConfirmed: true,
-        kitchenId: 2,
-        renterId: 7,
-        hostId: 1,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        startDate: new Date('September 14, 1999'),
-        endDate: new Date('March 22, 2019'),
-        isConfirmed: true,
-        kitchenId: 4,
-        renterId: 8,
-        hostId: 2,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        startDate: new Date('September 23, 1999'),
-        endDate: new Date('March 5, 2019'),
-        isConfirmed: true,
-        kitchenId: 3,
-        renterId: 8,
-        hostId: 5,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        startDate: new Date('September 23, 1999'),
-        endDate: new Date('March 5, 2019'),
-        isConfirmed: true,
-        kitchenId: 1,
-        renterId: 6,
-        hostId: 1,
-        createdAt: new Date(),
-        updatedAt: new Date()
+  up: async (queryInterface, Sequelize) => {
+    //generate 100 bookings randomly
+    function getRandomIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
+    }
+    const monthArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let bookingsArr = [];
+    for (let i = 1; i <= 10; i++) {
+
+      for (let j = 1; j <= 5; j++) {
+        let month = getRandomIntInclusive(0, 11);
+        let day = getRandomIntInclusive(0, 27);
+        let year = getRandomIntInclusive(2018, 2019);
+        let guest = getRandomIntInclusive(6, 8);
+        let kitchen = i
+        let kitchenInfo = await Kitchen.findByPk(kitchen);
+        let hostId = kitchenInfo.hostId;
+        console.log(`month:${month}, date:${day}, year:${year}`);
+        bookingsArr.push({
+          startDate: new Date(year, month, day, 0, 0, 0),
+          endDate: new Date(year, month, day, 0, 0, 0),
+          isConfirmed: true,
+          kitchenId: kitchen,
+          renterId: guest,
+          hostId: hostId,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        })
       }
-    ], {});
+
+      for (let j = 1; j <= 5; j++) {
+        let year = getRandomIntInclusive(2020, 2023);
+        let month;
+        if (year == 2020) {
+          month = getRandomIntInclusive(4, 11);
+        } else {
+          month = getRandomIntInclusive(0, 11);
+        }
+        let day = getRandomIntInclusive(0, 27);
+
+        let guest = getRandomIntInclusive(6, 8);
+        let kitchen = i
+        let kitchenInfo = await Kitchen.findByPk(kitchen);
+        let hostId = kitchenInfo.hostId;
+        console.log(`month:${month}, date:${day}, year:${year}`);
+        bookingsArr.push({
+          startDate: new Date(year, month, day, 0, 0, 0),
+          endDate: new Date(year, month, day, 0, 0, 0),
+          isConfirmed: true,
+          kitchenId: kitchen,
+          renterId: guest,
+          hostId: hostId,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        })
+      }
+
+
+    }
+
+
+    return queryInterface.bulkInsert('Bookings', bookingsArr, {});
   },
 
   down: (queryInterface, Sequelize) => {
