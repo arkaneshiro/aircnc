@@ -65,7 +65,7 @@ module.exports = {
       },
       {
         name: 'The Plump Calf',
-        cityId: 2,
+        cityId: 15,
         stateId: 5,
         streetAddress: '189 The Grove Drive',
         hostId: 3,
@@ -79,7 +79,7 @@ module.exports = {
       },
       {
         name: 'San Fransisco Commissary',
-        cityId: 2,
+        cityId: 15,
         stateId: 5,
         streetAddress: '345 Spear St',
         hostId: 4,
