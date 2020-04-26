@@ -90,7 +90,7 @@ kitchenReview.addEventListener("submit", async (ev) => {
 document.addEventListener("DOMContentLoaded", async () => {
     isLoggedIn();
     logOut();
-    goToListings()
+    goToListings();
 
     const userId = localStorage.getItem("AIRCNC_CURRENT_USER_ID")
 
