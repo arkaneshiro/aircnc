@@ -8,7 +8,7 @@ const endTime = document.getElementById("endTime");
 const startTime = document.getElementById("startTime");
 const monthAndYear = document.getElementById("monthAndYear");
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-let dateObj;
+let dateStr;
 let getStartTime;
 let getEndTime;
 
@@ -55,6 +55,7 @@ const showCalendar = (month, year) => {
     for (let j = 0; j < 7; j++) {
       if (i === 0 && j < firstDay) {
         cell = document.createElement("td");
+        cell.setAttribute("class", "calendarTD")
         cellText = document.createTextNode("");
         cell.appendChild(cellText);
         row.appendChild(cell);
@@ -66,11 +67,16 @@ const showCalendar = (month, year) => {
 
         const [month, year] = monthAndYear.innerHTML.split(" ");
         const selectableDate = new Date(`${month} ${date} ${year}`);
-
+        // role = "button" aria - expanded="false" aria - controls="multiCollapseExample1"
         if (today <= selectableDate) {
           const setTime = document.createElement("a");
+          // setTime.setAttribute("class", "collapsed")
           setTime.setAttribute("href", "#");
           setTime.setAttribute("class", "bookings__start-end-time__popup");
+          setTime.setAttribute("data-toggle", "collapse");
+          setTime.setAttribute("role", "button");
+          setTime.setAttribute("aria-expanded", "false");
+          setTime.setAttribute("aria-controls", "#set-time-form");
           setTime.setAttribute("id", `day-${date >= 10 ? date.toString() : '0' + date}`);
           setTime.appendChild(cellText);
           cell.appendChild(setTime);
@@ -100,27 +106,26 @@ const kitchenDetails = async () => {
   console.log(kitchen);
 
   document.querySelector(".bookings-form__left-top").innerHTML = `
-    <div class=".bookings-form__left-top__kitchen-name">
+  <div class="bookings-form__left-top-container card">
+    <div class="bookings-form__left-top__kitchen-name card-body font-weight-bold d-flex justify-content-center">
       ${kitchen.name}
     </div>
-    <div class=".bookings-form__left-top__kitchen-address">
-      ${kitchen.streetAddress}
+    <div class="bookings-form__left-top__kitchen-description card-body">
+      ${kitchen.description}
     </div>
-    <div class=".bookings-form__left-top__kitchen-city">
-      ${kitchen.city.cityName}
-    </div>
-    <div class=".bookings-form__left-top__kitchen-state">
-      ${kitchen.state.stateName}
-    </div>
+  </div>
   `;
 
-
-  let imgHTML = `<img src="http://maps.googleapis.com/maps/api/staticmap?center=${kitchen.lat},${kitchen.lng}&zoom=12&size=375x350&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c">`;
+  document.querySelector(".bookings-form__right-bottom").innerHTML = `
+    <div class="bookings-form__left-bottom__kitchen-rate card-body">
+      Rate: $${kitchen.rate} / hr
+    </div>`;
+  let imgHTML = `<img src=${kitchen.imgPath[0]}>`;
   // kitchen.imgPath.forEach((img, i) => {
   //   imgHTML += `<img id="bookings-form__img-${i + 1}" src="${img}">`;
   // });
   document.querySelector(".bookings-form__imgs").innerHTML = imgHTML;
-
+  
 
 };
 
