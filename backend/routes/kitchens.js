@@ -170,7 +170,7 @@ router.get(
       include: [{
         model: Feature,
         as: "feature",
-        attributes: ["feature"],
+        attributes: ["feature", "imgPath"],
       }],
       where: {
         kitchenId
