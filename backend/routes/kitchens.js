@@ -178,6 +178,11 @@ router.get(
     });
 
     const kitchenReviews = await KitchenReview.findAll({
+      include: [
+        {
+          model: User,
+        }
+      ],
       where: {
         kitchenId
       },
@@ -186,7 +191,7 @@ router.get(
 
     let sumOfRating = 0;
     kitchenReviews.forEach(rating => {
-      sumOfRating += rating.dataValues.starRating;
+      sumOfRating += rating.dataValues.starRating
     });
 
     sumOfRating /= kitchenReviews.length;
