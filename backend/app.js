@@ -16,7 +16,7 @@ app.set("view engine", "pug");
 // Middlewares
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:4000" }));
+app.use(cors({ origin: true }));
 
 // Mount Routers
 app.use("/", indexRouter);

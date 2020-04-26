@@ -87,7 +87,7 @@ const getListings = async (search) => {
           }
         });
       }
-      console.log(obj.imgPath[0]);
+      // console.log(obj.imgPath[0]);
       // star rating
       // <span> Star Rating (${avgStarRating / starRatings.length ? avgStarRating / starRatings.length : 0})</span>
       // would rent again
