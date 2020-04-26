@@ -22,10 +22,9 @@ body {
 }
 
 .dashboard:hover, .CreateListing:hover, .logoutButton:hover {
-  border-radius: 15px;
-  -webkit-text-decoration: #ffffff underline solid;
-          text-decoration: #ffffff underline solid;
-  padding-bottom: 5px;
+  color: #8BD9D9;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .create-navbar {
