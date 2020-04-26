@@ -9,15 +9,30 @@ const startTime = document.getElementById("startTime");
 const monthAndYear = document.getElementById("monthAndYear");
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 let dateObj;
+let getStartTime;
+let getEndTime;
 
 const daysInMonth = () => {
   return 32 - new Date(currYear, currMonth, 32).getDate();
+};
+
+const setPopUpListener = () => {
+  let dates = document.querySelectorAll(".bookings__start-end-time__popup")
+  dates.forEach(date => {
+    date.addEventListener("click", ev => {
+      const day = ev.target.id.slice(-2);
+      const [month, year] = monthAndYear.innerHTML.split(" ");
+      dateStr = `${month} ${day}, ${year}`;
+      document.getElementById("set-time-form").classList.toggle("hidden");
+    });
+  });
 };
 
 const jump = () => {
   currYear = parseInt(selectYear.value);
   currMonth = parseInt(selectMonth.value);
   showCalendar(currMonth, currYear);
+  setPopUpListener();
 };
 
 const showCalendar = (month, year) => {
@@ -71,13 +86,53 @@ const showCalendar = (month, year) => {
 
 };
 
-showCalendar(currMonth, currYear);
+const kitchenDetails = async () => {
+  const currentURL = window.location.href;
+  const kitchenId = currentURL.match(/\d+/g)[1];
+  const res = await fetch(`http://localhost:8080/kitchens/${kitchenId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem("AIRCNC_ACCESS_TOKEN")}`
+    }
+  });
 
+  const { kitchen } = await res.json();
+  console.log(kitchen);
+
+  document.querySelector(".bookings-form__left-top").innerHTML = `
+    <div class=".bookings-form__left-top__kitchen-name">
+      ${kitchen.name}
+    </div>
+    <div class=".bookings-form__left-top__kitchen-address">
+      ${kitchen.streetAddress}
+    </div>
+    <div class=".bookings-form__left-top__kitchen-city">
+      ${kitchen.city.cityName}
+    </div>
+    <div class=".bookings-form__left-top__kitchen-state">
+      ${kitchen.state.stateName}
+    </div>
+  `;
+
+
+  let imgHTML = `<img src="http://maps.googleapis.com/maps/api/staticmap?center=${kitchen.lat},${kitchen.lng}&zoom=12&size=375x350&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c">`;
+  // kitchen.imgPath.forEach((img, i) => {
+  //   imgHTML += `<img id="bookings-form__img-${i + 1}" src="${img}">`;
+  // });
+  document.querySelector(".bookings-form__imgs").innerHTML = imgHTML;
+
+
+};
+
+kitchenDetails();
+showCalendar(currMonth, currYear);
+setPopUpListener();
 document.getElementById("next")
   .addEventListener("click", () => {
     currYear = (currMonth === 11) ? currYear + 1 : currYear;
     currMonth = (currMonth + 1) % 12;
     showCalendar(currMonth, currYear);
+    setPopUpListener();
   });
 
 document.getElementById("previous")
@@ -85,61 +140,79 @@ document.getElementById("previous")
     currYear = (currMonth === 0) ? currYear - 1 : currYear;
     currMonth = (currMonth === 0) ? 11 : currMonth - 1;
     showCalendar(currMonth, currYear);
+    setPopUpListener();
   });
 
 document.getElementById("month")
   .addEventListener("change", jump);
 
+
 document.getElementById("year")
   .addEventListener("change", jump);
 
-let dates = document.querySelectorAll(".bookings__start-end-time__popup")
-dates.forEach(date => {
-  date.addEventListener("click", ev => {
-    const day = ev.target.id.slice(-2);
-    const [month, year] = monthAndYear.innerHTML.split(" ");
-    dateStr = `${month} ${day}, ${year}`;
+
+document.querySelector(".bookings__start-end-time")
+  .addEventListener("submit", async ev => {
+    ev.preventDefault();
+    getStartTime = startTime.value;
+    getEndTime = endTime.value;
+
+    console.log(new Date(`${dateStr} ${startTime.value}`));
     document.getElementById("set-time-form").classList.toggle("hidden");
   });
-});
 
-const calendarForm = document.querySelector(".bookings__start-end-time");
-calendarForm.addEventListener("submit", async ev => {
-  ev.preventDefault();
-  let body;
-  if (startTime.value < endTime.value) {
-    console.log(new Date(`${dateStr} ${startTime.value}`));
-    body = {
-      startDate: new Date(`${dateStr} ${startTime.value}`),
-      endDate: new Date(`${dateStr} ${endTime.value}`),
-      kitchenId: 1,
-      renterId: parseInt(localStorage.getItem("AIRCNC_CURRENT_USER_ID")),
-      hostId: 1
-    };
+document.querySelector(".checkout__submit-booking")
+  .addEventListener("submit", async ev => {
+    ev.preventDefault();
+    const currentURL = window.location.href;
+    const kitchenId = currentURL.match(/\d+/g)[1];
+    console.log(kitchenId)
 
-  } else {
-    alert("Start time cannot be after the end time...");
-    return;
-  }
-  console.log(startTime.value, endTime.value, dateStr);
-  try {
-
-
-    const res = await fetch("http://localhost:8080/kitchens/1", {
-      method: "POST",
+    //get picture for kitchen
+    const kitchenData = await fetch(`http://localhost:8080/kitchens/${kitchenId}`, {
       headers: {
-        "Content-Type": "application/json",
-        "authorization": `Bearer ${localStorage.getItem("AIRCNC_ACCESS_TOKEN")}`,
-      },
-      body: JSON.stringify(body)
+        'Authorization': `Bearer ${localStorage.getItem('AIRCNC_ACCESS_TOKEN')}`,
+        "Content-Type": "application/json"
+      }
     });
 
-    if (!res.ok) {
-      throw res;
+    const { kitchen } = await kitchenData.json();
+    const imgDiv = document.getElementById('bookings-form__img');
+    console.log(imgDiv);
+    console.log(startTime.value, endTime.value, dateStr);
+    // imgDiv.innerHTML = `<img href="${kitchen.imgPath[0]}" alt="Picture of ${kitchen.name}">`
+
+    let body;
+    if (startTime.value < endTime.value) {
+      console.log(new Date(`${dateStr} ${startTime.value}`));
+      body = {
+        startDate: new Date(`${dateStr} ${startTime.value}`),
+        endDate: new Date(`${dateStr} ${endTime.value}`),
+        kitchenId,
+        hostId: kitchen.hostId
+      };
+
+    } else {
+      alert("Start time cannot be after the end time...");
+      return;
     }
 
-    window.location.href = '/calendar';
-  } catch (err) {
-    console.error(err);
-  }
-}); 
+    try {
+      const res = await fetch("http://localhost:8080/kitchens/1", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": `Bearer ${localStorage.getItem("AIRCNC_ACCESS_TOKEN")}`,
+        },
+        body: JSON.stringify(body)
+      });
+
+      if (!res.ok) {
+        throw res;
+      }
+
+      window.location.href = '/listings';
+    } catch (err) {
+      console.error(err);
+    }
+  });

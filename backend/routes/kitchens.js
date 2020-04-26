@@ -149,7 +149,23 @@ router.get(
   requireAuth,
   asyncHandler(async (req, res, next) => {
     const kitchenId = parseInt(req.params.id, 10);
-    const kitchen = await Kitchen.findByPk(kitchenId)
+    const kitchen = await Kitchen.findByPk(kitchenId, {
+      include: [
+        {
+          model: City,
+          as: "city"
+
+        },
+        {
+          model: State,
+          as: "state",
+        },
+        {
+          model: User,
+          as: "user"
+        }
+      ]
+    })
     const kitchenFeatures = await KitchenFeature.findAll({
       include: [{
         model: Feature,
@@ -173,11 +189,12 @@ router.get(
       sumOfRating += rating.dataValues.starRating;
     });
 
+    sumOfRating /= kitchenReviews.length;
     if (kitchen) {
       res.json({
         kitchen,
         kitchenFeatures,
-        starRating: sumOfRating / kitchenReviews.length,
+        starRating: (sumOfRating ? sumOfRating : 0),
         kitchenReviews
       });
     } else {

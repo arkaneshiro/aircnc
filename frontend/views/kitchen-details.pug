@@ -3,8 +3,14 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    style 
+            include ../public/stylesheets/KitchenDetailsStyle/styles/style.css
     title Kitchen Details
   body
+    div.navBar
+            button(class="profile") Profile
+            button(class="listings") Listings
+            button(class="logoutButton" href="http://localhost:4000/log-out") Log out
     .navListings
 
     .kitchenDetails

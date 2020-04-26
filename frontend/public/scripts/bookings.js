@@ -34,9 +34,9 @@ cancelButton.addEventListener("click", async () => {
                 )}`,
                 "Content-Type": "application/json",
             },
-          });
-          window.location.href = `/bookings/${bookingId}`;
-          return;
+        });
+        window.location.href = `/bookings/${bookingId}`;
+        return;
     } catch (e) {
         console.error(e);
     }
@@ -77,11 +77,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         // these are the queryselectors for the sections on the page, and the destructuring of the properties to be displayed
         const bookingDetail = document.querySelector(".booking-detail-container")
         const bookingImage = document.querySelector(".booking-image-container")
-        const { endDate, startDate, isConfirmed, Kitchen: { id: kitchenId, name, streetAddress, imgPath} } = currentBooking
+        const { endDate, startDate, isConfirmed, Kitchen: { id: kitchenId, name, streetAddress, imgPath } } = currentBooking
 
         let bookingDetailHtml = ''
         let bookingImageHtml = `<img src="${imgPath[0]}">`
-        if(isConfirmed) {
+        if (isConfirmed) {
             bookingDetailHtml = `
             <a class="booking-detail-kitchen-name" href="/kitchens/${kitchenId}"> ${name} </a>
             <div class="booking-detail-address"> Address: ${streetAddress} </div>
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <div class="booking-detail-start"> Start Date: ${startDate} </div>
             <div class="booking-detail-end"> Start Date: ${endDate} </div>
         `
-        } else if(!isConfirmed) {
+        } else if (!isConfirmed) {
             bookingDetailHtml = `
             <a class="booking-detail-kitchen-name" href="/kitchens/${kitchenId}"> ${name} </a>
             <div class="booking-detail-address"> Address: ${streetAddress} </div>
