@@ -100,11 +100,7 @@ const getListings = async (search) => {
           <div class="listing-info-container">
             <div class="kitchenListing__topLine">
               <div class="kitchenListing__userInfo">
-<<<<<<< HEAD
-                ${obj.name}
-=======
                 <a class="kitchenListing__userInfo-link" href="/listings/${obj.id}">${obj.name}</a>
->>>>>>> master
               </div>
                 <div class="kitchenListing__starRating"> Star Rating (${Math.floor(Math.random() * (5)) + 1})</div>
             </div>
