@@ -7,10 +7,13 @@ html(lang="en")
         title Profile
     body
         div.navListings
-            button(type="submit" class="listingsButton") Listings
-            button(type="submit" class="logoutButton") Log out
+            button(type="submit" class="listingsButton" id="listings-button") Listings
+            button(type="submit" class="logoutButton" id="logout-button") Log out
         h1 Your Bookings
         div.bookings
             div.pastBookings
             div.currentBookings
-    script(src="/scripts/profile.js")
+            div.reviewBookings
+                form.reviewForm
+                    button.submit-review-button
+    script(type="module" src="/scripts/profile.js")

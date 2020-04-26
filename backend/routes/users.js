@@ -244,8 +244,15 @@ router.get('/:id(\\d+)/bookings', requireAuth, asyncHandler(async (req, res) => 
   }
 
   const guestBookings = await Booking.findAll({
-    include: { model: Kitchen },
-    where: { renterId: guest.id }
+    include: {
+      model: Kitchen,
+      include: [
+        { model: City, as: "city" },
+        { model: State, as: "state" }
+      ]
+    },
+    where: { renterId: guest.id },
+    order: [['startDate', 'ASC']]
 
   });
 

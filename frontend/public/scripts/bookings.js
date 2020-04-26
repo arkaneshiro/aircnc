@@ -3,6 +3,8 @@ const cancelButton = document.querySelector(".cancel-booking")
 const reviewButton = document.querySelector(".leave-review")
 const url = window.location.pathname;
 const bookingId = url.substring(url.lastIndexOf('/') + 1);
+// console.log(url)
+// console.log(bookingId)
 
 if (localStorage.getItem("AIRCNC_ACCESS_TOKEN") === null) {
     window.location.href = "/";

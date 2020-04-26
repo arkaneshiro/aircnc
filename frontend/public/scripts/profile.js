@@ -1,21 +1,14 @@
-const logout = document.querySelector(".logoutButton")
+import { logOut, isLoggedIn, goToListings } from "./tools.js";
 
-if (localStorage.getItem("AIRCNC_ACCESS_TOKEN") === null) {
-    window.location.href = "/";
-} else if (localStorage.getItem("AIRCNC_CURRENT_USER_ROLE") === 1) {
+if (localStorage.getItem("AIRCNC_CURRENT_USER_ROLE") === '1') {
     window.location.href = "/dashboard";
 }
 
-logout.addEventListener("click", () => {
-    event.preventDefault()
-    localStorage.removeItem("AIRCNC_ACCESS_TOKEN");
-    localStorage.removeItem("AIRCNC_CURRENT_USER_ID");
-    localStorage.removeItem("AIRCNC_CURRENT_USER_ROLE");
-    window.location.href = "/";
-    return;
-})
-
 document.addEventListener("DOMContentLoaded", async () => {
+    isLoggedIn();
+    logOut();
+    goToListings()
+
     const userId = localStorage.getItem("AIRCNC_CURRENT_USER_ID")
     try {
         const res = await fetch(`http://localhost:8080/users/${userId}/bookings`, {
@@ -38,7 +31,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (Date.parse(booking.endDate) > Date.parse(today)) {
                 currentBookings.push(booking)
             } else {
-                pastBookings.push(booking)
+                pastBookings.unshift(booking)
             }
 
 
@@ -46,51 +39,73 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const pastBookingsContainer = document.querySelector(".pastBookings");
         const pastBookHtml = pastBookings.map(
-            ({ Kitchen: { name, imgPath }, kitchenId, isConfirmed, id }) => {
+            ({ Kitchen: { name, imgPath, streetAddress, city: { cityName: city }, state: { stateName: state } }, isConfirmed, id }) => {
                 let confirmation = ''
-                let cancelButton = ''
 
-                if(isConfirmed){
+                if (isConfirmed) {
                     confirmation = "Confirmed!"
-                    cancelButton = `<a class="cancel-booking-button" href="/bookings/${id}">Cancel</a>`
                 } else {
                     confirmation = "Cancelled!"
                 }
 
                 return `
-                <div class="past-booking" id="booking-${id}">
-                    <div class="past-booking-kitchen-name"> ${name} </div>
-                    <div class="past-booking-confirmation"> ${confirmation} </div>
-                    ${cancelButton}
+                <div class="past-booking-container past-booking${id}">
+                    <div class="past-booking-image-container">
+                        <img class="past-booking-image" src="${imgPath[0]}">
+                    </div>
+                    <div class="past-booking-detail">
+                        <div class="past-booking-kitchen-name"> ${name} </div>
+                        <div class="past-booking-kitchen-address"> ${streetAddress} ${city}, ${state} </div>
+                        <div class="past-booking-confirmation"> ${confirmation} </div>
+                    </div>
                 </div>
                 `
                 // Here is the code to add the image, once the images in the database makes sense: <img src="${imgPath[0]}">
             });
-        pastBookingsContainer.innerHTML = `<div class="past-booking__header"> Past Bookings </div> ${pastBookHtml.join("")}`;
+        pastBookingsContainer.innerHTML = `<div class="past-booking-header"> Past Bookings </div> <div class="past-bookings">${pastBookHtml.join("")}</div>`;
 
         const currentBookingsContainer = document.querySelector(".currentBookings");
         const currentBookHtml = currentBookings.map(
-            ({ Kitchen: { name, imgPath }, kitchenId, isConfirmed, id }) => {
+            ({ Kitchen: { name, imgPath, streetAddress, city: { cityName: city }, state: { stateName: state } }, isConfirmed, id }) => {
                 let confirmation = ''
+                let cancelButton = ''
 
-                if(isConfirmed){
+                if (isConfirmed) {
                     confirmation = "Confirmed!"
+                    cancelButton = `<button class="cancel-booking-button" value="/bookings/${id}">Cancel</button>`
                 } else {
                     confirmation = "Cancelled!"
                 }
 
                 return `
-                <div class="current-booking" id="booking-${id}">
-                    <div class="current-booking-kitchen-name"> ${name} </div>
-                    <div class="current-booking-confirmation"> ${confirmation} </div>
-                    <a class="details-booking-${id}" href="/bookings/${id}">Details</a>
+                <div class="current-booking-container current-booking${id}">
+                    <div class="current-booking-image-container">
+                        <img class="current-booking-image" src="${imgPath[0]}">
+                    </div>
+                    <div class="current-booking-detail">
+                        <div class="current-booking-kitchen-name"> ${name} </div>
+                        <div class="current-booking-kitchen-address"> ${streetAddress} ${city}, ${state} </div>
+                        <div class="current-booking-confirmation"> ${confirmation} </div>
+                        ${cancelButton}
+                    </div>
                 </div>
                 `
+
                 // Here is the code to add the image, once the images in the database makes sense: <img src="${imgPath[0]}">
             });
-        currentBookingsContainer.innerHTML = `<div class="current-booking__header"> Current Bookings </div> ${currentBookHtml.join("")}`;
+        currentBookingsContainer.innerHTML = `<div class="current-booking-header"> Current Bookings </div> <div class="current-bookings">${currentBookHtml.join("")}</div>`;
+
+        currentBookingsContainer.addEventListener("click", async () => {
+            if((event.target.value).startsWith("/bookings/")) {
+                window.location.href = `${event.target.value}`;
+            }
+
+
+        })
+
 
     } catch (e) {
         console.error(e);
     }
+
 });
