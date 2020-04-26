@@ -98,6 +98,8 @@ form {
   top: 10px;
   color: #0FBFAE;
 }
+<<<<<<< HEAD
+=======
 
 .bookings-form__imgs img {
   margin-top: 50px;
@@ -177,7 +179,12 @@ form {
   color: #ffffff;
 }
 
-.listingsButton:hover, .logoutButton:hover {
-  color: rgba(243, 237, 219, 0.678);
+.navImage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
 }
+>>>>>>> master
 /*# sourceMappingURL=style.css.map */

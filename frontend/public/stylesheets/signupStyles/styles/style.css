@@ -34,6 +34,12 @@ body {
   font-weight: 400;
 }
 
+.hostSignupButton:hover, .help:hover, .signupButton:hover, .loginButton:hover {
+  color: #8BD9D9;
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .sign-up {
   display: -webkit-box;
   display: -ms-flexbox;

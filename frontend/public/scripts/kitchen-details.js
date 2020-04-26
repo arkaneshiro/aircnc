@@ -1,27 +1,9 @@
-function logOut() {
-  document.getElementById("logout-button").addEventListener("click", () => {
-    localStorage.clear();
-    window.location.href = "/";
-  });
-}
-
-function isLoggedIn() {
-  if (localStorage.getItem("AIRCNC_ACCESS_TOKEN") === null) {
-    window.location.href = "/";
-  }
-}
-
-function goToProfile() {
-  document.getElementById("profile-button").addEventListener('click', () => {
-    window.location.href = '/profile'
-  });
-}
-
-function goToListings() {
-  document.getElementById("listings-button").addEventListener('click', () => {
-    window.location.href = '/listings'
-  });
-}
+import {
+  isLoggedIn,
+  goToProfile,
+  goToListings,
+  logOut
+} from './tools.js';
 
 document.addEventListener("DOMContentLoaded", async () => {
   isLoggedIn();
@@ -29,7 +11,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   goToListings();
   goToProfile();
   // const kitchenId = localStorage.getItem("AIRCNC_KITCHEN_ID");
-  const kitchenId = getCookie("kitchenId");
+  isLoggedIn();
+  goToProfile();
+  goToListings();
+  logOut();
+
+  // const kitchenId = getCookie("kitchenId");
+
+  const currentURL = window.location.href;
+  const kitchenId = currentURL.match(/\d+/g)[1];
+
   try {
     let res = await fetch(`http://localhost:8080/kitchens/${kitchenId}`, {
       headers: {
@@ -61,10 +52,13 @@ document.addEventListener("DOMContentLoaded", async () => {
      *    - kitchen.rate
      *********************************/
     const roleId = localStorage.getItem("AIRCNC_CURRENT_USER_ROLE");
-    console.log(starRating);
+    // console.log(starRating);
     document.querySelector(".kitchenDetails__row-1__info").innerHTML = `
       <div class="kitchenDetails__info__name">
         ${kitchen.name}
+      </div>
+      <div class="kitchenDetails__info__description">
+        Beautiful Kitchen In ${kitchen.city.cityName}
       </div>
       <div class="kitchenDetails__info__star-rating">
         ${starRating} Star Rating
@@ -79,12 +73,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
     document.querySelector(".kitchenDetails__row-1__featured-img").innerHTML = `
-      <img class="card" src="http://maps.googleapis.com/maps/api/staticmap?center=${kitchen.lat},${kitchen.lng}&zoom=12&size=375x350&markers=color:red%7C${kitchen.lat},${kitchen.lng}&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c">
+      <img class="card" src="${kitchen.imgPath[0]}">
     `;
 
     let imgs = "";
-    kitchen.imgPath.forEach((img, i) => {
-      console.log(img);
+    kitchen.imgPath.forEach(img => {
+      // console.log(img);
       imgs += `
       <div class="kitchenDetails__kitchen-img">
         <img class="card-img kitchenDetails__images" src="${img}">
@@ -93,9 +87,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     document.querySelector(".kitchenDetails__row-2__images").innerHTML = imgs;
 
+    document.querySelector(".kitchenDetails__row-3").innerHTML = `
+      <div class="kitchenDetails__row-3__host-text">
+        Hosted by ${kitchen.user.firstName}
+      </div>
+      <div class="kitchenDetails__row-3__description-text">
+        "${kitchen.description}"
+      </div>`;
+
     let features = "";
     kitchenFeatures.forEach(({ feature }) => {
-      console.log(feature.imgPath);
+      // console.log(feature.imgPath);
       features += `
       <div class="kitchenDetails__feature-container">
         <div class="kitchenDetails__feature-img">
@@ -110,11 +112,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     document.querySelector(".kitchenDetails__row-4__features").innerHTML = features;
 
+    console.log(kitchenReviews);
     let kitchenReviewHTML = "";
     kitchenReviews.forEach(kitchenReview => {
       kitchenReviewHTML += `
-      <div class="kitchenDetails__review card-text">
-        <li class="list-group-item">${kitchenReview.comment}</li>
+      <div class="kitchenDetails__review-name">
+        ${kitchenReview.User.firstName} ${kitchenReview.User.lastName[0]}.
+      </div>
+      <div class="kitchenDetails__review">
+        <div class="kitchenDetails__review-comment">${kitchenReview.comment}</li>
       </div>`
     });
 

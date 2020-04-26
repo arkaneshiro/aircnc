@@ -65,7 +65,7 @@ guestReview.addEventListener("submit", async (ev) => {
             wouldHostAgain: `${wouldHostAgain.checked ? true : false}`
         };
 
-        res = await fetch(`http://localhost:8080/users/${booking.renterId}/reviews`, {
+        const res = await fetch(`http://localhost:8080/users/${booking.renterId}/reviews`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -77,7 +77,7 @@ guestReview.addEventListener("submit", async (ev) => {
         if (!res.ok) {
             throw res
         }
-        res = await res.json();
+        // res = await res.json();
         window.location.href = "/dashboard";
     } catch (err) {
         console.error(err);

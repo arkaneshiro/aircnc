@@ -4,7 +4,11 @@ body
 
 .dashboard, .CreateListing, .logoutButton
    @include buttonStyle()
-   @include buttonShadow()
+   &:hover
+            color: $lightMain
+            font-size: 20px
+            font-weight: bold
+//    @include buttonShadow()
    
 .create-navbar
     display: flex
