@@ -72,21 +72,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     `;
 
 
-<<<<<<< HEAD
     document.querySelector(".kitchenDetails__row-1__featured-img").innerHTML = `
       <img class="card" src="${kitchen.imgPath[0]}">  
     `;
 
     let imgs = "";
     kitchen.imgPath.forEach(img => {
-=======
-    document.querySelector(".kitchenDetails__row-1__staticMap").innerHTML = `
-      <img class="card" src="http://maps.googleapis.com/maps/api/staticmap?center=${kitchen.lat},${kitchen.lng}&zoom=12&size=375x350&markers=color:red%7C${kitchen.lat},${kitchen.lng}&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c">
-    `;
-
-    let imgs = "";
-    kitchen.imgPath.forEach((img, i) => {
->>>>>>> master
       // console.log(img);
       imgs += `
       <div class="kitchenDetails__kitchen-img">
