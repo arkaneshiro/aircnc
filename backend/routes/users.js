@@ -56,7 +56,7 @@ router.post(
 router.post(
   "/token",
   validateUsernameAndPassword,
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res, next) => {
     const {
       userName,
       password
