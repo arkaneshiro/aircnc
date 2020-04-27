@@ -106,7 +106,7 @@ module.exports = {
         firstName: 'demo',
         lastName: 'guest',
         email: 'demo_guest@demoguest.com',
-        hashedPassword: '$2a$10$4sKGITZWhggfXPoF5ZbEXOHMsmNhRk8nOrvCEEhyBFzfJJYzymR9',
+        hashedPassword: '$2a$10$n29zeUVJgwDHFp4BvTs4rOa1AWC.n9.CxKQHYmPxn.zSXZoxi9/Lu',
         userName: 'demo_guest',
         roleId: 2,
         isDeactivated: false,

@@ -4,7 +4,7 @@ const router = express.Router();
 const { Kitchen, User, City, State, KitchenFeature, KitchenReview, Booking, Feature } = require("../db/models");
 // const { check } = require("express-validator");
 const { asyncHandler, handleValidationErrors } = require("../utils");
-const { kitchenNotFound, kitchenValidation } = require("../validations");
+const { kitchenNotFound, kitchenValidation, KitchenReviewValidation } = require("../validations");
 const { requireAuth } = require("../auth");
 const fetch = require("node-fetch");
 
@@ -310,6 +310,8 @@ router.post(
 // validations for reviews
 router.post(
   "/:id(\\d+)/reviews",
+  KitchenReviewValidation,
+  handleValidationErrors,
   requireAuth,
   //validation to check if user is logged in?
   asyncHandler(async (req, res) => {

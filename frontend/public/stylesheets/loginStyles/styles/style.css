@@ -98,8 +98,6 @@ form {
   top: 10px;
   color: #0FBFAE;
 }
-<<<<<<< HEAD
-=======
 
 .bookings-form__imgs img {
   margin-top: 50px;
@@ -160,7 +158,7 @@ form {
           flex-direction: row;
 }
 
-.listingsButton, .logoutButton {
+.listingsButton:hover, .logoutButton:hover {
   text-align: center;
   font-size: 19px;
   font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -186,5 +184,9 @@ form {
   -ms-flex-item-align: start;
       align-self: flex-start;
 }
->>>>>>> master
+
+.errors-container {
+  color: red;
+  font-weight: bold;
+}
 /*# sourceMappingURL=style.css.map */

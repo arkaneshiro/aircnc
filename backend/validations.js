@@ -63,37 +63,70 @@ const bookingNotFound = id => {
 const kitchenValidation = [
   check("name")
     .exists({ checkFalsy: true })
-    .withMessage("Kitchen name cannot be null.")
+    .withMessage("Please provide a kitchen name")
     .isLength({ max: 50 })
     .withMessage("Name must not be longer than 50 characters long."),
   check("cityId")
     .exists({ checkFalsy: true })
-    .withMessage("City cannot be null."),
+    .withMessage("Please provide a city"),
   check("stateId")
     .exists({ checkFalsy: true })
-    .withMessage("State cannot be null"),
+    .withMessage("Please provide a state"),
   check("streetAddress")
     .exists({ checkFalsy: true })
-    .withMessage("Street Address cannot be null")
+    .withMessage("Please provide an address")
     .isLength({ max: 100 })
     .withMessage("Street address must not be longer than 100 characters long."),
   check("hostId")
     .exists({ checkFalsy: true })
-    .withMessage("Host cannot be null."),
+    .withMessage("Please provide a host"),
   check("rate")
     .exists({ checkFalsy: true })
-    .withMessage("Rate must not be null")
+    .withMessage("Please provide a kitchen rate"),
+  check("imgPath")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a kitchen img")
+];
+
+const KitchenReviewValidation = [
+  check('starRating')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a star rating')
+    .isInt({ min: 1, max: 5 })
+    .withMessage('Star Rating must be between 1 and 5 inclusive'),
+  check('authorId')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a authorId'),
+  check('wouldRentAgain')
+    .exists({ checkFalsy: true })
+    .withMessage('wouldRentAgain cannot be null')
+    .isBoolean()
+    .withMessage('wouldHostAgain must be a boolean'),
+  check('featureBool')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for featureBool')
+    .isBoolean()
+    .withMessage('featureBool must be a boolean'),
+  check('cleanRating')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a cleanliness rating')
+    .isInt({ min: 1, max: 5 })
+    .withMessage('Cleanliness Rating must be between 1 and 5 inclusive'),
+  check('comment')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a comment')
+
 ];
 
 const guestReviewValidation = [
   check('starRating')
     .exists({ checkFalsy: true })
-    .withMessage('Star Rating cannot be null')
+    .withMessage('Please provide a star rating')
     .isInt({ min: 1, max: 5 })
     .withMessage('Star Rating must be between 1 and 5 inclusive'),
   check('comment')
     .exists({ checkFalsy: true })
-    .withMessage('comment cannot be null'),
+    .withMessage('Please provide a comment'),
   check('wouldHostAgain')
     .exists({ checkFalsy: true })
     .withMessage('wouldHostAgain cannot be null')
@@ -118,5 +151,6 @@ module.exports = {
   userNotFound,
   guestReviewValidation,
   bookingNotFound,
-  bookingValidation
+  bookingValidation,
+  KitchenReviewValidation
 };

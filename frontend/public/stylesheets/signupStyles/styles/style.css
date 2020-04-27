@@ -127,4 +127,9 @@ body {
   font-size: 15px;
   padding: 3px 10px 3px 10px;
 }
+
+.errors-container {
+  color: red;
+  font-weight: bold;
+}
 /*# sourceMappingURL=style.css.map */
