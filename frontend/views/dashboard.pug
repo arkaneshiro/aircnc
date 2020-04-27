@@ -6,7 +6,7 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         style
-            //- include ../public/stylesheets/DashboardStyle/styles/style.css
+            include ../public/stylesheets/DashboardStyles/styles/style.css
         title Dashboard
     body
         include includes/host-navbar.pug
@@ -23,6 +23,7 @@ html(lang="en")
                     div.pastBookings
                     div.currentBookings
         div.dashboard-bottom
+            div.errors-container
             div.guest-review
                 div.guest-review-label Review a Guest
                 form(class="guest-review-form")

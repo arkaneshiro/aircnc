@@ -76,7 +76,7 @@ module.exports = {
         hashedPassword: '$2a$10$YEqFIcgLZXIgS63WNvUKPetcQv7eTMkBFYYyxFsVsS1HV1ltSOCH2',
         userName: 'Jon',
         roleId: 2,
-        isDeactivated: true,
+        isDeactivated: false,
         createdAt: new Date(),
         updatedAt: new Date()
       },

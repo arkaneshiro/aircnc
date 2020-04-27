@@ -2,13 +2,14 @@ body
     background-color: $white
     margin: 0 auto
 
+.navListings
+    background-color: $blue
+    display: flex
+    justify-content: flex-end
+
 .dashboard, .CreateListing, .logoutButton
-    @include buttonStyle()
-    &:hover
-        color: $lightMain
-        font-size: 20px
-        font-weight: bold
-//    @include buttonShadow()
+   @include buttonStyle()
+   @include buttonShadow()
 
 .create-navbar
     display: flex

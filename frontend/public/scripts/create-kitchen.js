@@ -211,7 +211,7 @@ window.addEventListener('DOMContentLoaded', async () => {
             }
         }
 
-        // window.location.href = 'http://localhost:4000/dashboard'
+        window.location.href = '/dashboard'
     });
 
 

@@ -10,10 +10,7 @@ body
 
 .profile, .listings, .logoutButton
     @include buttonStyle()
-    &:hover
-        color: $lightMain
-        font-size: 20px
-        font-weight: bold
+    @include buttonShadow()
 
 .kitchenDetails__row-1
     background-color: #f6f6f6
@@ -59,11 +56,7 @@ body
     display: flex
     flex-direction: row
     justify-content: space-evenly
-<<<<<<< HEAD
-    max-width: 100%
-=======
     // max-width: 1300px
->>>>>>> master
     max-height: 720px
     overflow: auto
 
@@ -133,7 +126,6 @@ body
     font-size: 18px
     padding-top: 10px
 
-<<<<<<< HEAD
 .kitchenDetails__row-3.card
     background-color: #ffffff
     height: 200px
@@ -168,9 +160,7 @@ body
 
 .kitchenDetails__row-5
     background-color: #f6f6f6
-=======
 
->>>>>>> master
 // .bookings-form
 //     display: flex
 //     flex-direction: row
