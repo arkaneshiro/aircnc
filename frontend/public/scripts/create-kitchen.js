@@ -130,60 +130,84 @@ window.addEventListener('DOMContentLoaded', async () => {
         responses.forEach(ele => secureUrlArray.push(ele.secure_url));
 
         // after image uploading start sending data to back end
-        const formData = new FormData(kitchenForm);
-        const kitchenBody = {
-            name: formData.get('name'),
-            stateId: parseInt(formData.get('state'), 10),
-            cityId: parseInt(formData.get('city'), 10),
-            streetAddress: formData.get('address'),
-            description: formData.get('description'),
-            hostId: parseInt(localStorage.getItem('AIRCNC_CURRENT_USER_ID'), 10), // change for future
-            imgPath: secureUrlArray,
-            rate: parseInt(formData.get('rate'), 10)
-        }
+        try {
+            const formData = new FormData(kitchenForm);
+            const kitchenBody = {
+                name: formData.get('name'),
+                stateId: parseInt(formData.get('state'), 10),
+                cityId: parseInt(formData.get('city'), 10),
+                streetAddress: formData.get('address'),
+                description: formData.get('description'),
+                hostId: parseInt(localStorage.getItem('AIRCNC_CURRENT_USER_ID'), 10), // change for future
+                imgPath: secureUrlArray,
+                rate: parseInt(formData.get('rate'), 10)
+            }
 
-        console.log(kitchenBody.name);
-        console.log(kitchenBody.stateId);
-        console.log(kitchenBody.cityId);
-        console.log(kitchenBody.streetAddress);
-        console.log(kitchenBody.description);
-        console.log(kitchenBody.hostId);
-        console.log(kitchenBody.imgPath);
-        console.log(kitchenBody.rate);
+            const createKitchen = await fetch('http://localhost:8080/kitchens', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('AIRCNC_ACCESS_TOKEN')}`
+                },
+                method: 'POST',
+                body: JSON.stringify(kitchenBody)
+            });
+            if (!createKitchen.ok) {
+                throw createKitchen;
+            }
+            const createKitchenInfo = await createKitchen.json();
+            const kitchenId = createKitchenInfo.kitchen.id;
 
-        const createKitchen = await fetch('http://localhost:8080/kitchens', {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('AIRCNC_ACCESS_TOKEN')}`
-            },
-            method: 'POST',
-            body: JSON.stringify(kitchenBody)
-        });
-        const createKitchenInfo = await createKitchen.json();
-        const kitchenId = createKitchenInfo.kitchen.id;
-        console.log(kitchenId);
 
-        console.log('feature Names', featureNames);
-        //logic to check if check boxes have beeen checked
-        for (let i = 0; i < featureNames.length; i++) {
-            let checkBox = document.getElementById(featureNames[i]);
+            //logic to check if check boxes have beeen checked
+            for (let i = 0; i < featureNames.length; i++) {
+                let checkBox = document.getElementById(featureNames[i]);
+                console.log(checkBox);
+                if (featureNames[i] === 'ExtraAppliances') continue;
+                if (checkBox.checked) {
 
-            if (checkBox.checked) {
+                    const featureBody = {
+                        kitchenId,
+                        featureId: parseInt(formData.get(featureNames[i]))
+                    }
 
-                const featureBody = {
-                    kitchenId,
-                    featureId: parseInt(formData.get(featureNames[i]))
+                    const feature = await fetch('http://localhost:8080/kitchenfeatures', {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('AIRCNC_ACCESS_TOKEN')}`
+                        },
+                        method: 'POST',
+                        body: JSON.stringify(featureBody)
+                    });
+                    const featureResponse = await feature.json();
                 }
-
-                const feature = await fetch('http://localhost:8080/kitchenfeatures', {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('AIRCNC_ACCESS_TOKEN')}`
-                    },
-                    method: 'POST',
-                    body: JSON.stringify(featureBody)
-                });
-                const featureResponse = await feature.json();
+            }
+        } catch (err) {
+            console.log(err);
+            if (err.status >= 400 && err.status < 600) {
+                const errorJSON = await err.json();
+                const errorsContainer = document.querySelector(".errors-container");
+                let errorsHtml = [
+                    `
+                  <div class="alert alert-danger">
+                      Something went wrong. Please try again.
+                  </div>
+                `,
+                ];
+                const { errors } = errorJSON;
+                if (errors && Array.isArray(errors)) {
+                    errorsHtml = errors.map(
+                        (message) => `
+                    <div class="alert alert-danger">
+                        ${message}
+                    </div>
+                  `
+                    );
+                }
+                errorsContainer.innerHTML = errorsHtml.join("");
+            } else {
+                alert(
+                    "Something went wrong. Please check your internet connection and try again!"
+                );
             }
         }
 

@@ -1,8 +1,8 @@
-import {  
-  goToProfile, 
-  logOut, 
-  isLoggedIn, 
-  goToListings 
+import {
+  goToProfile,
+  logOut,
+  isLoggedIn,
+  goToListings
 } from './tools.js';
 
 goToProfile();
@@ -118,7 +118,7 @@ const kitchenDetails = async () => {
   const { kitchen, kitchenReviews, starRating, kitchenFeatures } = await res.json();
   console.log(kitchenReviews);
   console.log(kitchenFeatures);
-  
+
   let featuresHTML = "";
   kitchenFeatures.forEach(({ feature }) => {
     featuresHTML += `
@@ -131,38 +131,41 @@ const kitchenDetails = async () => {
     `;
   });
 
-  document.querySelector(".bookings-form__left-bottom__features").innerHTML = featuresHTML;
+  document.querySelector(".bookings-form__left-bottom__features-body").innerHTML = featuresHTML;
   document.querySelector(".bookings-form__left-top").innerHTML = `
-  <div class="bookings-form__left-top-container card">
-    <div class="bookings-form__left-top__kitchen-name card-body font-weight-bold d-flex justify-content-center">
+  <div class="bookings-form__left-top__kitchen-name card-body font-weight-bold d-flex justify-content-center">
       ${kitchen.name}
+  </div>
+  <div class="bookings-form__left-top-container card">
+    <div class="bookings-form__left-top__kitchen-feature-img">
+      <img class="bookings-form__left-top__kitchen-img" src="${kitchen.imgPath[0]}">
     </div>
+    <div class="bookings-form__left-top__kitchen-location-container">
     <div class="bookings-form__left-top__kitchen-location card-body">
-      Kitchen in ${kitchen.city.cityName}, ${kitchen.state.stateName} 
+      Kitchen in ${kitchen.city.cityName}, ${kitchen.state.stateName}
     </div>
     <div class="bookings-form__left-top__kitchen-star-rating">
       ${starRating} rating ${kitchenReviews.length} reviews
     </div>
-    <div class="bookings-form__left-top__kitchen-feature-img">
-      <img class="bookings-form__left-top__kitchen-img" src="${kitchen.imgPath[0]}">
     </div>
   </div>
   `;
 
   rate = kitchen.rate;
   console.log(rate);
-  let imgHTML = `<img src="http://maps.googleapis.com/maps/api/staticmap?center=${kitchen.lat},${kitchen.lng}&markers=color:red%7Clabel:SS%7C${kitchen.lat},${kitchen.lng}&zoom=12&size=375x350&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c">`;
+  let imgHTML = `<img src="http://maps.googleapis.com/maps/api/staticmap?center=${kitchen.lat},${kitchen.lng}&markers=color:red%7Clabel:SS%7C${kitchen.lat},${kitchen.lng}&zoom=17&size=375x350&key=AIzaSyC0YJylly9ZmkoIGcZLPO5xVNZMyuyo78c">`;
   // kitchen.imgPath.forEach((img, i) => {
   //   imgHTML += `<img id="bookings-form__img-${i + 1}" src="${img}">`;
   // });
   document.querySelector(".bookings-form__imgs").innerHTML = imgHTML;
-  
+
 
 };
 
 kitchenDetails();
 showCalendar(currMonth, currYear);
 setPopUpListener();
+
 document.getElementById("next")
   .addEventListener("click", () => {
     currYear = (currMonth === 11) ? currYear + 1 : currYear;
@@ -192,31 +195,33 @@ document.querySelector(".bookings__start-end-time")
     ev.preventDefault();
     getStartTime = startTime.value;
     getEndTime = endTime.value;
+    let startDisplay = parseInt(startTime.value.slice(0, 2)) > 12 ? parseInt(startTime.value.slice(0, 2)) - 12 + ":00 PM" : getStartTime.slice(0, -3) + " AM";
+    let endDisplay = parseInt(endTime.value.slice(0, 2)) > 12 ? parseInt(endTime.value.slice(0, 2)) - 12 + ":00 PM" : getEndTime.slice(0, -3) + " AM";
     const totalTime = parseInt(endTime.value.slice(0, 2)) - parseInt(startTime.value.slice(0, 2));
     console.log(new Date(`${dateStr} ${startTime.value}`));
     document.getElementById("set-time-form").classList.toggle("hidden");
-    
+
     const checkoutTotal = document.querySelector(".bookings-form__right-bottom-checkout-total");
     checkoutTotal.innerHTML = `
-      <div class="bookings-form__right-bottom-checkout-total">
+      <div class="bookings-form__right-bottom-checkout-total-container">
         <div class="bookings-form__right-bottom-checkout-header">
-          Date and time of rental:
+          <span class="checkout-text">Date and time of rental & fees</span>
         </div>
         <div class="bookings-form__right-bottom-checkout-date-time">
-          ${dateStr} ${getStartTime} - ${getEndTime}
+          <span class="checkout-text">${dateStr} ${startDisplay} - ${endDisplay}</span>
         </div>
         <div class="bookings-form__right-bottom-checkout-cleaning">
-          Cleaning fee $0.00
+          <span class="checkout-text">Cleaning fee</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="bookings-form-span">$0.00</span>
         </div>
         <div class="bookings-form__right-bottom-checkout-rate">
-          Rate $${rate}
+          <span class="checkout-text">Rate</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="bookings-form-span">$${rate}</span>
         </div>
         <div class="bookings-form__right-bottom-checkout-subtotal">
-          Rate $${rate * totalTime}
+          <span class="checkout-text">Rate x ${totalTime} hour(s)</span>&nbsp;&nbsp;<span class="bookings-form-span">$${rate * totalTime}</span>
         </div>
-      </div>
-      <div class="bookings-form__right-bottom-checkout-due-now">
-          Due now $${rate * totalTime}
+        <div class="bookings-form__right-bottom-checkout-due-now">
+          <span class="checkout-text">Due now</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="bookings-form-span"> $${rate * totalTime}</span>
+        </div>
       </div>
     `;
   });
