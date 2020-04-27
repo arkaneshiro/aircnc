@@ -3,6 +3,16 @@ body {
   margin: 0 auto;
 }
 
+.navListings {
+  background-color: #004873;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
 .dashboard, .CreateListing, .logoutButton {
   text-align: center;
   font-size: 19px;

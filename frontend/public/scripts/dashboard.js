@@ -269,7 +269,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // setting generated html to innerHTML
         kitchensContainer.innerHTML = `${kitchenDetailHtml.join("")}`;
         reviewSelector.innerHTML = `<option class="review-option review-option-desc" value="desc"> -- please choose a booking to review -- </option>${reviewOptionsHtml.join("")}`
-        pastBookingsContainer.innerHTML = `<div class="past-booking-header"> Past Bookings </div> <div class="past-bookings">${pastBookHtml.join("")}</div>`;
+        pastBookingsContainer.innerHTML = `<div class="past-booking-header"> <h3> Past Bookings </h3> </div> <div class="past-bookings">${pastBookHtml.join("")}</div>`;
         currentBookingsContainer.innerHTML = `<div class="current-booking-header"> Current Bookings </div> <div class="current-bookings">${currentBookHtml.join("")}</div>`;
         welcomeTextDiv.innerHTML = welcomeHtml;
 
