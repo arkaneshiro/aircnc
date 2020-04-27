@@ -59,13 +59,24 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        firstName: 'demo',
+        lastName: 'host',
+        email: 'demo_host@demohost.com',
+        hashedPassword: '$2a$10$zzd031Ih5DEbiIXTBFVWGOV/pmK8cRsL4fcCB7TQJMrsKRvnro1sO',
+        userName: 'demo_host',
+        roleId: 1,
+        isDeactivated: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
         firstName: 'Jontan',
         lastName: 'Leandoer',
         email: 'sbe@kitchenrenters.com',
         hashedPassword: '$2a$10$YEqFIcgLZXIgS63WNvUKPetcQv7eTMkBFYYyxFsVsS1HV1ltSOCH2',
         userName: 'Jon',
         roleId: 2,
-        isDeactivated: true,
+        isDeactivated: false,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -91,6 +102,17 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      {
+        firstName: 'demo',
+        lastName: 'guest',
+        email: 'demo_guest@demoguest.com',
+        hashedPassword: '$2a$10$n29zeUVJgwDHFp4BvTs4rOa1AWC.n9.CxKQHYmPxn.zSXZoxi9/Lu',
+        userName: 'demo_guest',
+        roleId: 2,
+        isDeactivated: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
     ], {});
   },
 

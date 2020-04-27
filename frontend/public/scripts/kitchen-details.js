@@ -1,4 +1,4 @@
-import { 
+import {
   isLoggedIn,
   goToProfile,
   goToListings,
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const currentURL = window.location.href;
   const kitchenId = currentURL.match(/\d+/g)[1];
-  
+
   try {
     let res = await fetch(`http://localhost:8080/kitchens/${kitchenId}`, {
       headers: {
@@ -71,14 +71,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       </div>
       <div class="kitchenDetails__info__featured-img-container">
         <div class="kitchenDetails__info__featured-img">
-          <img src="${kitchen.imgPath[0]}"> 
+          <img src="${kitchen.imgPath[0]}">
         </div>
       </div>
     `;
 
 
     // document.querySelector(".kitchenDetails__row-1__featured-img").innerHTML = `
-    //   <img src="${kitchen.imgPath[0]}">  
+    //   <img src="${kitchen.imgPath[0]}">
     // `;
 
     let imgs = "";
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       <div class="kitchenDetails__row-3__description-text">
         "${kitchen.description}"
       </div>`;
-    
+
     let features = "";
     kitchenFeatures.forEach(({ feature }) => {
       // console.log(feature.imgPath);
@@ -140,14 +140,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // window.onload = () => {
 document.getElementById("kitchenDetails__info-button")
-    addEventListener("click", (ev) => {
-      if (ev.target.id === "kitchenDetails__info-button") {
-        const currentURL = window.location.href;
-        const kitchenId = currentURL.match(/\d+/g)[1];
-        // console.log(kitchenId)
-        window.location.href = `/listings/${kitchenId}/checkout`;
-      } else {
-        return;
-      }
-    });
+addEventListener("click", (ev) => {
+  if (ev.target.id === "kitchenDetails__info-button") {
+    const currentURL = window.location.href;
+    const kitchenId = currentURL.match(/\d+/g)[1];
+    // console.log(kitchenId)
+    window.location.href = `/listings/${kitchenId}/checkout`;
+  } else {
+    return;
+  }
+});
 // };

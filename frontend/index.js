@@ -55,7 +55,7 @@ app.get('/bookings/:id(\\d+)/kitchenReview', (req, res) => {
     res.render('kitchen-review')
 });
 
-app.get('/bookings/(:id(\\d+))', (req, res) => {
+app.get('/bookings/:id(\\d+)', (req, res) => {
     // localStorage.setItem("AIRCNC_CURRENT_BOOKING", req.params.id)
     res.render('bookings')
 });
