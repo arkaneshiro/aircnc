@@ -211,7 +211,6 @@ window.addEventListener('DOMContentLoaded', async () => {
                 );
             }
         }
-
     });
 
 
