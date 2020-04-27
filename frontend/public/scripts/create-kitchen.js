@@ -81,7 +81,7 @@ window.addEventListener('DOMContentLoaded', async () => {
                                     <label for=${featureNames[i]}>${feature.feature}</label>
                                 </div>
                             </div>
-                            <div class='features__right'>
+                            <div class='features__bottom'>
                                 <div class='features__checkbox features__checkbox-${featureNames[i]}'>
                                     <input type="checkbox" id=${featureNames[i]} name=${featureNames[i]} value=${feature.id}>
                                 </div>
