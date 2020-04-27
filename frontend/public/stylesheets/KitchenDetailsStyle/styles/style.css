@@ -247,7 +247,7 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  paddint-top: 50px;
+  padding-top: 50px;
 }
 
 .kitchenDetails__row-3__host-text {

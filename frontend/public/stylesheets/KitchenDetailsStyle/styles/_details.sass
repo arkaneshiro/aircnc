@@ -10,10 +10,7 @@ body
 
 .profile, .listings, .logoutButton
     @include buttonStyle()
-    &:hover
-            color: $lightMain
-            font-size: 20px
-            font-weight: bold
+    @include buttonShadow()
 
 .kitchenDetails__row-1
     background-color: #f6f6f6
