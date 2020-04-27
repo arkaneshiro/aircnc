@@ -141,12 +141,12 @@ const kitchenDetails = async () => {
       <img class="bookings-form__left-top__kitchen-img" src="${kitchen.imgPath[0]}">
     </div>
     <div class="bookings-form__left-top__kitchen-location-container">
-    <div class="bookings-form__left-top__kitchen-location card-body">
-      Kitchen in ${kitchen.city.cityName}, ${kitchen.state.stateName}
-    </div>
-    <div class="bookings-form__left-top__kitchen-star-rating">
-      ${starRating} rating ${kitchenReviews.length} reviews
-    </div>
+      <div class="bookings-form__left-top__kitchen-location card-body">
+        Kitchen in ${kitchen.city.cityName}, ${kitchen.state.stateName} 
+      </div>
+      <div class="bookings-form__left-top__kitchen-star-rating">
+        ${starRating} rating ${kitchenReviews.length} reviews
+      </div>
     </div>
   </div>
   `;

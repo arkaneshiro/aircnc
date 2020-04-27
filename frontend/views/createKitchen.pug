@@ -1,12 +1,16 @@
-<!DOCTYPE html>
+doctype html
 html(lang="en")
     head
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         script(type="module" src="/scripts/create-kitchen.js")
+        link(rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png")
+        link(rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png")
+        link(rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png")
+        link(rel="manifest" href="/images/favicon/site.webmanifest")
         style
             include ../public/stylesheets/createKitchenStyles/styles/style.css
-        title Create a Kitchen
+        title AirCnC - Create a Kitchen
     body
         include includes/host-navbar.pug
         div.errors-container
@@ -44,4 +48,4 @@ html(lang="en")
                         div.features__left(id='features__left')
                         div.features__right(id='features__right')
                 div.kitchen-form__bottom
-                    button(type='submit') Create Kitchen
+                    button(type='submit' id="create-kitchen-button") Create Kitchen
