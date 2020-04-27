@@ -80,6 +80,7 @@ kitchenReview.addEventListener("submit", async (ev) => {
     }
 
     // res = res.json();
+    window.location.href = '/profile'
 
   } catch (err) {
     console.error(err);
