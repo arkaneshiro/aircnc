@@ -69,12 +69,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       <div class="kitchenDetails__info__button">
         <button id="kitchenDetails__info-button" class="kitchenDetails__info_button-bookings">${roleId === '1' ? 'See All Bookings' : 'Book Now'}</button>
       </div>
+      <div class="kitchenDetails__info__featured-img-container">
+        <div class="kitchenDetails__info__featured-img">
+          <img src="${kitchen.imgPath[0]}">
+        </div>
+      </div>
     `;
 
 
-    document.querySelector(".kitchenDetails__row-1__featured-img").innerHTML = `
-      <img class="card" src="${kitchen.imgPath[0]}">
-    `;
+    // document.querySelector(".kitchenDetails__row-1__featured-img").innerHTML = `
+    //   <img src="${kitchen.imgPath[0]}">
+    // `;
 
     let imgs = "";
     kitchen.imgPath.forEach(img => {
