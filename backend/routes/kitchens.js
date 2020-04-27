@@ -165,7 +165,8 @@ router.get(
           as: "user"
         }
       ]
-    })
+    });
+    
     const kitchenFeatures = await KitchenFeature.findAll({
       include: [{
         model: Feature,

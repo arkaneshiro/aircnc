@@ -1,19 +1,33 @@
 .bookings-form__imgs img {
   margin-top: 50px;
-  width: 300px;
-  height: 300px;
-  border-radius: 50px;
+  width: 350px;
+  height: 350px;
+  border-radius: 25px;
 }
 
 .bookings-form__left-top__kitchen-name {
   color: #004873;
   font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: 300;
+  font-size: 28px;
 }
 
 .bookings-form__left-top-container {
-  background-color: #ececec;
-  font-size: 24px;
+  background-color: #ffffff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  height: 100px;
+}
+
+.bookings-form__left-top__kitchen-location {
+  color: #004873;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 300;
 }
 
 .bookings-form__left-bottom {
@@ -59,7 +73,7 @@
           flex-direction: row;
 }
 
-.listingsButton, .logoutButton {
+.listingsButton, .logoutButton, .profile {
   text-align: center;
   font-size: 19px;
   font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -75,14 +89,12 @@
   border: none;
   outline: none;
   font-weight: 400;
-  color: #ffffff;
 }
 
-.listingsButton:hover, .logoutButton:hover {
-  border-radius: 15px;
-  -webkit-text-decoration: #ffffff underline solid;
-          text-decoration: #ffffff underline solid;
-  padding-bottom: 5px;
+.listingsButton:hover, .logoutButton:hover, .profile:hover {
+  color: #8BD9D9;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .calendar-button-class {
@@ -130,6 +142,18 @@ form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  width: 100vw;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.bookings-form__right-top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 .bookings-form__left-bottom__features-image img {
@@ -139,8 +163,218 @@ form {
      object-fit: fit;
 }
 
-.bookings-form__left-bottom__features-img img {
-  width: 100px;
+.bookings-form__left-top__kitchen-feature-img img {
+  width: 150px;
+  height: 75px;
+  margin-left: 15px;
+  margin-top: 10px;
+}
+
+.bookings-form__left-top__kitchen-star-rating {
+  color: #004873;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 300;
+  padding-left: 40px;
+}
+
+.bookings-form__left-top__kitchen-location-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#bookings-form-check-availability {
+  text-align: center;
+  font-size: 19px;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #004873;
+  text-decoration: none;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   height: 50px;
+  padding: 5px 16px;
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  outline: none;
+  font-weight: 400;
+}
+
+#bookings-form-check-availability:hover {
+  color: #8BD9D9;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#bookings-form__right-bottom-submit, #month, #year, #startTime, #endTime {
+  text-align: center;
+  font-size: 19px;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #004873;
+  text-decoration: none;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 50px;
+  padding: 5px 16px;
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  outline: none;
+  font-weight: 400;
+  border: 1px solid #004873;
+  border-radius: 10px;
+}
+
+#bookings-form__right-bottom-submit:hover, #month:hover, #year:hover, #startTime:hover, #endTime:hover {
+  color: #8BD9D9;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.bookings-form__left-bottom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 20px;
+}
+
+.bookings-form__left-bottom__features {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.bookings-form__left-bottom__calendar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: end;
+      align-content: flex-end;
+  padding-left: 35px;
+  padding-top: 56px;
+}
+
+th, td, #monthAndYear, .startTime-label, .endTime-label {
+  text-align: center;
+  font-size: 19px;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #004873;
+  text-decoration: none;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 50px;
+  padding: 5px 16px;
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  outline: none;
+  font-weight: 400;
+}
+
+#previous, #next, #confirmTime {
+  text-align: center;
+  font-size: 19px;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #004873;
+  text-decoration: none;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 50px;
+  padding: 5px 16px;
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  outline: none;
+  font-weight: 400;
+  border: 1px solid #004873;
+  border-radius: 10px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.bookings-form__left-bottom__features-header {
+  font-weight: bold;
+  font-size: 24px;
+  padding: 20px;
+}
+
+.bookings-form__calendar-pn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: space-around;
+          flex-direction: space-around;
+}
+
+.bookings-form__calendar-pn {
+  color: #004873;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 300;
+  color: #004873;
+}
+
+.bookings-form__left-bottom__features-body {
+  -ms-flex-line-pack: center;
+      align-content: center;
+  padding: 20px;
+}
+
+.bookings-form__right-bottom-checkout-total {
+  padding: 20px;
+}
+
+.bookings-form__right-bottom-checkout-total-container > div {
+  border-bottom: 1px solid #f6f6f6;
+}
+
+.bookings-form__right-bottom-checkout-due-now {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: space-between;
+          flex-direction: space-between;
+}
+
+.bookings-form__right-bottom-checkout-total-container > div {
+  padding: 20px;
+}
+
+.checkout_text {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.bookings-form__left-bottom__features-name {
+  font-size: 12px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.bookings-form__left-bottom__features-image img {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-left: 50px;
+}
+
+span {
+  font-weight: bold;
 }
 /*# sourceMappingURL=style.css.map */
