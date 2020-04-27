@@ -122,7 +122,7 @@ module.exports = {
         cityId: 15,
         stateId: 5,
         streetAddress: '137 Clifford Street',
-        hostId: 2,
+        hostId: 6,
         description: 'Contemporary kitchen designs date from the 1940s to the present, and trace many of their stylistic origins in Europe.',
         imgPath: ['https://res.cloudinary.com/aircncaa/image/upload/v1587859510/t2pssblbhethiq2esx9z.jpg', 'https://res.cloudinary.com/aircncaa/image/upload/v1587859530/fedu770aphafxb2omyfw.jpg', 'https://res.cloudinary.com/aircncaa/image/upload/v1587859559/g3ty4cdlpbls440acnyw.jpg'],
         rate: 150,

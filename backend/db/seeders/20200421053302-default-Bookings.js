@@ -17,7 +17,7 @@ module.exports = {
         let month = getRandomIntInclusive(0, 11);
         let day = getRandomIntInclusive(0, 27);
         let year = getRandomIntInclusive(2018, 2019);
-        let guest = getRandomIntInclusive(6, 8);
+        let guest = getRandomIntInclusive(7, 10);
         let kitchen = i
         let kitchenInfo = await Kitchen.findByPk(kitchen);
         let hostId = kitchenInfo.hostId;
@@ -44,7 +44,7 @@ module.exports = {
         }
         let day = getRandomIntInclusive(0, 27);
 
-        let guest = getRandomIntInclusive(6, 8);
+        let guest = getRandomIntInclusive(6, 10);
         let kitchen = i
         let kitchenInfo = await Kitchen.findByPk(kitchen);
         let hostId = kitchenInfo.hostId;

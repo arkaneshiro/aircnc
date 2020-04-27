@@ -26,7 +26,8 @@ router.post(
       lastName,
       email,
       password,
-      roleId
+      roleId,
+      confirmPassword
     } = req.body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -56,7 +57,7 @@ router.post(
 router.post(
   "/token",
   validateUsernameAndPassword,
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res, next) => {
     const {
       userName,
       password
@@ -292,8 +293,9 @@ router.get('/:id(\\d+)/kitchens/bookings', requireAuth, asyncHandler(async (req,
         as: "state",
         attributes: ["stateName"]
       },],
-      where: { hostId: host.id }},
-      order: [['startDate', 'ASC']]
+      where: { hostId: host.id }
+    },
+    order: [['startDate', 'ASC']]
     // where: { kitchenId: Kitchen.id }
   });
 

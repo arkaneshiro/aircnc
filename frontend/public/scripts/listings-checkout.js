@@ -1,8 +1,8 @@
-import {  
-  goToProfile, 
-  logOut, 
-  isLoggedIn, 
-  goToListings 
+import {
+  goToProfile,
+  logOut,
+  isLoggedIn,
+  goToListings
 } from './tools.js';
 
 goToProfile();
@@ -118,7 +118,7 @@ const kitchenDetails = async () => {
   const { kitchen, kitchenReviews, starRating, kitchenFeatures } = await res.json();
   console.log(kitchenReviews);
   console.log(kitchenFeatures);
-  
+
   let featuresHTML = "";
   kitchenFeatures.forEach(({ feature }) => {
     featuresHTML += `
@@ -158,7 +158,7 @@ const kitchenDetails = async () => {
   //   imgHTML += `<img id="bookings-form__img-${i + 1}" src="${img}">`;
   // });
   document.querySelector(".bookings-form__imgs").innerHTML = imgHTML;
-  
+
 
 };
 
@@ -200,7 +200,7 @@ document.querySelector(".bookings__start-end-time")
     const totalTime = parseInt(endTime.value.slice(0, 2)) - parseInt(startTime.value.slice(0, 2));
     console.log(new Date(`${dateStr} ${startTime.value}`));
     document.getElementById("set-time-form").classList.toggle("hidden");
-    
+
     const checkoutTotal = document.querySelector(".bookings-form__right-bottom-checkout-total");
     checkoutTotal.innerHTML = `
       <div class="bookings-form__right-bottom-checkout-total-container">

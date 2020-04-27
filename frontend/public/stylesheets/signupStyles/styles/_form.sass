@@ -1,21 +1,19 @@
 body
-    margin: 0 auto  
+    margin: 0 auto
 
 .nav
-    display: flex   
+    display: flex
     flex-direction: row
     justify-content: flex-end
     background-color: $blue
-    
-    
+
 .hostSignupButton, .help, .signupButton, .loginButton
     @include buttonStyle()
     &:hover
-            color: $lightMain
-            font-size: 20px
-            font-weight: bold
-    
-    
+        color: $lightMain
+        font-size: 20px
+        font-weight: bold
+
 .sign-up
     display: flex
     // flex-direction: column
@@ -60,13 +58,6 @@ body
     font-size: 15px
     padding: 3px 10px 3px 10px
 
-
-
-
-
-    
-
-    
-   
-
-    
+.errors-container
+    color: red
+    font-weight: bold
