@@ -116,8 +116,7 @@ body {
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
-  max-height: 720px;
-  overflow: auto;
+  max-width: 100%;
 }
 
 .kitchenDetails__kitchen-img img {
