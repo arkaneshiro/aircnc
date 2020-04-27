@@ -133,6 +133,7 @@ body
     text-align: center
     font-size: 18px
     padding-top: 10px
+    @include fontStyle()
 
 .kitchenDetails__row-3.card
     background-color: $white
@@ -140,6 +141,7 @@ body
     justify-content: center
 
 .kitchenDetails__row-3__description-text
+    @include fontStyle()
     font-size: 24px
     font-style: italic
     text-align: center
@@ -151,6 +153,7 @@ body
     padding-left: 20px
     padding-bottom: 10px
     font-weight: bold
+    @include fontStyle()
 
 .kitchenDetails__review-name
     font-weight: bold
@@ -169,6 +172,11 @@ body
 .kitchenDetails__row-5
     background-color: #f6f6f6
 
+
+
+.errors-container
+    color: red
+    font-weight: bold
 // .bookings-form
 //     display: flex
 //     flex-direction: row
