@@ -181,6 +181,7 @@ window.addEventListener('DOMContentLoaded', async () => {
                     const featureResponse = await feature.json();
                 }
             }
+            window.location.href = '/dashboard'
         } catch (err) {
             console.log(err);
             if (err.status >= 400 && err.status < 600) {
@@ -210,8 +211,6 @@ window.addEventListener('DOMContentLoaded', async () => {
                 );
             }
         }
-
-        window.location.href = '/dashboard'
     });
 
 

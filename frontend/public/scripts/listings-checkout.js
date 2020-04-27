@@ -122,10 +122,10 @@ const kitchenDetails = async () => {
   let featuresHTML = "";
   kitchenFeatures.forEach(({ feature }) => {
     featuresHTML += `
-    <div class="bookings-form__left-bottom__features-name">
-      ${feature.feature}
-    </div>
     <div class="bookings-form__left-bottom__features-image">
+      <div class="bookings-form__left-bottom__features-name">
+        ${feature.feature}
+      </div>
       <img class="bookings-form__left-bottom__features-img" src="${feature.imgPath}">
     </div>
     `;
@@ -136,7 +136,7 @@ const kitchenDetails = async () => {
   <div class="bookings-form__left-top__kitchen-name card-body font-weight-bold d-flex justify-content-center">
       ${kitchen.name}
   </div>
-  <div class="bookings-form__left-top-container card">
+  <div class="bookings-form__left-top-container">
     <div class="bookings-form__left-top__kitchen-feature-img">
       <img class="bookings-form__left-top__kitchen-img" src="${kitchen.imgPath[0]}">
     </div>

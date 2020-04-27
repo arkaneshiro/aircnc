@@ -21,10 +21,14 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  height: 100px;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  height: 130px;
 }
 
 .bookings-form__left-top__kitchen-location {
+  font-size: 20px;
   color: #004873;
   font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: 300;
@@ -34,10 +38,10 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: start;
-  padding: 50px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding-top: 50px;
+  margin-right: 40px;
 }
 
 .bookings-form__left {
@@ -147,6 +151,13 @@ form {
       justify-content: space-around;
 }
 
+.bookings-form__left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 80%;
+}
+
 .bookings-form__right-top {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -154,6 +165,16 @@ form {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
+}
+
+.bookings-form__left-bottom__features-image {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 40%;
 }
 
 .bookings-form__left-bottom__features-image img {
@@ -164,8 +185,8 @@ form {
 }
 
 .bookings-form__left-top__kitchen-feature-img img {
-  width: 150px;
-  height: 75px;
+  width: 170px;
+  height: 120px;
   margin-left: 15px;
   margin-top: 10px;
 }
@@ -176,6 +197,11 @@ form {
   font-weight: 300;
   padding-left: 40px;
   padding-bottom: 20px;
+}
+
+.bookings-form__left-top__kitchen-star-rating:before {
+  content: "\2B50";
+  padding-bottom: 5px;
 }
 
 .bookings-form__left-top__kitchen-location-container {
@@ -213,10 +239,12 @@ form {
 }
 
 #bookings-form__right-bottom-submit, #month, #year, #startTime, #endTime {
+  background-color: #004873;
+  font-size: 16px;
   text-align: center;
   font-size: 19px;
   font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  color: #004873;
+  color: #ffffff;
   text-decoration: none;
   height: 100%;
   -webkit-box-sizing: border-box;
@@ -228,8 +256,11 @@ form {
   border: none;
   outline: none;
   font-weight: 400;
-  border: 1px solid #004873;
-  border-radius: 10px;
+  color: #004873;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 300;
+  -webkit-text-decoration: underline #004873;
+          text-decoration: underline #004873;
 }
 
 #bookings-form__right-bottom-submit:hover, #month:hover, #year:hover, #startTime:hover, #endTime:hover {
@@ -242,7 +273,8 @@ form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin-top: 20px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
 .bookings-form__left-bottom__features {
@@ -256,20 +288,27 @@ form {
 }
 
 .bookings-form__left-bottom__calendar {
+  color: #004873;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 300;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-line-pack: end;
-      align-content: flex-end;
-  padding-left: 35px;
-  padding-top: 56px;
+}
+
+.card {
+  border: 1px solid #004873;
+  padding-top: 20px;
+  outline: none;
 }
 
 th, td, #monthAndYear, .startTime-label, .endTime-label {
+  background-color: #004873;
+  font-size: 16px;
   text-align: center;
   font-size: 19px;
   font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  color: #004873;
+  color: #ffffff;
   text-decoration: none;
   height: 100%;
   -webkit-box-sizing: border-box;
@@ -281,13 +320,24 @@ th, td, #monthAndYear, .startTime-label, .endTime-label {
   border: none;
   outline: none;
   font-weight: 400;
+  color: #004873;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 300;
+}
+
+th:hover, td:hover, #monthAndYear:hover, .startTime-label:hover, .endTime-label:hover {
+  color: #8BD9D9;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 #previous, #next, #confirmTime {
+  background-color: #004873;
+  font-size: 16px;
   text-align: center;
   font-size: 19px;
   font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  color: #004873;
+  color: #ffffff;
   text-decoration: none;
   height: 100%;
   -webkit-box-sizing: border-box;
@@ -299,17 +349,29 @@ th, td, #monthAndYear, .startTime-label, .endTime-label {
   border: none;
   outline: none;
   font-weight: 400;
-  border: 1px solid #004873;
-  border-radius: 10px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  color: #004873;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 300;
+}
+
+#previous:hover, #next:hover, #confirmTime:hover {
+  color: #8BD9D9;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .bookings-form__left-bottom__features-header {
+  color: #004873;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 300;
   font-weight: bold;
-  font-size: 24px;
-  padding: 20px;
+  font-size: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .bookings-form__calendar-pn {
@@ -332,15 +394,12 @@ th, td, #monthAndYear, .startTime-label, .endTime-label {
 .bookings-form__left-bottom__features-body {
   -ms-flex-line-pack: center;
       align-content: center;
-  padding: 20px;
+  width: 120%;
+  height: 80%;
 }
 
 .bookings-form__right-bottom-checkout-total {
   padding: 20px;
-}
-
-.bookings-form__right-bottom-checkout-total-container > div {
-  border-bottom: 1px solid #f6f6f6;
 }
 
 .bookings-form__right-bottom-checkout-due-now {
@@ -353,29 +412,30 @@ th, td, #monthAndYear, .startTime-label, .endTime-label {
           flex-direction: space-between;
 }
 
-.bookings-form__right-bottom-checkout-total-container > div {
-  padding: 20px;
-}
-
 .checkout_text {
   font-weight: bold;
   font-size: 16px;
 }
 
 .bookings-form__left-bottom__features-name {
-  font-size: 12px;
-  padding: 10px;
+  color: #004873;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 300;
+  font-size: 20px;
   font-weight: bold;
-}
-
-.bookings-form__left-bottom__features-image img {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  margin-left: 50px;
+  padding-top: 40px;
 }
 
 span {
   font-weight: bold;
+}
+
+.errors-container {
+  font-family: Circular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: bold;
+  color: #c73535cc;
+  font-size: 14px;
+  font-style: italic;
+  text-align: center;
 }
 /*# sourceMappingURL=style.css.map */

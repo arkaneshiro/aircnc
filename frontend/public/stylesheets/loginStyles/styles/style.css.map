@@ -4,7 +4,8 @@
     "sources": [
         "style.sass",
         "_variables.sass",
-        "_signIn.sass"
+        "_signIn.sass",
+        "_utils.sass"
     ],
     "names": [],
     "file": "style.css"

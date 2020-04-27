@@ -3,10 +3,10 @@ body
 
 .navBar
     @include fontStyleWhite()
-        background-color: $blue
-        display: flex
-        justify-content: flex-end
-        flex-direction: row
+    background-color: $blue
+    display: flex
+    justify-content: flex-end
+    flex-direction: row
 
 .profile, .listings, .logoutButton
     @include buttonStyle()
@@ -48,7 +48,7 @@ body
 
 .kitchenDetails__info__description
     @include fontStyle()
-        text-align: center
+    text-align: center
 
 .kitchenDetails__info__button
     padding-left: 25px
@@ -96,21 +96,21 @@ body
 .kitchenDetails__info__rate,
 .kitchenDetails__info__description
     @include fontStyle()
-        font-size: 30px
-        margin: 8px 25px 8px
-        padding-left: 40px
-        font-size: 20px
-        outline: none
-        text-align: center
-        width: 40%
+    font-size: 30px
+    margin: 8px 25px 8px
+    padding-left: 40px
+    font-size: 20px
+    outline: none
+    text-align: center
+    width: 40%
 
 .kitchenDetails__info_button-bookings
     @include buttonStyleBlue()
-        border: 1px solid $blue
-        border-radius: 20px
-        font-size: 15px
-        margin: 8px 25px 8px
-        text-align: center
+    border: 1px solid $blue
+    border-radius: 20px
+    font-size: 15px
+    margin: 8px 25px 8px
+    text-align: center
 
 .kitchenDetails__info__button
     display: flex
@@ -126,8 +126,9 @@ body
 
 #features-header
     padding-top: 15px
+    font-weight: bold
     @include fontStyle()
-        font-weight: bold
+        
 
 .kitchenDetails__feature
     text-align: center
@@ -175,8 +176,7 @@ body
 
 
 .errors-container
-    color: red
-    font-weight: bold
+    @include fontStyleError()
 // .bookings-form
 //     display: flex
 //     flex-direction: row
