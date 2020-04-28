@@ -142,7 +142,7 @@ body
     justify-content: center
 
 .kitchenDetails__row-3__description-text
-    @include fontStyle()
+    @include fontStyleWhite()
     font-size: 24px
     font-style: italic
     text-align: center
@@ -177,20 +177,16 @@ body
 
 .errors-container
     @include fontStyleError()
-// .bookings-form
-//     display: flex
-//     flex-direction: row
 
-// .booking-form__left
-//     // display: flex
-//     // flex-direction: column
-//     justify-content: space-evenly
+.kitchenDetails__review-comment, .kitchenDetails__review-name
+    @include fontStyle()
+    background-color: $white
 
-// .booking-form__right
-//     // display: flex
-//     // flex-direction: column
-//     justify-content: space-evenly
+.kitchenDetails__row-header
+    background-color: $white
 
-// .bookings-form__imgs
-//     height: 250px
-//     width: 250px
+.kitchenDetails__review-name
+    @include fontStyle()
+
+.kitchenDetails__row-3 
+    background-color: $blue

@@ -211,10 +211,6 @@ window.addEventListener('DOMContentLoaded', async () => {
                 );
             }
         }
-<<<<<<< HEAD
-=======
-
->>>>>>> master
     });
 
 
